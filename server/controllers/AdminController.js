@@ -28,7 +28,6 @@ module.exports.login = function (req, res) {
     "email": email,
   };
   const token = jwt.sign(tokenPayload, process.env.TOKEN_SECRET);
-  console.log(`signed token for user: ${token}`);
 
   res.json({"status": 'success', "message": 'Successfully authorized!', "token": token});
 };
