@@ -6,7 +6,7 @@
     </section>
     <div class="pt-2" id="card-content">
       <div class="row">
-        <div class="card mx-auto">
+        <div class="card mx-auto shadow">
           <div class="row g-0">
             <div class="col-md-4">
               <img
@@ -28,7 +28,7 @@
             </div>
           </div>
         </div>
-        <div class="card mx-auto">
+        <div class="card mx-auto shadow">
             <div class="row g-0">
             <div class="col-md-4">
               <img
@@ -37,7 +37,7 @@
                 alt="dentist"
               />
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 ">
               <div class="card-body d-flex flex-column">
                 <h3 class="card-title">Are you a dentist?</h3>
                 <p class="card-text">
@@ -62,9 +62,7 @@
 .card {
   width: 25rem;
   margin-bottom: 15px;
-  border-color: #0292f8; 
 }
-
 .user-style-img{
   margin-top:40px;
   

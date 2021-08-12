@@ -1,10 +1,14 @@
 <template>
-    
-    <div class="register">
-        <h1>Registration Form goes here</h1>
-    </div>
-    
+    <h1></h1>
 </template>
 
 <script>
+
+export default{
+    name: 'Register',
+    
+    methods:{
+
+    },
+}
 </script>
