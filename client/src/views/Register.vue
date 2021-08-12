@@ -65,7 +65,7 @@
   margin-bottom: 75px;
   background-color: #fff;
   width: 400px;
-  border-top: 3px solid #0292f8;
+  border-top: 4px solid #0292f8;
   border-radius: 4%;
 }
 button {
