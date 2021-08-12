@@ -1,6 +1,10 @@
 <template>
-    <h1></h1>
+    <h1>Register</h1>
 </template>
+
+<style scoped>
+    
+</style>
 
 <script>
 
