@@ -48,10 +48,12 @@
 .far{
   color:#0292f8;
   margin-right:10px;
+  margin-left:10px;
 }
 .fas{
   color:#0292f8;
   margin-right:10px;
+  margin-left:10px;
 }
 #email{
   margin-right:15px;
