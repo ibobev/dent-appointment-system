@@ -42,7 +42,7 @@
       <!-- Section: Social media -->
     </div>
     <!-- Grid container -->
-    <div class="text-center text-dark p-3" style="background-color: #cbcbcb">
+    <div class="text-center text-light p-3" style="background-color: #000">
       <p>&copy; 2021 Copyright: DentApp&#129463;</p>
     </div>
   </footer>
@@ -50,7 +50,7 @@
 
 <style scoped>
 footer {
-  background-color: #f1f1f1;
+  background-color: #9ccff3;
 }
 </style>
     

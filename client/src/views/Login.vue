@@ -38,7 +38,7 @@
   padding-top:10px;
   padding-bottom:10px;
   margin-bottom: 75px;
-  background-color: #f2f5f7f8;
+  background-color: #fff;
   width:400px;
   border:1px solid #9ccff3;
   border-top: 3px solid #9ccff3;

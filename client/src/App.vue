@@ -18,6 +18,7 @@
 body{
   padding-top: 60px;
   overflow-x: hidden;
+  background-color:#f2f5f7f8;
 }
 </style>
 
