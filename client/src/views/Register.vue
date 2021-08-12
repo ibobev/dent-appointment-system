@@ -1,5 +1,5 @@
 <template>
-  <div id="register-page" class="container mt-5">
+  <div id="register-page" class="container mt-5 shadow">
     <i class="fas fa-user-edit fa-3x mt-2"></i>
     <h3 class="mt-3 mb-4">Register</h3>
     <form class="">
@@ -65,10 +65,8 @@
   margin-bottom: 75px;
   background-color: #fff;
   width: 400px;
-  border: 1px solid #9ccff3;
-  border-top: 3px solid #9ccff3;
+  border-top: 3px solid #0292f8;
   border-radius: 4%;
-  box-shadow: 10px 5px 5px #9ccff3;
 }
 button {
   background-color: #0292f8;

@@ -6,7 +6,7 @@
       <section class="mb-4">
         <!-- Linkedin -->
         <a
-          class="btn btn-outline-dark btn-floating m-1"
+          class="btn btn-outline-light btn-floating m-1"
           href="https://www.linkedin.com/"
           target="_blank"
           role="button"
@@ -14,7 +14,7 @@
         ></a>
         <!-- Github -->
         <a
-          class="btn btn-outline-dark btn-floating m-1"
+          class="btn btn-outline-light btn-floating m-1"
           href="https://github.com/"
           target="_blank"
           role="button"
@@ -23,7 +23,7 @@
 
         <!-- Twitter -->
         <a
-          class="btn btn-outline-dark btn-floating m-1"
+          class="btn btn-outline-light btn-floating m-1"
           href="https://twitter.com/?lang=en"
           target="_blank"
           role="button"
@@ -32,7 +32,7 @@
 
         <!-- Instagram -->
         <a
-          class="btn btn-outline-dark btn-floating m-1"
+          class="btn btn-outline-light btn-floating m-1"
           href="https://www.instagram.com/"
           target="_blank"
           role="button"
@@ -50,7 +50,7 @@
 
 <style scoped>
 footer {
-  background-color: #9ccff3;
+  background-color: #0292f8;
 }
 </style>
     
