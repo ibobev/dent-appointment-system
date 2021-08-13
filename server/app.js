@@ -1,15 +1,12 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const config = require('./config');
 
 const app = express();
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || config.PORT || 5000;
 
 const adminRoutes = require('./routes/admin');
-
-// Init dotenv
-require('dotenv').config();
-
 
 // Middleware
 app.use(cookieParser());
@@ -20,7 +17,7 @@ app.get('/', (req, res) => {
     res.send("Raboti");
 });
 
-app.use('/apiv1', adminRoutes);
+app.use('/apiv1/admins', adminRoutes);
 
 
 // Server
