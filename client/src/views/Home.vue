@@ -21,9 +21,7 @@
                 <p class="card-text">
                   Click on Register to create a free account.
                 </p>
-                <router-link to="/register" class="btn mt-auto"
-                  >Register</router-link
-                >
+                <router-link to="/register/patient" class="btn mt-auto">Register</router-link>
               </div>
             </div>
           </div>
@@ -43,9 +41,7 @@
                 <p class="card-text">
                   Click on Register to create a free account.
                 </p>
-                <router-link to="/register" class="btn mt-auto"
-                  >Register</router-link
-                >
+                <router-link to="/register/dentist" class="btn mt-auto">Register</router-link>
               </div>
             </div>
           </div>
@@ -58,18 +54,18 @@
 <style scoped>
 #home {
   padding-bottom: 40px;
-  
+
 }
 .card {
   width: 25rem;
   margin-bottom: 15px;
   border-top: 4px solid #0292f8;
   border-radius: 2%;
-  
+
 }
 .user-style-img{
   margin-top:40px;
-  
+
 }
 #card-content {
   margin-bottom: 80px;

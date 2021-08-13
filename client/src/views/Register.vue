@@ -127,6 +127,7 @@ export default {
   name: "Register",
   data() {
     return {
+      type: '',
       error: '',
       rePassword: '',
       account: {
@@ -137,6 +138,12 @@ export default {
         role: 3,
       },
     };
+  },
+  mounted() {
+    const accountType = this.$route.params.type;
+    if (accountType) {
+      this.account.role = (accountType === 'patient') ? 3 : 2;
+    }
   },
   methods: {
     onRegisterSubmit() {
