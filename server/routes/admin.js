@@ -1,16 +1,27 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 
+const db = require('../utils/db');
+
 const AdminController = require('../controllers/AdminController');
 
 const router = express.Router();
 
-router.get('/admins', (req, res) => { res.send('zdr'); });
-router.post('/admins', AdminController.register);
+router.get('/', (req, res) => { res.send('zdr'); });
+router.post('/', AdminController.register);
 
-router.post('/admins/login', AdminController.login);
+router.post('/login', AdminController.login);
 
-router.get('/admins/test', (req, res) => {
+router.get('/test', async (req, res) => {
+
+  try {
+    const result = await db.query('select * from role');
+    console.log('result:');
+    console.log(result.rows);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('bajhuj');
+  }
   console.log(req.headers['authorization']);
   console.log(req.cookies); 
   const { token } = req.cookies;
