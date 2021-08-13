@@ -3,6 +3,17 @@
     <i class="fas fa-user-edit fa-3x mt-2"></i>
     <h3 class="mt-3 mb-4">Register</h3>
     <form class="">
+
+      <div class="form-group mx-auto">
+        <div class="input-group mb-3">
+          <i class="fas fa-id-card fa-3x mt-1"></i>
+          <select id="roles" name="role-list">
+            <option value="" selected disabled hidden>Select Account Type</option>
+            <option value="2">Dentist</option>
+            <option value="3">Patient</option>
+          </select>
+        </div>
+      </div>
       <div class="form-group mx-auto">
         <div class="input-group mb-3">
           <i class="fas fa-pen fa-3x mt-1"></i>
@@ -90,6 +101,14 @@ button {
 
 #password{
     margin-right:10px;
+}
+
+#roles{
+  width: 70%;
+  height:40px;
+  margin-top:8px;
+  margin-left:10px;
+  
 }
 </style>
 
