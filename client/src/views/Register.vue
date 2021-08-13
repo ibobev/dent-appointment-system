@@ -1,13 +1,18 @@
 <template>
-  <div id="register-page" class="container mt-5 shadow">
+  <div class="row mt-4" v-if="error">
+    <div class="col-6 offset-md-3">
+      <div class="alert alert-danger">{{error}}</div>
+    </div>
+  </div>
+  <div id="register-page" class="container mt-3 shadow">
     <i class="fas fa-user-edit fa-3x mt-2"></i>
     <h3 class="mt-3 mb-4">Register</h3>
-    <form class="">
+    <form @submit.prevent="onRegisterSubmit">
 
       <div class="form-group mx-auto">
         <div class="input-group mb-3">
           <i class="fas fa-id-card fa-3x mt-1"></i>
-          <select class="form-control" id="roles" name="role-list">
+          <select class="form-control" id="roles" name="role-list" v-model="account.role">
             <option value="" selected disabled hidden>Select Account Type</option>
             <option value="2">Dentist</option>
             <option value="3">Patient</option>
@@ -23,6 +28,7 @@
             id="first-name"
             placeholder="First name"
             required
+            v-model="account.firstName"
           />
           <input
             type="text"
@@ -30,6 +36,7 @@
             id="last-name"
             placeholder="Last name"
             required
+            v-model="account.lastName"
           />
         </div>
       </div>
@@ -42,6 +49,7 @@
             id="email"
             placeholder="Enter email"
             required
+            v-model="account.email"
           />
         </div>
       </div>
@@ -54,6 +62,7 @@
             id="password"
             placeholder="Password"
             required
+            v-model="account.password"
           />
           <input
             type="password"
@@ -61,6 +70,7 @@
             id="password-repeat"
             placeholder="Repeat Password"
             required
+            v-model="rePassword"
           />
         </div>
       </div>
@@ -105,15 +115,51 @@ button {
 
 #roles{
   height:40px;
-  margin-top:8px;  
+  margin-top:8px;
 }
 </style>
 
 
 <script>
+import axios from 'axios';
+
 export default {
   name: "Register",
+  data() {
+    return {
+      error: '',
+      rePassword: '',
+      account: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        role: 3,
+      },
+    };
+  },
+  methods: {
+    onRegisterSubmit() {
+      if (this.rePassword !== this.account.password) {
+        return this.error = 'Passwords do not match!';
+      }
 
-  methods: {},
+      axios
+        .post('/api/v1/accounts', this.account)
+        .then(res => {
+          console.log(res.data);
+          this.$router.push({ path: '/login' });
+        }, error => {
+          if (error.response) {
+            console.log(error.response);
+            this.error = error.response.data.statusmsg;
+          } else if (error.request) {
+            console.log(error.request);
+          } else {
+            console.log(error);
+          }
+        });
+    }
+  },
 };
 </script>
