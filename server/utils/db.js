@@ -10,4 +10,17 @@ const pool = new Pool({
   database: config.DB_NAME,
 });
 
-module.exports = pool;
+// module.exports = pool;
+module.exports.query = (query, values) => {
+  return new Promise((resolve, reject) => {
+
+    pool.query(query, values, (error, response) => {
+      if (error) {
+        return reject(error);
+      }
+
+      resolve(response);
+    });
+
+  });
+};

@@ -7,6 +7,7 @@ const app = express();
 const PORT = process.env.PORT || config.PORT || 5000;
 
 const adminRoutes = require('./routes/admin');
+const accountRoutes = require('./routes/account');
 
 // Middleware
 app.use(cookieParser());
@@ -17,7 +18,8 @@ app.get('/', (req, res) => {
     res.send("Raboti");
 });
 
-app.use('/apiv1/admins', adminRoutes);
+app.use('/api/v1/admins', adminRoutes);
+app.use('/api/v1/accounts', accountRoutes);
 
 
 // Server
