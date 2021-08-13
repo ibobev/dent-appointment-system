@@ -28,6 +28,17 @@ router.post(
 /**
  * POST: /accounts/login - Authenticate user
  */
-router.post('/login', accountController.login);
+router.post(
+  '/login',
+  body('email').isEmail(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    next();
+  },
+  accountController.login
+);
 
 module.exports = router;

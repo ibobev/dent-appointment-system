@@ -18,7 +18,6 @@ module.exports.query = (query, values) => {
       if (error) {
         return reject(error);
       }
-
       resolve(response);
     });
 
