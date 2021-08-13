@@ -7,7 +7,7 @@
       <div class="form-group mx-auto">
         <div class="input-group mb-3">
           <i class="fas fa-id-card fa-3x mt-1"></i>
-          <select id="roles" name="role-list">
+          <select class="form-control" id="roles" name="role-list">
             <option value="" selected disabled hidden>Select Account Type</option>
             <option value="2">Dentist</option>
             <option value="3">Patient</option>
@@ -104,11 +104,8 @@ button {
 }
 
 #roles{
-  width: 70%;
   height:40px;
-  margin-top:8px;
-  margin-left:10px;
-  
+  margin-top:8px;  
 }
 </style>
 
