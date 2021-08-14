@@ -2,22 +2,36 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
-//import DentistDashboard from '../views/Dentist/DentistDashboard'
+
+import AdminView from '../views/Admin/AdminView';
+import AdminLogin from '../views/Admin/AdminLogin';
 
 const routes = [
   {
-    path: '/',
     name: 'Home',
+    path: '/',
     component: Home
   },
   {
-    path: '/login',
+    name: 'Admin',
+    path: '/admin',
+    component: AdminView,
+    children: [
+      {
+        name: 'AdminLogin',
+        path: 'login',
+        component: AdminLogin
+      }
+    ]
+  },
+  {
     name: 'Login',
+    path: '/login',
     component: Login
   },
   {
-    path: '/register/:type?',
     name: 'Register',
+    path: '/register/:type?',
     component: Register,
   }
 ]
