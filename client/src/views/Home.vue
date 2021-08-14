@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="container">
     <section class="pt-4" id="home">
       <h1>The Dentist Appointment App</h1>
       <p class="pb-4">Dentist appointments made easy</p>
@@ -52,27 +52,24 @@
 </template>
 
 <style scoped>
-#home {
-  padding-bottom: 40px;
-
-}
 .card {
   width: 25rem;
   margin-bottom: 15px;
   border-top: 4px solid #0292f8;
   border-radius: 2%;
-
 }
 .user-style-img{
   margin-top:40px;
 
 }
-#card-content {
-  margin-bottom: 80px;
-}
 .btn {
   background-color: #0292f8;
   color: #fff;
+}
+
+.row{
+  margin-left: 5px;
+  margin-right: 5px;
 }
 </style>
 

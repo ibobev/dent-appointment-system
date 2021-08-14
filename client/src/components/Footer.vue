@@ -51,6 +51,9 @@
 <style scoped>
 footer {
   background-color: #0292f8;
+  position: absolute;
+  bottom:0;
+  width:100%;
 }
 </style>
     

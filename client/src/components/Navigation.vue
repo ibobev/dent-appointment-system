@@ -1,6 +1,6 @@
 <template>
-  <header class="container">
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container">
         <router-link to="/" class="navbar-brand nav-link">DentApp</router-link>
         <button

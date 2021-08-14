@@ -13,12 +13,14 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /*margin-bottom:200px;*/
+  padding-bottom:205px;
+  min-height:100vh;
+  position:relative;
 }
 body{
-  padding-top: 60px;
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
   background-color:#f2f5f7f8;
+ 
 }
 </style>
 
