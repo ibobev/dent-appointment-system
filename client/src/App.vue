@@ -18,7 +18,6 @@
   position:relative;
 }
 body{
-  /*overflow-x: hidden;*/
   background-color:#f2f5f7f8;
  
 }

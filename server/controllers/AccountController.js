@@ -15,7 +15,7 @@ module.exports.register = async (req, res) => {
   const hashedPassword = bcrypt.hashSync(password, config.BCRYPT_ROUNDS);
 
   // Check if Account exists
-  const findQuery = 'select email from account where email=$1';
+  const findQuery = 'select email from accounts where email=$1';
   const findValues = [email];
 
   try {
@@ -33,7 +33,7 @@ module.exports.register = async (req, res) => {
   }
 
   // Save Account
-  const createQuery = 'insert into account(first_name, last_name, email, password, role_id) values($1, $2, $3, $4, $5)';
+  const createQuery = 'insert into accounts(first_name, last_name, email, pwd, role_id) values($1, $2, $3, $4, $5)';
   const createValues = [
     firstName,
     lastName,
@@ -55,7 +55,7 @@ module.exports.register = async (req, res) => {
 module.exports.login = async (req, res) => {
   const { email, password } = req.body;
 
-  const findAccountQuery = 'select id,email,password,role_id from account where email=$1';
+  const findAccountQuery = 'select id, email, pwd, role_id from accounts where email=$1';
   const findAccountValues = [email];
 
   let foundAccount = null;
