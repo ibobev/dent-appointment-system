@@ -1,5 +1,5 @@
 <template>
-  <main class="container">
+  <main class="container text-center">
     <section class="pt-4" id="home">
       <h1>The Dentist Appointment App</h1>
       <p class="pb-4">Dentist appointments made easy</p>
