@@ -7,7 +7,7 @@
     </div>
     <div class="row">
       <div class="col-sm-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
-        <div id="login-page" class="container mt-5 shadow pt-2 pb-3">
+        <div id="login-page" class="container mt-5 shadow pt-2 pb-3 text-center">
           <i class="fas fa-user-lock fa-3x mt-2"></i>
           <h3 class="mt-3 mb-4">Login</h3>
           <form @submit.prevent="onLoginSubmit">
