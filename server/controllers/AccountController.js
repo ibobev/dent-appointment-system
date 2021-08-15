@@ -23,7 +23,7 @@ module.exports.register = async (req, res) => {
 
     if (findAccountResult.rows.length !== 0) {
       // Account exists
-      res.status(400).json({ status: 'error', statusmsg: 'Account already exists!' });
+      res.status(400).json({ status: 'error', statusmsg: 'Email is taken!' });
       return;
     }
   } catch (error) {
