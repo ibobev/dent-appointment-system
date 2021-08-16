@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <div class="row mt-4" v-if="error">
+    <div class="row mt-4" v-if="state.error">
       <div class="col-md-6 offset-md-3">
-        <div class="alert alert-danger">{{ error }}</div>
+        <div class="alert alert-danger">{{ state.error }}</div>
       </div>
     </div>
     <div class="row">
@@ -12,31 +12,31 @@
           <h3 class="mt-3 mb-4">Login</h3>
           <form @submit.prevent="onLoginSubmit">
             <div class="form-group mx-auto">
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <i class="far fa-envelope fa-2x mt-2"></i>
                 <input
                   type="email"
-                  class="form-control mt-2 mb-3"
+                  class="form-control mt-2"
                   id="email"
                   placeholder="Enter email"
-                  required
-                  v-model="email"
+                  v-model="state.email"
                 />
               </div>
+              <span v-if="v$.email.$error">{{ v$.email.$errors[0].$message }}</span>
             </div>
 
             <div class="form-group mx-auto">
-              <div class="input-group mb-3">
+              <div class="input-group mt-2">
                 <i class="fas fa-fingerprint fa-2x mt-2"></i>
                 <input
                   type="password"
-                  class="form-control mt-2 mb-3"
+                  class="form-control mt-2"
                   id="password"
                   placeholder="Password"
-                  required
-                  v-model="password"
+                  v-model="state.password"
                 />
               </div>
+              <span v-if="v$.password.$error">{{ v$.password.$errors[0].$message }}</span>
             </div>
             <button type="submit" class="btn mt-3 mb-2">Login</button>
           </form>
@@ -71,26 +71,47 @@ button {
 button:hover{
   background: #5aace7;
 }
+span {
+  text-align: center;
+  color: red;
+  font-size: 10px;
+}
 </style>
 
 <script>
 import axios from "axios";
+import useValidate from "@vuelidate/core";
+import { required, helpers } from "@vuelidate/validators";
+import { reactive, computed } from "vue";
 
 export default {
   name: "Login",
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       error: "",
       email: "",
       password: "",
+    });
+    const rules = computed(() => {
+      return {
+      email: { required: helpers.withMessage("Email is required!", required) },
+      password: { required: helpers.withMessage("Password is required!", required) }
+      };
+    });
+    const v$ = useValidate(rules, state);
+    return {
+      state,
+      v$,
     };
   },
   methods: {
     onLoginSubmit() {
+      this.v$.$validate();
+      if(!this.v$.$error){
       axios
         .post("/api/v1/accounts/login", {
-          email: this.email,
-          password: this.password,
+          email: this.state.email,
+          password: this.state.password,
         })
         .then(
           (res) => {
@@ -101,7 +122,7 @@ export default {
           (error) => {
             if (error.response) {
               console.log(error.response);
-              this.error = error.response.data.statusmsg;
+              this.state.error = error.response.data.statusmsg;
             } else if (error.request) {
               console.log(error.request);
             } else {
@@ -109,6 +130,7 @@ export default {
             }
           }
         );
+      }
     },
   },
 };
