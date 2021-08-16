@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container text-center">
     <div class="row mt-4" v-if="state.error">
       <div class="col-md-6 offset-md-3">
         <div class="alert alert-danger">{{ state.error }}</div>
