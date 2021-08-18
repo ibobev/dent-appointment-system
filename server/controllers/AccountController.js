@@ -44,12 +44,53 @@ module.exports.register = async (req, res) => {
 
   try {
     await db.query(createQuery, createValues);
+    
   } catch (error) {
     console.log(error);
     return res.status(500).send({ status: 'error', statusmsg: 'Internal server error!' });
   }
 
-  res.status(201).json({ status: 'success', statusmsg: 'Account created successfully!' });
+  // Insert account by role in coresponding table
+  const getAccountType = 'SELECT id, role_id FROM accounts WHERE email=$1';
+  const accountEmail = [email];
+  let accountDetails = null;
+  let accountID = null;
+
+  try{
+    const queryResult = await db.query(getAccountType, accountEmail);
+    accountDetails = queryResult.rows[0];
+  } catch(error){
+    console.log(error);
+    return res.status(500).send({ status: 'error', statusmsg: 'Internal server error!' });
+  }
+
+  accountID = [accountDetails.id];
+
+  if(accountDetails.role_id === 2){
+    const insertDentist = 'INSERT INTO dentists(account_id) VALUES($1)';
+    try{
+      await db.query(insertDentist, accountID);
+      return res.status(201).json({ status: 'success', statusmsg: 'Account created successfully!' });
+    }catch(error){
+      console.log(error);
+      return res.status(500).send({ status: 'error', statusmsg: 'Internal server error!' });
+    }
+  }
+  
+  if(accountDetails.role_id === 3){
+    const insertPatient = 'INSERT INTO patients(account_id) VALUES($1)';
+    try{
+      await db.query(insertPatient, accountID);
+      return res.status(201).json({ status: 'success', statusmsg: 'Account created successfully!' });
+    }catch(error){
+      console.log(error);
+      return res.status(500).send({ status: 'error', statusmsg: 'Internal server error!' });
+    }
+  }
+
+  //res.status(201).json({ status: 'success', statusmsg: 'Account created successfully!' });
+  res.status(500).send({ status: 'error', statusmsg: 'Internal server error!' });
+
 };
 
 module.exports.login = async (req, res) => {
