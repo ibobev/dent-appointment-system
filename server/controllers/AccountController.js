@@ -73,7 +73,7 @@ module.exports.login = async (req, res) => {
 
   // Validate password
   try {
-    const passwordsMatch = await bcrypt.compare(password, foundAccount.password);
+    const passwordsMatch = await bcrypt.compare(password, foundAccount.pwd);
     if (!passwordsMatch) {
       return res.status(400).json({ status: 'error', statusmsg: 'Invalid email or password!' });
     }
