@@ -45,4 +45,9 @@ router.get('/', (req, res) => { res.send('zdr'); });
  */
 router.post('/', adminAuth, AdminController.register);
 
+/**
+ * GET /admin/accounts - Get all accounts
+ */
+router.get('/accounts/:limit?', adminAuth, AdminController.getAllAccounts);
+
 module.exports = router;

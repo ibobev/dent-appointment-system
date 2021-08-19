@@ -54,3 +54,23 @@ module.exports.register = async (req, res) => {
 
   res.status(201).send({ status: 'success', statusmsg: 'Admin registered' });
 };
+
+module.exports.getAllAccounts = async (req, res) => {
+  // Limit is not defined in the route
+  // but can be passed as query string (?limit=10)
+  // this is handled here
+  const limit = parseInt(req.query.limit) || 1000;
+  const getAccountsQuery = 'select id,email,first_name,last_name,created_at,role_id,status,strikes from accounts order by created_at desc limit $1';
+  const getAccountsParams = [limit];
+  let users = [];
+
+  try {
+    users = await db.query(getAccountsQuery, getAccountsParams);
+    users = users.rows;
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 'error', statusmsg: error.message });
+  }
+
+  res.json({ status: 'success', statusmsg: '', users });
+};
