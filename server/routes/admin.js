@@ -1,15 +1,40 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-
-const db = require('../utils/db');
-
+const config = require('../config');
 const AdminController = require('../controllers/AdminController');
 
 const router = express.Router();
 
 router.get('/', (req, res) => { res.send('zdr'); });
-router.post('/', AdminController.register);
 
-router.post('/login', AdminController.login);
+// TODO(ivaylo): Move middleware authentication
+// into separate auth module
+router.post(
+  '/',
+  (req, res, next) => {
+    console.log(req.header('Authorization'));
+    // Check for Authorization header
+    const authHeader = req.header('Authorization') ? req.header('Authorization').split(' ') : null
+
+    if (!authHeader) {
+      return res.status(403).json({ status: 'error', statusmsg: 'Invalid auth token' });
+    }
+
+    // Check if authorization type is token
+    if (authHeader[0] !== 'Token') {
+      return res.status(401).json({ status: 'error', statusmsg: 'Invalid auth token' });
+    }
+
+    //Check if token is valid
+    const token = authHeader[1];
+
+    if (!jwt.verify(token, config.JWT_SECRET)) {
+      return res.status(401).json({ status: 'error', statusmsg: 'Invalid auth token' });
+    }
+
+    next();
+  },
+  AdminController.register
+);
 
 module.exports = router;

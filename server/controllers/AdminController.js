@@ -1,50 +1,56 @@
-const jwt = require('jsonwebtoken');
+const db = require('../utils/db');
+const bcrypt = require('bcrypt');
 const config = require('../config');
 
 module.exports.register = async (req, res) => {
-  const { name, email, password } = req.body;
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+  } = req.body;
+  const ROLE_ID = 1;
 
-  if (!name || !email || !password) {
+  if (!firstName || !lastName || !email || !password) {
     return res.status(400).send({ "status": "error", "error": 'Invalid request!' });
   }
 
-  res.status(201).send('registered successfully');
-};
+  const hashedPassword = bcrypt.hashSync(password, config.BCRYPT_ROUNDS);
 
-module.exports.login = function (req, res) {
-  const { email, password } = req.body;
+  // Check if Account exists
+  const findQuery = 'select email from accounts where email=$1';
+  const findValues = [email];
 
-  const findAdminQuery = 'select email,password from account where email=$1 and role_id=1';
-  const findAccountValues = [email];
-
-  let foundAccount = null;
   try {
-    const foundAccountResult = await db.query(findAdminQuery, findAccountValues);
-    foundAccount = foundAccountResult.rows[0];
+    const findAccountResult = await db.query(findQuery, findValues);
 
-    if (foundAccountResult.rows.length === 0) {
-      return res.status(400).json({ status: 'error', statusmsg: 'Invalid email or password!' });
+    if (findAccountResult.rows.length !== 0) {
+      // Account exists
+      res.status(400).json({ status: 'error', statusmsg: 'Admin is already registered' });
+      return;
     }
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ status: 'error', statusmsg: 'Internal error!' });
+    res.status(500).json({ status: 'error', statusmsg: 'Internal server error!' });
+    return;
   }
 
-  // Validate password
+  // Save Account
+  const createQuery = 'insert into accounts(first_name, last_name, email, pwd, role_id) values($1, $2, $3, $4, $5)';
+  const createValues = [
+    firstName,
+    lastName,
+    email,
+    hashedPassword,
+    ROLE_ID
+  ];
+
   try {
-    const passwordsMatch = await bcrypt.compare(password, foundAccount.password);
-    if (!passwordsMatch) {
-      return res.status(400).json({ status: 'error', statusmsg: 'Invalid email or password!' });
-    }
+    await db.query(createQuery, createValues);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ status: 'error', statusmsg: 'Internal error!' });
+    return res.status(500).send({ status: 'error', statusmsg: 'Internal server error!' });
   }
 
-  const tokenPayload = {
-    id: foundAccount.id,
-    email: foundAccount.email,
-  };
-  const token = jwt.sign(tokenPayload, config.JWT_SECRET, { expiresIn: '8h' });
-  res.json({ status: 'success', statusmsg: '', token: token });
+  res.status(201).send({ status: 'success', statusmsg: 'Admin registered' });
 };

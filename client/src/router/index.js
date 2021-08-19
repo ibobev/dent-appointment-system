@@ -1,9 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
 
-import AdminView from '../views/Admin/AdminView';
-import AdminLogin from '../views/Admin/AdminLogin';
-
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 
