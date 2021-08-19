@@ -5,36 +5,44 @@ const AdminController = require('../controllers/AdminController');
 
 const router = express.Router();
 
-router.get('/', (req, res) => { res.send('zdr'); });
 
 // TODO(ivaylo): Move middleware authentication
 // into separate auth module
-router.post(
-  '/',
-  (req, res, next) => {
-    console.log(req.header('Authorization'));
-    // Check for Authorization header
-    const authHeader = req.header('Authorization') ? req.header('Authorization').split(' ') : null
+const adminAuth = (req, res, next) => {
+  console.log(req.header('Authorization'));
+  // Check for Authorization header
+  const authHeader = req.header('Authorization') ? req.header('Authorization').split(' ') : null
 
-    if (!authHeader) {
-      return res.status(403).json({ status: 'error', statusmsg: 'Invalid auth token' });
-    }
+  if (!authHeader) {
+    return res.status(403).json({ status: 'error', statusmsg: 'Invalid auth token' });
+  }
 
-    // Check if authorization type is token
-    if (authHeader[0] !== 'Token') {
-      return res.status(401).json({ status: 'error', statusmsg: 'Invalid auth token' });
-    }
+  // Check if authorization type is token
+  if (authHeader[0] !== 'Token') {
+    return res.status(401).json({ status: 'error', statusmsg: 'Invalid auth token' });
+  }
 
-    //Check if token is valid
-    const token = authHeader[1];
+  //Check if token is valid
+  const token = authHeader[1];
 
-    if (!jwt.verify(token, config.JWT_SECRET)) {
-      return res.status(401).json({ status: 'error', statusmsg: 'Invalid auth token' });
-    }
+  if (!jwt.verify(token, config.JWT_SECRET)) {
+    return res.status(401).json({ status: 'error', statusmsg: 'Invalid auth token' });
+  }
 
-    next();
-  },
-  AdminController.register
-);
+  const { roleId } = jwt.decode(token);
+
+  if (roleId !== '1') {
+    return res.status(401).json({ status: 'error', statusmsg: 'Invalid auth token' });
+  }
+
+  next();
+};
+
+router.get('/', (req, res) => { res.send('zdr'); });
+
+/**
+ * POST: /admin - Creates new admin
+ */
+router.post('/', adminAuth, AdminController.register);
 
 module.exports = router;
