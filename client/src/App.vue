@@ -29,7 +29,7 @@ import axios from "axios";
 
 const token = localStorage.getItem("token") || sessionStorage.getItem("token");
 if (token) {
-  console.log('token ima');
+  console.log("token ima");
   axios.defaults.headers.common["Authorization"] = `Token ${token}`;
 }
 
@@ -41,24 +41,34 @@ export default {
   },
   data() {
     return {
-      setToken(token, persistant=false) {
-        if (persistant) {
-          localStorage.setItem('token', token);
-        } else {
-          sessionStorage.setItem('token', token);
-        }
-        axios.defaults.headers.common["Authorization"] = `Token ${token}`
-      },
       get token() {
-        return localStorage.getItem('token') || sessionStorage.getItem('token');
+        return localStorage.getItem("token") || sessionStorage.getItem("token");
+      },
+      get role() {
+        return localStorage.getItem("role") || sessionStorage.getItem("role");
+      },
+      setToken(token, persistant = false) {
+        if (persistant) {
+          localStorage.setItem("token", token);
+        } else {
+          sessionStorage.setItem("token", token);
+        }
+        axios.defaults.headers.common["Authorization"] = `Token ${token}`;
+      },
+      setRole(role, persistant = false) {
+        if (persistant) {
+          localStorage.setItem("role", role);
+        } else {
+          sessionStorage.setItem("role", role);
+        }
       },
       deleteToken() {
         localStorage.removeItem("token");
         localStorage.removeItem("role");
         sessionStorage.removeItem("token");
         sessionStorage.removeItem("role");
-      }
-    }
-  }
+      },
+    };
+  },
 };
 </script>

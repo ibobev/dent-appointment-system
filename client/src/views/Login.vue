@@ -135,12 +135,14 @@ export default {
     const token = App.data().token;
 
     if (token) {
-      const role =
-        sessionStorage.getItem("role") || localStorage.getItem("role");
-
+      const role = parseInt(App.data().role);
+      console.log(role);
+      console.log(typeof role);
       if (role === roles.DENTIST) {
+        console.log('dentist');
         this.$router.push({ path: "/dentist/profile" });
       } else if (role === roles.PATIENT) {
+        console.log('patient');
         this.$router.push({ path: "/test" });
       }
     }
@@ -158,6 +160,7 @@ export default {
             (res) => {
               const { token, role } = res.data;
               App.data().setToken(token, this.state.rememberMe);
+              App.data().setRole(role, this.state.rememberMe);
               console.log(role);
               console.log(token);
               if (role === roles.DENTIST) {
