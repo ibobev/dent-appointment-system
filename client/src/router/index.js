@@ -6,21 +6,35 @@ import DentistDashboard from '../views/Dentist/DentistDashboard'
 import Appointments from '../views/Dentist/Appointments'
 import Profile from '../views/Dentist/Profile'
 import PatientsList from '../views/Dentist/PatientsList'
+import AdminView from '../views/Admin/AdminView';
+import AdminLogin from '../views/Admin/AdminLogin';
 
 const routes = [
   {
-    path: '/',
     name: 'Home',
+    path: '/',
     component: Home
   },
   {
-    path: '/login',
+    name: 'Admin',
+    path: '/admin',
+    component: AdminView,
+    children: [
+      {
+        name: 'AdminLogin',
+        path: 'login',
+        component: AdminLogin
+      }
+    ]
+  },
+  {
     name: 'Login',
+    path: '/login',
     component: Login
   },
   {
-    path: '/register/:type?',
     name: 'Register',
+    path: '/register/:type?',
     component: Register,
   },
   {
