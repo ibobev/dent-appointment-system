@@ -41,6 +41,10 @@ const routes = [
     path: '/dentist',
     name: 'Dentist',
     component: DentistDashboard,
+    meta:{
+      isAuth: true,
+      isDentist: true
+    },
     children: [
       {
         path: '/dentist/profile',
@@ -64,6 +68,10 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
-})
+});
+
+/*router.beforeEach((to, from, next) => {
+  if (to.meta.isAuth);
+});*/
 
 export default router
