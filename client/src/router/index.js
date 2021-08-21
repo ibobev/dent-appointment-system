@@ -8,8 +8,14 @@ import Profile from '../views/Dentist/Profile'
 import PatientsList from '../views/Dentist/PatientsList'
 import AdminView from '../views/Admin/AdminView';
 import AdminLogin from '../views/Admin/AdminLogin';
+import TestComponent from '../views/TestComponent';
 
 const routes = [
+  {
+    name: 'test',
+    path: '/test',
+    component: TestComponent
+  },
   {
     name: 'Home',
     path: '/',
@@ -38,8 +44,8 @@ const routes = [
     component: Register,
   },
   {
-    path: '/dentist',
     name: 'Dentist',
+    path: '/dentist',
     component: DentistDashboard,
     children: [
       {

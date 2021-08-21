@@ -7,7 +7,10 @@
     </div>
     <div class="row">
       <div class="col-sm-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
-        <div id="login-page" class="container mt-5 shadow pt-2 pb-3 text-center">
+        <div
+          id="login-page"
+          class="container mt-5 shadow pt-2 pb-3 text-center"
+        >
           <i class="fas fa-user-lock fa-3x mt-2"></i>
           <h3 class="mt-3 mb-4">Login</h3>
           <form @submit.prevent="onLoginSubmit">
@@ -22,7 +25,9 @@
                   v-model="state.email"
                 />
               </div>
-              <span v-if="v$.email.$error">{{ v$.email.$errors[0].$message }}</span>
+              <span v-if="v$.email.$error">{{
+                v$.email.$errors[0].$message
+              }}</span>
             </div>
 
             <div class="form-group mx-auto">
@@ -36,7 +41,22 @@
                   v-model="state.password"
                 />
               </div>
-              <span v-if="v$.password.$error">{{ v$.password.$errors[0].$message }}</span>
+              <span v-if="v$.password.$error">{{
+                v$.password.$errors[0].$message
+              }}</span>
+            </div>
+
+            <div class="form-check">
+              <label class="form-check-label" for="rememberMe">
+                Remember me
+              </label>
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="rememberMe"
+                v-model="state.rememberMe"
+              />
             </div>
             <button type="submit" class="btn mt-3 mb-2">Login</button>
           </form>
@@ -68,7 +88,7 @@ button {
   color: #fff;
   width: 50%;
 }
-button:hover{
+button:hover {
   background: #5aace7;
 }
 span {
@@ -79,10 +99,12 @@ span {
 </style>
 
 <script>
+import App from '../App.vue';
 import axios from "axios";
 import useValidate from "@vuelidate/core";
 import { required, helpers } from "@vuelidate/validators";
 import { reactive, computed } from "vue";
+import roles from "../roles";
 
 export default {
   name: "Login",
@@ -91,11 +113,16 @@ export default {
       error: "",
       email: "",
       password: "",
+      rememberMe: false,
     });
     const rules = computed(() => {
       return {
-      email: { required: helpers.withMessage("Email is required!", required) },
-      password: { required: helpers.withMessage("Password is required!", required) }
+        email: {
+          required: helpers.withMessage("Email is required!", required),
+        },
+        password: {
+          required: helpers.withMessage("Password is required!", required),
+        },
       };
     });
     const v$ = useValidate(rules, state);
@@ -104,32 +131,52 @@ export default {
       v$,
     };
   },
+  mounted() {
+    const token = App.data().token;
+
+    if (token) {
+      const role =
+        sessionStorage.getItem("role") || localStorage.getItem("role");
+
+      if (role === roles.DENTIST) {
+        this.$router.push({ path: "/dentist/profile" });
+      } else if (role === roles.PATIENT) {
+        this.$router.push({ path: "/test" });
+      }
+    }
+  },
   methods: {
     onLoginSubmit() {
       this.v$.$validate();
-      if(!this.v$.$error){
-      axios
-        .post("/api/v1/accounts/login", {
-          email: this.state.email,
-          password: this.state.password,
-        })
-        .then(
-          (res) => {
-            const token = res.data.token;
-            document.cookie = `_token=${token};samesite=lax`;
-            console.log(token);
-          },
-          (error) => {
-            if (error.response) {
-              console.log(error.response);
-              this.state.error = error.response.data.statusmsg;
-            } else if (error.request) {
-              console.log(error.request);
-            } else {
-              console.log(error);
+      if (!this.v$.$error) {
+        axios
+          .post("/api/v1/accounts/login", {
+            email: this.state.email,
+            password: this.state.password,
+          })
+          .then(
+            (res) => {
+              const { token, role } = res.data;
+              App.data().setToken(token, this.state.rememberMe);
+              console.log(role);
+              console.log(token);
+              if (role === roles.DENTIST) {
+                this.$router.push({ path: "/dentist/profile" });
+              } else if (role === roles.PATIENT) {
+                this.$router.push({ path: "/test" });
+              }
+            },
+            (error) => {
+              if (error.response) {
+                console.log(error.response);
+                this.state.error = error.response.data.statusmsg;
+              } else if (error.request) {
+                console.log(error.request);
+              } else {
+                console.log(error);
+              }
             }
-          }
-        );
+          );
       }
     },
   },

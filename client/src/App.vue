@@ -12,27 +12,53 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  padding-bottom:205px;
-  min-height:100vh;
-  position:relative;
+  padding-bottom: 205px;
+  min-height: 100vh;
+  position: relative;
 }
-body{
-  background-color:#f2f5f7f8;
- 
+body {
+  background-color: #f2f5f7f8;
 }
 </style>
 
 <script>
-import Navigation from './components/Navigation.vue'
-import Footer from './components/Footer.vue'
+import Navigation from "./components/Navigation.vue";
+import Footer from "./components/Footer.vue";
 
-export default{
-  name: 'app',
-  components: {
-    Navigation,
-    Footer
+import axios from "axios";
 
-  }
+const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+if (token) {
+  console.log('token ima');
+  axios.defaults.headers.common["Authorization"] = `Token ${token}`;
 }
 
+export default {
+  name: "app",
+  components: {
+    Navigation,
+    Footer,
+  },
+  data() {
+    return {
+      setToken(token, persistant=false) {
+        if (persistant) {
+          localStorage.setItem('token', token);
+        } else {
+          sessionStorage.setItem('token', token);
+        }
+        axios.defaults.headers.common["Authorization"] = `Token ${token}`
+      },
+      get token() {
+        return localStorage.getItem('token') || sessionStorage.getItem('token');
+      },
+      deleteToken() {
+        localStorage.removeItem("token");
+        localStorage.removeItem("role");
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("role");
+      }
+    }
+  }
+};
 </script>

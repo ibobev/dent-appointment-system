@@ -44,7 +44,7 @@ module.exports.register = async (req, res) => {
 
   try {
     await db.query(createQuery, createValues);
-    
+
   } catch (error) {
     console.log(error);
     return res.status(500).send({ status: 'error', statusmsg: 'Internal server error!' });
@@ -76,7 +76,7 @@ module.exports.register = async (req, res) => {
       return res.status(500).send({ status: 'error', statusmsg: 'Internal server error!' });
     }
   }
-  
+
   if(accountDetails.role_id === 3){
     const insertPatient = 'INSERT INTO patients(account_id) VALUES($1)';
     try{
@@ -129,6 +129,6 @@ module.exports.login = async (req, res) => {
     role: foundAccount.role_id,
   };
   const token = jwt.sign(tokenPayload, config.JWT_SECRET, { expiresIn: '8h' });
-  res.json({ status: 'success', statusmsg: '', token: token });
+  res.json({ status: 'success', statusmsg: '', token: token, role: foundAccount.role_id });
 };
 
