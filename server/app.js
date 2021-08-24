@@ -8,6 +8,7 @@ const PORT = process.env.PORT || config.PORT || 5000;
 
 const adminRoutes = require('./routes/admin');
 const accountRoutes = require('./routes/account');
+const dentistRoutes = require('./routes/dentist');
 
 // Middleware
 app.use(cookieParser());
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/admins', adminRoutes);
 app.use('/api/v1/accounts', accountRoutes);
+app.use('/api/v1/dentists', dentistRoutes);
 
 
 // Server

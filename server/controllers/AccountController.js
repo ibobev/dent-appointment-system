@@ -56,33 +56,33 @@ module.exports.register = async (req, res) => {
   let accountDetails = null;
   let accountID = null;
 
-  try{
+  try {
     const queryResult = await db.query(getAccountType, accountEmail);
     accountDetails = queryResult.rows[0];
-  } catch(error){
+  } catch(error) {
     console.log(error);
     return res.status(500).send({ status: 'error', statusmsg: 'Internal server error!' });
   }
 
   accountID = [accountDetails.id];
 
-  if(accountDetails.role_id === 2){
+  if (accountDetails.role_id === 2) {
     const insertDentist = 'INSERT INTO dentists(account_id) VALUES($1)';
-    try{
+    try {
       await db.query(insertDentist, accountID);
       return res.status(201).json({ status: 'success', statusmsg: 'Account created successfully!' });
-    }catch(error){
+    } catch (error) {
       console.log(error);
       return res.status(500).send({ status: 'error', statusmsg: 'Internal server error!' });
     }
   }
   
-  if(accountDetails.role_id === 3){
+  if (accountDetails.role_id === 3) {
     const insertPatient = 'INSERT INTO patients(account_id) VALUES($1)';
-    try{
+    try {
       await db.query(insertPatient, accountID);
       return res.status(201).json({ status: 'success', statusmsg: 'Account created successfully!' });
-    }catch(error){
+    } catch (error) {
       console.log(error);
       return res.status(500).send({ status: 'error', statusmsg: 'Internal server error!' });
     }
@@ -129,6 +129,6 @@ module.exports.login = async (req, res) => {
     role: foundAccount.role_id,
   };
   const token = jwt.sign(tokenPayload, config.JWT_SECRET, { expiresIn: '8h' });
-  res.json({ status: 'success', statusmsg: '', token: token });
+  res.json({ status: 'success', statusmsg: '', token: token, role: foundAccount.role_id });
 };
 

@@ -38,6 +38,18 @@
               </div>
               <span v-if="v$.password.$error">{{ v$.password.$errors[0].$message }}</span>
             </div>
+            <div class="form-check" id="remember-style">
+              <label class="form-check-label" for="rememberMe">
+                Remember me
+              </label>
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="rememberMe"
+                v-model="state.rememberMe"
+              />
+            </div>
             <button type="submit" class="btn mt-3 mb-2">Login</button>
           </form>
         </div>
@@ -76,6 +88,13 @@ span {
   color: red;
   font-size: 10px;
 }
+
+#remember-style{
+  width: 140px;
+  padding-top: 20px;
+  margin-left:auto;
+  margin-right: auto;
+}
 </style>
 
 <script>
@@ -83,6 +102,8 @@ import axios from "axios";
 import useValidate from "@vuelidate/core";
 import { required, helpers } from "@vuelidate/validators";
 import { reactive, computed } from "vue";
+import roles from "../roles";
+import auth from "../auth";
 
 
 export default {
@@ -105,6 +126,21 @@ export default {
       v$,
     };
   },
+  mounted() {
+    const token = auth.data().token;
+    if (token) {
+      const role = parseInt(auth.data().role);
+      /*console.log(role);
+      console.log(typeof role);*/
+      if (role === roles.DENTIST) {
+        //console.log('dentist');
+        this.$router.push({ path: "/dentist/profile" });
+      } else if (role === roles.PATIENT) {
+        //console.log('patient');
+        this.$router.push({ path: "/test" });
+      }
+    }
+  },
   methods: {
     onLoginSubmit() {
       this.v$.$validate();
@@ -115,11 +151,18 @@ export default {
           password: this.state.password,
         })
         .then(
-          (res) => {
-            const token = res.data.token;
-            document.cookie = `_token=${token};samesite=lax`;
-            console.log(token);
-          },
+            (res) => {
+              const { token, role } = res.data;
+              auth.data().setToken(token, this.state.rememberMe);
+              auth.data().setRole(role, this.state.rememberMe);
+              /*console.log(role);
+              console.log(token);*/
+              if (role === roles.DENTIST) {
+                this.$router.push({ path: "/dentist/profile" });
+              } else if (role === roles.PATIENT) {
+                this.$router.push({ path: "/test" });
+              }
+            },
           (error) => {
             if (error.response) {
               console.log(error.response);

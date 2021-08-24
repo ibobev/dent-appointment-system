@@ -15,7 +15,7 @@
       </div>
       <div class="wrap-icon-link">
         <i class="fas fa-power-off fa-lg"></i>
-        <router-link to="/">Logout</router-link>
+        <router-link to="/" @click="onLogout">Logout</router-link>
       </div>
     </div>
   </div>
@@ -84,5 +84,13 @@
 </style>
 
 <script>
-export default {};
+import auth from '../auth'
+export default {
+  methods:{
+    onLogout(){
+      auth.data().deleteToken();
+      this.$router.push({ path: "/" });
+    }
+  }
+};
 </script>

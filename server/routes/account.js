@@ -1,9 +1,12 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
+const jwt = require('jsonwebtoken');
+const config = require('../config');
 
 const router = express.Router();
 
 const accountController = require('../controllers/AccountController');
+
 
 /**
  * POST: /accounts - Register new user
