@@ -1,20 +1,29 @@
 <template>
-  <main class="container text-center">
-    <h1>Personal Details</h1>
-    <div id="dentist-profile">
-      <p>Name: {{nameStr}}</p>
-      <p>Email: {{email}}</p>
+  <main>
+    <h1 class="text-center">Personal Details</h1>
+    <div class="container">
+      <div class="row">
+        <div id="dentist-details" class="col-6">
+          <p>First Name: <b>{{ firstName }}</b></p>
+          <p>Last Name: <b>{{ lastName }}</b></p>
+          <p>Email: <b>{{ email }}</b></p>
+        </div>
+
+        <div id="update-details" class="col-6"></div>
+      </div>
     </div>
   </main>
 </template>
 
 <style scoped>
-
+#update-details {
+  background-color: #000;
+}
 </style>
 
 
 <script>
-import auth from "../../auth"
+import auth from "../../auth";
 import axios from "axios";
 
 export default {
@@ -30,7 +39,8 @@ export default {
       (res) => {
         console.log(res.data);
         const { dentist } = res.data;
-        this.nameStr = dentist.first_name + ' ' + dentist.last_name;
+        this.firstName = dentist.first_name;
+        this.lastName = dentist.last_name;
         this.email = dentist.email;
       },
       (error) => {
