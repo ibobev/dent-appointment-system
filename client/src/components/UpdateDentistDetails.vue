@@ -6,7 +6,7 @@
       <div class="form-group mx-auto">
         <div class="input-group">
           <i class="fas fa-graduation-cap fa-2x mt-2"></i>
-          <select class="form-control mt-2" id="roles" name="role-list">
+          <select class="form-control mt-2" id="dentst-type" name="type-list">
             <option value="" selected disabled hidden>
               Select your expertise
             </option>
@@ -62,7 +62,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn mt-3 mb-2">Update Work Details</button>
+      <button type="submit" class="btn mt-3 mb-2">Update</button>
     </form>
   </div>
 </template>
@@ -95,6 +95,22 @@ button {
 textarea {
   width: 85%;
   height: 55px;
+}
+
+@media only screen and (max-width: 450px){
+  #update-details{
+    width: 320px;
+  }
+  /*.fas{
+    font-size:18px;
+  }
+  .far{
+    font-size:18px;
+  }*/
+  textarea{
+    height:40px;
+  }
+
 }
 </style>
 

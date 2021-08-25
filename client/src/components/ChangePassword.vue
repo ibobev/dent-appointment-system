@@ -69,6 +69,19 @@ button {
   color: #fff;
   width: 60%;
 }
+
+@media only screen and (max-width: 450px){
+  #change-pass{
+    width: 320px;
+  }
+  .fas{
+    font-size:18px;
+  }
+  .far{
+    font-size:18px;
+  }
+}
+
 </style>
 
 <script>

@@ -41,7 +41,7 @@
   </main>
 </template>
 
-<style scoped>
+<style>
 #account-details {
   border-top: 4px solid #0292f8;
   background-color: #fff;
@@ -59,6 +59,36 @@ p{
   #details-content {
     flex-direction: column;
   }
+}
+@media only screen and (max-width: 450px){
+  #account-details{
+    width: 320px;
+  }
+
+  .fas{
+    font-size:18px;
+  }
+
+  .far{
+    font-size:18px;
+  }
+
+  h3{
+    font-size:16px;
+  }
+
+  p{
+    font-size:12px;
+  }
+
+  input{
+    height:33px;
+  }
+
+  #dentist-type{
+    height:33px;
+  }
+
 }
 </style>
 

@@ -49,7 +49,7 @@
       </div>
 
       <button type="submit" class="btn mt-3 mb-2">
-        Update Account Details
+        Update
       </button>
     </form>
   </div>
@@ -79,6 +79,19 @@ button {
   color: #fff;
   width: 60%;
 }
+
+@media only screen and (max-width: 450px){
+  #personal-details{
+    width: 320px;
+  }
+  .fas{
+    font-size:18px;
+  }
+  .far{
+    font-size:18px;
+  }
+}
+
 </style>
 
 <script>
