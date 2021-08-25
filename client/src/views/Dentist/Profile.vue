@@ -41,7 +41,7 @@
   </main>
 </template>
 
-<style>
+<style scoped>
 #account-details {
   border-top: 4px solid #0292f8;
   background-color: #fff;
@@ -84,11 +84,6 @@ p{
   input{
     height:33px;
   }
-
-  #dentist-type{
-    height:33px;
-  }
-
 }
 </style>
 

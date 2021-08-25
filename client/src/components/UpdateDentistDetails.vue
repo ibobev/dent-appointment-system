@@ -101,14 +101,27 @@ textarea {
   #update-details{
     width: 320px;
   }
-  /*.fas{
+  .fas{
     font-size:18px;
   }
   .far{
     font-size:18px;
-  }*/
+  }
+  input{
+    height:33px;
+  }
   textarea{
     height:40px;
+  }
+  h3{
+    font-size:16px;
+  }
+
+  p{
+    font-size:12px;
+  }
+  select{
+    height:33px;
   }
 
 }

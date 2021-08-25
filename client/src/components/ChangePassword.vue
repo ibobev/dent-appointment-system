@@ -80,6 +80,16 @@ button {
   .far{
     font-size:18px;
   }
+  input{
+    height:33px;
+  }
+  h3{
+    font-size:16px;
+  }
+
+  p{
+    font-size:12px;
+  }
 }
 
 </style>
