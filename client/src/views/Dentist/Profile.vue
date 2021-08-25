@@ -34,18 +34,23 @@ export default {
   name: "Profile",
   data() {
     return {
-      nameStr: "",
+      firstName: "",
+      lastName: "",
       email: "",
+      phone: "",
+      city: "",
+      type: "",
+      description: "",
     };
   },
   mounted() {
-    axios.get("/api/v1/dentists/profile").then(
+    axios.get("/api/v1/accounts/dentist-profile").then(
       (res) => {
         console.log(res.data);
-        const { dentist } = res.data;
-        this.firstName = dentist.first_name;
-        this.lastName = dentist.last_name;
-        this.email = dentist.email;
+        const { account } = res.data;
+        this.firstName = account.first_name;
+        this.lastName = account.last_name;
+        this.email = account.email;
       },
       (error) => {
         if (error.request) {
@@ -65,5 +70,6 @@ export default {
       }
     );
   },
+  
 };
 </script>

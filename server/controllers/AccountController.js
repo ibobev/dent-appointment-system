@@ -132,3 +132,17 @@ module.exports.login = async (req, res) => {
   res.json({ status: 'success', statusmsg: '', token: token, role: foundAccount.role_id });
 };
 
+module.exports.getAccountDetails = async (req, res) => {
+  const email = req.account.email;
+
+  const result = await db.query('select * from accounts where email=$1', [email]);
+  const account = result.rows[0];
+
+  console.log(account);
+  res.json({
+    status: 'success',
+    statusmsg: '',
+    account: account
+  });
+};
+
