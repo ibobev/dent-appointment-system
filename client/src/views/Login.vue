@@ -62,7 +62,6 @@
 #login-page {
   background-color: #fff;
   border-top: 4px solid #0292f8;
-  border-radius: 4%;
 }
 .far {
   color: #0292f8;

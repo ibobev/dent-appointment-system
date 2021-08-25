@@ -1,27 +1,64 @@
 <template>
   <main>
-    <h1 class="text-center">Personal Details</h1>
+    <h1 class="text-center mb-3">Profile</h1>
     <div class="container">
-      <div class="row">
-        <div id="dentist-details" class="col-6">
-          <p>First Name: <b>{{ firstName }}</b></p>
-          <p>Last Name: <b>{{ lastName }}</b></p>
-          <p>Email: <b>{{ email }}</b></p>
-          <p>Phone: <b>{{ phone }}</b></p>
-          <p>City: <b>{{ city }}</b></p>
-          <p>Type: <b>{{ type }}</b></p>
-          <p>Description: <b>{{ description }}</b></p>
+      <div class="d-flex justify-content-evenly" id="details-content">
+        <div
+          id="account-details"
+          class="container mt-3 mb-3 shadow pt-2 pb-3 text-center"
+        >
+          <i class="fas fa-user-check fa-2x mt-2 mb-3"></i>
+          <h3>Account Details</h3>
+          <p>
+            First Name: <b>{{ firstName }}</b>
+          </p>
+          <p>
+            Last Name: <b>{{ lastName }}</b>
+          </p>
+          <p>
+            Email: <b>{{ acc_email }}</b>
+          </p>
+          <p>
+            Phone: <b>{{ phone }}</b>
+          </p>
+          <p>
+            City: <b>{{ city }}</b>
+          </p>
+          <p>
+            Type: <b>{{ type }}</b>
+          </p>
+          <p>
+            Description: <b>{{ description }}</b>
+          </p>
         </div>
-
-        <div id="update-details" class="col-6"></div>
+        <UpdateDentistDetails />
+      </div>
+      <div class="d-flex justify-content-evenly" id="details-content">
+        <EditPersonalData />
+        <ChangePassword />
       </div>
     </div>
   </main>
 </template>
 
 <style scoped>
-#update-details {
-  background-color: #000;
+#account-details {
+  border-top: 4px solid #0292f8;
+  background-color: #fff;
+  width: 390px;
+}
+p{
+  text-align: left;
+}
+
+.fas {
+  color: #0292f8;
+}
+
+@media only screen and (max-width: 1450px) {
+  #details-content {
+    flex-direction: column;
+  }
 }
 </style>
 
@@ -29,14 +66,22 @@
 <script>
 import auth from "../../auth";
 import axios from "axios";
+import ChangePassword from "../../components/ChangePassword.vue";
+import UpdateDentistDetails from "../../components/UpdateDentistDetails.vue";
+import EditPersonalData from "../../components/EditPersonalData.vue";
 
 export default {
   name: "Profile",
+  components: {
+    ChangePassword,
+    UpdateDentistDetails,
+    EditPersonalData,
+  },
   data() {
     return {
       firstName: "",
       lastName: "",
-      email: "",
+      acc_email: "",
       phone: "",
       city: "",
       type: "",
@@ -50,7 +95,7 @@ export default {
         const { account } = res.data;
         this.firstName = account.first_name;
         this.lastName = account.last_name;
-        this.email = account.email;
+        this.acc_email = account.email;
       },
       (error) => {
         if (error.request) {
@@ -70,6 +115,6 @@ export default {
       }
     );
   },
-  
+  methods: {},
 };
 </script>

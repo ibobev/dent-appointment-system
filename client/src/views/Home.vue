@@ -56,7 +56,6 @@
   width: 25rem;
   margin-bottom: 15px;
   border-top: 4px solid #0292f8;
-  border-radius: 2%;
 }
 .user-style-img{
   margin-top:40px;
