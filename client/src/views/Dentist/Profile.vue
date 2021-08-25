@@ -7,6 +7,10 @@
           <p>First Name: <b>{{ firstName }}</b></p>
           <p>Last Name: <b>{{ lastName }}</b></p>
           <p>Email: <b>{{ email }}</b></p>
+          <p>Phone: <b>{{ phone }}</b></p>
+          <p>City: <b>{{ city }}</b></p>
+          <p>Type: <b>{{ type }}</b></p>
+          <p>Description: <b>{{ description }}</b></p>
         </div>
 
         <div id="update-details" class="col-6"></div>

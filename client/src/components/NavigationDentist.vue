@@ -23,9 +23,9 @@
 
 <style scoped>
 #side-nav {
-  height: 100%;
+  height: 90%;
   width: 150px;
-  position: fixed;
+  position: absolute;
   top: 55px;
   left: 0;
   background-color: black;
@@ -63,6 +63,7 @@
   #side-nav {
     height: 45px;
     width: 100%;
+    position:absolute;
   }
   .wrap-icon-link {
     display: inline-flex;
