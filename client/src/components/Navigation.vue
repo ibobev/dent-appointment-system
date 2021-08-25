@@ -2,8 +2,9 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container">
-        <router-link to="/" class="navbar-brand nav-link">DentApp</router-link>
+        <div class="navbar-brand">DentApp</div>
         <button
+          v-if="isGuest"
           class="navbar-toggler"
           type="button"
           aria-label="Toggle navigation"
@@ -11,7 +12,7 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div
+        <div v-if="isGuest"
           class="navbar-collapse"
           v-bind:class="{ collapse: !navCollapsed, collapsed: navCollapsed }"
         >
@@ -41,15 +42,22 @@ nav {
 </style>
 
 <script>
+import auth from "../auth";
 export default {
   data() {
     return {
       navCollapsed: false,
+      isGuest: true
     };
   },
   watch: {
     $route() {
       this.navCollapsed = false;
+      if(auth.data().token) {
+        this.isGuest = false;
+      }else{
+        this.isGuest = true;
+      }
     },
   },
 };
