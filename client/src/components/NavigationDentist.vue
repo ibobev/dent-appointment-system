@@ -23,7 +23,7 @@
 
 <style scoped>
 #side-nav {
-  height: 90%;
+  height: 95%;
   width: 150px;
   position: absolute;
   top: 55px;
