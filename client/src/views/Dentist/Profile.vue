@@ -6,7 +6,7 @@
           <!--<div id="img-wrap" class="col-md-5">
             
           </div>-->
-          <div class="col-md-5" id="details">
+          <div class="col-md-5" id="account-card-details">
             <div class="card-body">
               <h3 class="card-title">Account Details</h3>
               <p class="card-text"><b>First Name:</b> {{ firstName }}</p>
@@ -51,9 +51,12 @@ p {
   #details-content {
     flex-direction: column;
   }
+  #account-card {
+    width:390px;
+  }
 }
 @media only screen and (max-width: 450px) {
-  #account-details {
+  #account-card {
     width: 320px;
   }
 
