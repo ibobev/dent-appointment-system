@@ -146,3 +146,13 @@ module.exports.getAccountDetails = async (req, res) => {
   });
 };
 
+/*module.exports.updateAccountDetails = async (req, res) => {
+  const {
+    firstName,
+    lastName,
+    email
+  } = req.body;
+
+
+}*/
+

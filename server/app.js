@@ -23,7 +23,6 @@ app.use('/api/v1/admins', adminRoutes);
 app.use('/api/v1/accounts', accountRoutes);
 app.use('/api/v1/dentists', dentistRoutes);
 
-
 // Server
 app.listen(PORT, () => {
     console.log(`Express started on port ${PORT}; Press Ctrl+C to terminate...`);

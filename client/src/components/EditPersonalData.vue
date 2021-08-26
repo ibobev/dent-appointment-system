@@ -14,10 +14,11 @@
             class="form-control mt-2"
             id="first-name"
             placeholder="First name"
+            v-model="state.account.firstName"
           />
         </div>
         <div class="col">
-          <span></span>
+          <span ></span>
         </div>
       </div>
       <div class="form-group mx-auto">
@@ -28,10 +29,11 @@
             class="form-control mt-2"
             id="last-name"
             placeholder="Last name"
+            v-model="state.account.lastName"
           />
         </div>
         <div class="col">
-          <span></span>
+          <span ></span>
         </div>
       </div>
 
@@ -43,9 +45,10 @@
             class="form-control mt-2"
             id="email"
             placeholder="Enter new email"
+            v-model="state.account.email"
           />
         </div>
-        <span></span>
+        <span ></span>
       </div>
 
       <button type="submit" class="btn mt-3 mb-2">
@@ -80,6 +83,12 @@ button {
   width: 60%;
 }
 
+span{
+  color:red;
+  text-align: center;
+  font-size: 10px;
+}
+
 @media only screen and (max-width: 450px){
   #personal-details{
     width: 320px;
@@ -105,7 +114,61 @@ button {
 </style>
 
 <script>
+import axios from "axios";
+import useValidate from "@vuelidate/core";
+import {
+  email,
+  helpers,
+} from "@vuelidate/validators";
+import { reactive, computed } from "vue";
 export default {
   name: "EditPersonalData",
+  setup() {
+    const state = reactive({
+      error: "",
+      account: {
+        firstName: "",
+        lastName: "",
+        email:""
+      },
+    });
+    const rules = computed(() => {
+      return {
+        account: {
+          email : {
+            email: helpers.withMessage("Invalid email", email),
+          },
+        }
+      };
+    });
+    const v$ = useValidate(rules, state);
+    return {
+      state,
+      v$,
+    };
+  },
+  methods: {
+    onPersonalUpdateSubmit() {
+      this.v$.$validate();
+      if (!this.v$.$error) {
+        axios.post("api/v1/accounts/update", this.state.account).then(
+          (res) => {
+            console.log(res.data);
+          },
+          (error) => {
+            if (error.response) {
+            console.log(error.response);
+            this.state.error = error.response.data.statusmsg;
+          } else if (error.request) {
+            console.log(error.request);
+          } else {
+            console.log(error);
+            }
+          }
+        );
+      }
+    },
+  }
+
 };
 </script>
