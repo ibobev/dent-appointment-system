@@ -6,7 +6,7 @@
     <i class="far fa-edit fa-2x mt-2"></i>
     <h3 class="mt-3 mb-4">Edit Account Details</h3>
     <div class="row mt-4" v-if="state.error">
-      <div class="col-6 offset-md-3">
+      <div class="col-12 ">
         <div class="alert alert-danger">{{ state.error }}</div>
       </div>
     </div>
@@ -163,7 +163,15 @@ export default {
   methods: {
     onEditDetails() {
       this.v$.$validate();
-      if (!this.v$.$error) {
+      let checkForEmptyInput = () => {
+        if(!this.state.account.firstName && !this.state.account.lastName && !this.state.account.email ){
+          this.state.error = "Empty form submission!";
+          return true;
+        }else{
+          return false;
+        }
+      }
+      if (!this.v$.$error && !checkForEmptyInput()) {
         axios.post("api/v1/accounts/update", this.state.account).then(
           (res) => {
             console.log(res.data);
