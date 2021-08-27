@@ -12,7 +12,7 @@
                 <p class="card-text"><b>Email:</b> {{ acc_email }}</p>
                 <p class="card-text"><b>Phone:</b> {{ phone }}</p>
                 <p class="card-text"><b>City:</b> {{ city }}</p>
-                <p class="card-text"><b>Type:</b> {{ type }}</p>
+                <p class="card-text"><b>Expertise:</b> {{ type }}</p>
                 <p id="description-content" class="card-text">
                   <b>Description:</b> {{ description }}
                 </p>
