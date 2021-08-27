@@ -8,7 +8,7 @@
     <form @submit.prevent="onPersonalUpdateSubmit">
       <div class="form-group mx-auto">
         <div class="input-group mt-2">
-          <i class="fas fa-pen-fancy fa-2x mt-2"></i>
+          <i class="fas fa-pen fa-2x mt-2"></i>
           <input
             type="text"
             class="form-control mt-2"
@@ -23,7 +23,7 @@
       </div>
       <div class="form-group mx-auto">
         <div class="input-group mt-2">
-          <i class="fas fa-pen-fancy fa-2x mt-2"></i>
+          <i class="fas fa-pen fa-2x mt-2"></i>
           <input
             type="text"
             class="form-control mt-2"
