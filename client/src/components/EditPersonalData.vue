@@ -5,7 +5,11 @@
   >
     <i class="far fa-edit fa-2x mt-2"></i>
     <h3 class="mt-3 mb-4">Edit Account Details</h3>
-    
+    <div class="row mt-4" v-if="state.error">
+      <div class="col-6 offset-md-3">
+        <div class="alert alert-danger">{{ state.error }}</div>
+      </div>
+    </div>
     <form @submit.prevent="onEditDetails">
       <div class="form-group mx-auto">
         <div class="input-group mt-2">
