@@ -183,9 +183,11 @@ export default {
   methods: {
     onChangePasswordSubmit() {
       this.v$.$validate();
+      this.state.success = "";
       if (!this.v$.$error) {
         axios.put("/api/v1/accounts/change-password", this.state.pass).then(
           (res) => {
+            this.state.error = "";
             this.state.success = res.data.statusmsg;
           },
           (error) => {

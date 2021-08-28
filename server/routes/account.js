@@ -105,10 +105,10 @@ const accountAuth = (req, res, next) => {
 router.get('/dentist-profile', accountAuth, accountController.getAccountDetails);
 
 /**
- * PUT accounts/update-detist-account - Update dentist account details with auth and validation
+ * PUT accounts/update-account - Update dentist account details with auth and validation
  */
 router.put(
-  '/update-dentist-account',
+  '/update-account',
   check('firstName').isAlpha().optional({checkFalsy: true}),
   check('lastName').isAlpha().optional({checkFalsy: true}),
   check('email').isEmail().optional({checkFalsy: true}),
@@ -122,7 +122,7 @@ router.put(
     next();
   },
   accountAuth,
-  accountController.updateDentistAccount
+  accountController.updateAccount
 );
 
 

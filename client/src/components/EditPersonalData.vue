@@ -184,7 +184,7 @@ export default {
       };
       if (!this.v$.$error && !checkForEmptyInput()) {
         this.state.error = "";
-        axios.put("/api/v1/accounts/update-dentist-account", this.state.account).then(
+        axios.put("/api/v1/accounts/update-account", this.state.account).then(
           (res) => {
             this.state.success = res.data.statusmsg;
           },

@@ -146,7 +146,7 @@ module.exports.getAccountDetails = async (req, res) => {
   });
 };
 
-module.exports.updateDentistAccount = async (req, res) => {
+module.exports.updateAccount = async (req, res) => {
   const {
     firstName,
     lastName,
@@ -220,10 +220,43 @@ module.exports.changePassword = async (req, res) => {
   const {
     oldPass,
     newPass,
-    confirmPass
   } = req.body;
 
   const id = req.account.id;
+  const hashedNewPass =  bcrypt.hashSync(newPass, config.BCRYPT_ROUNDS);
+
+  const getAccountPassword = 'SELECT pwd FROM accounts WHERE id=$1';
+  const accID = [id];
+
+  try {
+    const result = await db.query(getAccountPassword, accID);
+    currentPassword = result.rows[0];
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 'error', statusmsg: 'Internal error!' });
+  }
+
+  try {
+    const isMatch = await bcrypt.compare(oldPass, currentPassword.pwd);
+    if (!isMatch) {
+      return res.status(400).json({ status: 'error', statusmsg: 'Current password is incorrect!' });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 'error', statusmsg: 'Internal error!' });
+  }
+
+  const updatePassword = 'UPDATE accounts SET pwd=$1 WHERE id=$2';
+  const values = [hashedNewPass, id];
+
+  try {
+    await db.query(updatePassword, values);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({ status: 'error', statusmsg: 'Internal server error!' });
+  }
+
+  return res.status(201).json({ status: 'success', statusmsg: 'Password changed successfully!' });
 
 }
 
