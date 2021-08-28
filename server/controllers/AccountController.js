@@ -126,7 +126,6 @@ module.exports.login = async (req, res) => {
 
   const tokenPayload = {
     id: foundAccount.id,
-    email: foundAccount.email,
     role: foundAccount.role_id,
   };
   const token = jwt.sign(tokenPayload, config.JWT_SECRET, { expiresIn: '8h' });
@@ -134,9 +133,9 @@ module.exports.login = async (req, res) => {
 };
 
 module.exports.getAccountDetails = async (req, res) => {
-  const email = req.account.email;
+  const id = req.account.id;
 
-  const result = await db.query('select * from accounts where email=$1', [email]);
+  const result = await db.query('select * from accounts where id=$1', [id]);
   const account = result.rows[0];
 
   console.log(account);
