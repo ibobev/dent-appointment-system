@@ -77,6 +77,7 @@ p {
     width:390px;
     margin-left:auto;
     margin-right:auto;
+    border-radius: none;
   }
 
 }
