@@ -168,7 +168,7 @@ export default {
             ),
             sameAs: helpers.withMessage(
               "Passwords must match!",
-              sameAs(state.newPass)
+              sameAs(state.pass.newPass)
             ),
           },
         },

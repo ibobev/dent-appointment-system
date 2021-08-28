@@ -216,3 +216,14 @@ module.exports.updateDentistAccount = async (req, res) => {
   
 }
 
+module.exports.changePassword = async (req, res) => {
+  const {
+    oldPass,
+    newPass,
+    confirmPass
+  } = req.body;
+
+  const id = req.account.id;
+
+}
+

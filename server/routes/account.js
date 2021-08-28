@@ -54,7 +54,7 @@ router.post(
   accountController.login
 );
 
-const dentistAuth = (req, res, next) => {
+const accountAuth = (req, res, next) => {
   console.log(req.header('Authorization'));
   // Check for Authorization header
   const authHeader = req.header('Authorization') ? req.header('Authorization').split(' ') : null
@@ -87,13 +87,13 @@ const dentistAuth = (req, res, next) => {
 
   const decodedToken = jwt.decode(token);
 
-  if (decodedToken.role !== 2) {
+  /*if (decodedToken.role !== 2) {
     console.log('INVALID ROLE', decodedToken.role);
     return res.status(401).json({
       status: 'error',
       statusmsg: 'Invalid auth token'
     });
-  }
+  }*/
 
   req.account = decodedToken;
   next();
@@ -102,7 +102,7 @@ const dentistAuth = (req, res, next) => {
 /**
  * GET /dentist-profile - Authenticate dentist account
  */
-router.get('/dentist-profile', dentistAuth, accountController.getAccountDetails);
+router.get('/dentist-profile', accountAuth, accountController.getAccountDetails);
 
 /**
  * PUT accounts/update-detist-account - Update dentist account details with auth and validation
@@ -121,10 +121,31 @@ router.put(
     }
     next();
   },
-  dentistAuth,
+  accountAuth,
   accountController.updateDentistAccount
 );
 
+
+/**
+ * PUT accounts/change-password - Change account password
+ */
+router.put(
+  '/change-password',
+  body('oldPass').not().isEmpty(),
+  body('newPass').not().isEmpty(),
+  body('confirmPass').not().isEmpty(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        errors: errors.array()
+      });
+    }
+    next();
+  },
+  accountAuth,
+  accountController.changePassword
+);
 
 
 
