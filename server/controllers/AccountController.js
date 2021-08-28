@@ -155,20 +155,65 @@ module.exports.updateDentistAccount = async (req, res) => {
   } = req.body;
 
   const id = req.account.id;
+
+  if(!firstName && !lastName && !email){
+    return res.status(400).send({ status: 'error', statusmsg: 'Bad Request!' });
+  }
+
   if (firstName) {
-    
+    const updateFirstNameQuery = 'UPDATE accounts SET first_name=$1 WHERE id=$2';
+    const values = [firstName, id];
+    try {
+      await db.query(updateFirstNameQuery, values);
+    }catch(error){
+      console.log(error);
+      return res.status(500).send({ status: 'error', statusmsg: 'Internal server error!' });
+    }
   }
 
   if (lastName) {
-    
+    const updateLastNameQuery = 'UPDATE accounts SET last_name=$1 WHERE id=$2';
+    const values = [lastName, id];
+    try {
+      await db.query(updateLastNameQuery, values);
+    }catch(error){
+      console.log(error);
+      return res.status(500).send({ status: 'error', statusmsg: 'Internal server error!' });
+    }
   }
 
   if (email) {
+    const isEmailTakenQuery = 'SELECT email FROM accounts WHERE email=$1';
+    const emailValue = [email];
+
+    try {
+      const isEmailTaken = await db.query(isEmailTakenQuery, emailValue);
+  
+      if (isEmailTaken.rows.length !== 0) {
+        // Email is taken
+        res.status(400).json({ status: 'error', statusmsg: 'Email is taken!' });
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ status: 'error', statusmsg: 'Internal server error!' });
+      return;
+    }
+
+    const changeEmailQuery = 'UPDATE accounts SET email=$1 WHERE id=$2';
+    const values = [email, id];
+
+    try {
+      await db.query(changeEmailQuery, values);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ status: 'error', statusmsg: 'Internal server error!' });
+      return;
+    }
 
   }
   
-
-  console.log(req.body);
+  return res.status(201).json({ status: 'success', statusmsg: 'Account updated successfully!' });
   
 }
 

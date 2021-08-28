@@ -105,9 +105,9 @@ const dentistAuth = (req, res, next) => {
 router.get('/dentist-profile', dentistAuth, accountController.getAccountDetails);
 
 /**
- * POST account/update - Update dentist account details
+ * PUT accounts/update-detist-account - Update dentist account details with auth and validation
  */
-router.post(
+router.put(
   '/update-dentist-account',
   check('firstName').isAlpha().optional({checkFalsy: true}),
   body('lastName').isAlpha().optional({checkFalsy: true}),

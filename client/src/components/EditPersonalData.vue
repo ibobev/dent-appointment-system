@@ -10,6 +10,11 @@
         <div class="alert alert-danger">{{ state.error }}</div>
       </div>
     </div>
+    <div class="row mt-4" v-if="state.success">
+      <div class="col-12">
+        <div class="alert alert-success" role="alert">{{ state.success }}</div>
+      </div>
+    </div>
     <form @submit.prevent="onEditDetails">
       <div class="form-group mx-auto">
         <div class="input-group mt-2">
@@ -127,6 +132,7 @@ export default {
   setup() {
     const state = reactive({
       error: "",
+      success: "",
       account: {
         firstName: "",
         lastName: "",
@@ -176,8 +182,9 @@ export default {
         }
       };
       if (!this.v$.$error && !checkForEmptyInput()) {
-        axios.post("/api/v1/accounts/update-dentist-account", this.state.account).then(
+        axios.put("/api/v1/accounts/update-dentist-account", this.state.account).then(
           (res) => {
+            this.state.success = res.data.statusmsg;
             console.log(res.data);
           },
           (error) => {
