@@ -156,6 +156,7 @@ import useValidate from "@vuelidate/core";
 import {
   required,
   email,
+  alpha,
   minLength,
   sameAs,
   helpers,
@@ -187,9 +188,11 @@ export default {
           },
           firstName: {
             required: helpers.withMessage("First name is required", required),
+            alpha: helpers.withMessage("First name must contain only characters", alpha)
           },
           lastName: {
             required: helpers.withMessage("Last name is required", required),
+            alpha: helpers.withMessage("Last name must must contain only characters", alpha)
           },
           password: {
             required: helpers.withMessage("Password is required", required),
