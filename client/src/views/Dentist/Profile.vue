@@ -163,6 +163,33 @@ export default {
         }
       }
     );
+    axios.get("/api/v1/dentists/dentist-details").then(
+      (res) => {
+        console.log(res.data);
+        const { dentist } = res.data;
+        this.type = dentist.dentist_type;
+        this.city = dentist.city;
+        this.phone = dentist.phone;
+        this.description = dentist.description;
+        this.rating = dentist.rating;
+      },
+      (error) => {
+        if (error.request) {
+          console.log("req");
+          console.log(error.request);
+          console.log(error.request.status);
+          if (error.request.status === 401 || error.request.status === 403) {
+            auth.data().deleteToken();
+            this.$router.push({ path: "/login" });
+          }
+        } else if (error.response) {
+          console.log("res");
+          console.log(error.response);
+        } else {
+          console.log(error);
+        }
+      }
+    );
   },
   methods: {},
 };

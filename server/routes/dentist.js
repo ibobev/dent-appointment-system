@@ -1,6 +1,6 @@
 const express = require('express');
 const {
-  body,
+  check,
   validationResult
 } = require('express-validator');
 const jwt = require('jsonwebtoken');
@@ -8,9 +8,10 @@ const config = require('../config');
 
 const router = express.Router();
 
-//const accountController = require('../controllers/AccountController');
+const dentistController = require('../controllers/DentistController');
 
-/*
+// TODO: REFACTOR dentistAuth
+
 const dentistAuth = (req, res, next) => {
   console.log(req.header('Authorization'));
   // Check for Authorization header
@@ -55,7 +56,30 @@ const dentistAuth = (req, res, next) => {
   req.account = decodedToken;
   next();
 };
-*/
+
+/**
+ * GET dentists/dentist-details
+ */
+router.get('/dentist-details', dentistAuth, dentistController.getDentistDetails);
+
+/**
+ * PUT dentists/update-dentist-details
+ */
+router.put('/update-dentist-details',
+  check('phone').isAlphanumeric().optional({checkFalsy: true}),
+  check('description').isLength({max: 255}).optional({checkFalsy: true}),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        errors: errors.array()
+      });
+    }
+    next();
+  },
+  dentistAuth,
+  dentistController.updateDentistDetails
+);
 
 
 module.exports = router;

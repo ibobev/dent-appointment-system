@@ -110,8 +110,8 @@ router.get('/dentist-profile', dentistAuth, accountController.getAccountDetails)
 router.put(
   '/update-dentist-account',
   check('firstName').isAlpha().optional({checkFalsy: true}),
-  body('lastName').isAlpha().optional({checkFalsy: true}),
-  body('email').isEmail().optional({checkFalsy: true}),
+  check('lastName').isAlpha().optional({checkFalsy: true}),
+  check('email').isEmail().optional({checkFalsy: true}),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

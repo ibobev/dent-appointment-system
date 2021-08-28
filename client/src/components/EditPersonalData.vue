@@ -144,18 +144,18 @@ export default {
         account: {
           firstName: {
             alpha: helpers.withMessage(
-              "Name must contain alpha characters only",
+              "Name must contain alpha characters only!",
               alpha
             ),
           },
           lastName: {
             alpha: helpers.withMessage(
-              "Name must contain alpha characters only",
+              "Name must contain alpha characters only!",
               alpha
             ),
           },
           email: {
-            email: helpers.withMessage("Invalid email", email),
+            email: helpers.withMessage("Invalid email!", email),
           },
         },
       };
@@ -176,16 +176,17 @@ export default {
           !this.state.account.email
         ) {
           this.state.error = "Empty form submission!";
+          this.state.success = "";
           return true;
         } else {
           return false;
         }
       };
       if (!this.v$.$error && !checkForEmptyInput()) {
+        this.state.error = "";
         axios.put("/api/v1/accounts/update-dentist-account", this.state.account).then(
           (res) => {
             this.state.success = res.data.statusmsg;
-            console.log(res.data);
           },
           (error) => {
             if (error.response) {

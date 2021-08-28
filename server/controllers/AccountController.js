@@ -164,7 +164,7 @@ module.exports.updateDentistAccount = async (req, res) => {
     const values = [firstName, id];
     try {
       await db.query(updateFirstNameQuery, values);
-    }catch(error){
+    } catch (error) {
       console.log(error);
       return res.status(500).send({ status: 'error', statusmsg: 'Internal server error!' });
     }
