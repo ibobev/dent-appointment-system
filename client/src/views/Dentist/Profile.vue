@@ -2,7 +2,7 @@
   <main>
     <div class="container">
       <div class="d-flex justify-content-evenly" id="main-account-content">
-        <div id="account-card" class="card mb-3 shadow">
+        <div id="account-card" class="card mb-3 shadow rounded-0">
           <div class="row g-0">
             <div class="col-md-12" id="account-card-details">
               <div class="card-body">
@@ -77,7 +77,6 @@ p {
     width:390px;
     margin-left:auto;
     margin-right:auto;
-    border-radius: none;
   }
 
 }
