@@ -143,7 +143,7 @@ export default {
         pass: {
           oldPass: {
             required: helpers.withMessage(
-              "Old password is required!",
+              "Current password is required!",
               required
             ),
           },
