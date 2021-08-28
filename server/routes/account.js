@@ -1,5 +1,9 @@
 const express = require('express');
-const { body, validationResult } = require('express-validator');
+const {
+  body,
+  check,
+  validationResult
+} = require('express-validator');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 
@@ -16,12 +20,16 @@ router.post(
   body('firstName').isAlpha(),
   body('lastName').isAlpha(),
   body('email').isEmail(),
-  body('password').isLength({ min: 5 }),
+  body('password').isLength({
+    min: 5
+  }),
   body('role').isIn([2, 3]),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({
+        errors: errors.array()
+      });
     }
     next();
   },
@@ -37,7 +45,9 @@ router.post(
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({
+        errors: errors.array()
+      });
     }
     next();
   },
@@ -89,6 +99,36 @@ const dentistAuth = (req, res, next) => {
   next();
 };
 
+/**
+ * GET /dentist-profile - Authenticate dentist account
+ */
 router.get('/dentist-profile', dentistAuth, accountController.getAccountDetails);
+
+/**
+ * POST account/update - Update dentist account details
+ */
+router.post(
+  '/update-dentist-account',
+  check('firstName').isAlpha().optional({checkFalsy: true}),
+  body('lastName').isAlpha().optional({checkFalsy: true}),
+  body('email').isEmail().optional({checkFalsy: true}),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        errors: errors.array()
+      });
+    }
+    next();
+  },
+  dentistAuth,
+  accountController.updateDentistAccount
+);
+
+
+
+
+
+
 
 module.exports = router;

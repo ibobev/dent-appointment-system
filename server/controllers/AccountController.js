@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 
+
 module.exports.register = async (req, res) => {
   const {
     firstName,
@@ -146,13 +147,28 @@ module.exports.getAccountDetails = async (req, res) => {
   });
 };
 
-/*module.exports.updateAccountDetails = async (req, res) => {
+module.exports.updateDentistAccount = async (req, res) => {
   const {
     firstName,
     lastName,
     email
   } = req.body;
 
+  const id = req.account.id;
+  if (firstName) {
+    
+  }
 
-}*/
+  if (lastName) {
+    
+  }
+
+  if (email) {
+
+  }
+  
+
+  console.log(req.body);
+  
+}
 
