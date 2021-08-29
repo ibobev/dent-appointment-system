@@ -1,5 +1,5 @@
 <template>
-  <form class="row mt-2">
+  <form class="row mt-2 mb-2">
     <div class="form-group col-auto p-0">
       <input
         type="search"
@@ -37,8 +37,18 @@ button{
   padding-right: 18px;
 }
 
+form{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-top: 2px solid #0292f8;
+  border-bottom: 2px solid #0292f8;
+  
+}
 </style>
 
 <script>
-export default {};
+export default {
+  name: "SearchForm",
+
+};
 </script>
