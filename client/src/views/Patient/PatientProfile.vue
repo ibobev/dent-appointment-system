@@ -7,7 +7,7 @@
           <div class="row g-0">
             <div class="col-md-12" id="account-card-details">
               <div class="card-body">
-                <h3 class="card-title">Account Details</h3>
+                <h3 class="card-title mb-4">Account Details</h3>
                 <p class="card-text"><b>First Name:</b> {{ firstName }}</p>
                 <p class="card-text"><b>Last Name:</b> {{ lastName }}</p>
                 <p class="card-text"><b>Email:</b> {{ acc_email }}</p>
