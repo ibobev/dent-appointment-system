@@ -1,8 +1,8 @@
 <template>
   <main>
-    <div class="container text-center">
+    <div class="container  text-center">
       <div class="d-flex justify-content-evenly" id="main-account-content">
-        <div id="account-card" class="card mb-3 mt-3 shadow rounded-0">
+        <div id="account-card" class="card container mb-3 mt-3 shadow rounded-0">
           <i class="fas fa-user-alt fa-2x mt-3"></i>
           <div class="row g-0">
             <div class="col-md-12" id="account-card-details">
@@ -37,7 +37,7 @@ p {
   border-top: 4px solid #0292f8;
 }
 
-@media only screen and (max-width: 1201px){
+@media only screen and (max-width: 1401px){
   #main-account-content {
     flex-direction: column;
   }
