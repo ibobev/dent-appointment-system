@@ -1,8 +1,9 @@
 <template>
   <main>
-    <div class="container">
+    <div class="container text-center">
       <div class="d-flex justify-content-evenly" id="main-account-content">
         <div id="account-card" class="card mb-3 shadow rounded-0">
+          <i class="fas fa-user-alt fa-2x mt-3"></i>
           <div class="row g-0">
             <div class="col-md-12" id="account-card-details">
               <div class="card-body">
@@ -42,20 +43,16 @@ p {
 }
 
 #account-card {
-  /*width: 390px;*/
   width:47%;
   border-top: 4px solid #0292f8;
   margin-left:20px;
   margin-right:20px;
+  overflow-y: scroll;
+  max-height: 460px;
 }
 
 @media only screen and (max-width: 1450px) {
-  /*#main-account-content {
-    flex-direction: column;
-  }*/
   #account-card {
-    /*width: 390px;*/
-    /*margin-left:auto;*/
     width:49%;
     margin-right:auto;
     margin-left:10px;
@@ -67,9 +64,6 @@ p {
   #details-content {
     flex-direction: column;
   }
-
-}
-@media only screen and (max-width: 1201px){
   #main-account-content {
     flex-direction: column;
   }

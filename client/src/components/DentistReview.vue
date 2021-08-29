@@ -1,5 +1,5 @@
 <template>
-  <div id="dentist-review-content" class="shadow">
+  <div id="dentist-review-content" class="shadow mb-3">
     <h3 class="text-center mt-3">What People Say About You</h3>
     <div class="comment-content">
       <h6>Patient Name</h6>
@@ -64,7 +64,7 @@
   width: 100%;
   margin-left: 20px;
   margin-right: 15px;
-  max-height: 382px;
+  max-height: 460px;
   border-top: 4px solid #0292f8;
   overflow-y: scroll;
 }
@@ -77,14 +77,7 @@ h6 {
   font-weight: bold;
 }
 
-@media only screen and (max-width: 1450px) {
-  #dentist-review-content {
-    /*width: 100%;*/
-    margin-left: 30px;
-  }
-}
-
-@media only screen and (max-width: 1201px) {
+@media only screen and (max-width: 1401px) {
   #dentist-review-content {
     width: 390px;
     margin-left: auto;
