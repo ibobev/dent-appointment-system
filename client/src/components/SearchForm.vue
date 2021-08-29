@@ -37,13 +37,6 @@ button{
   padding-right: 18px;
 }
 
-form{
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border-top: 2px solid #0292f8;
-  border-bottom: 2px solid #0292f8;
-  
-}
 </style>
 
 <script>
