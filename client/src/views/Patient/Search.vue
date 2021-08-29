@@ -1,12 +1,21 @@
 <template>
   <main>
-    <h1 class="text-center">Search</h1>
+    <div id="search-content" class="d-flex justify-content-center"> 
+    <SearchForm />
+    </div>
   </main>
 </template>
 
 <style scoped>
+
 </style>
 
 <script>
-export default {};
+import SearchForm from '../../components/SearchForm.vue';
+export default {
+  name:"Search",
+  components: {
+    SearchForm,
+  }
+};
 </script>
