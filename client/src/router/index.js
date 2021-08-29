@@ -8,6 +8,8 @@ import Profile from '../views/Dentist/Profile'
 import PatientsList from '../views/Dentist/PatientsList'
 import AdminView from '../views/Admin/AdminView';
 import AdminLogin from '../views/Admin/AdminLogin';
+import PatientDashboard from '../views/Patient/PatientDashboard';
+import PatientProfile from '../views/Patient/PatientProfile';
 
 const routes = [
   {
@@ -56,6 +58,18 @@ const routes = [
         path: '/dentist/patients',
         name: 'Patients',
         component: PatientsList
+      },
+    ]
+  },
+  {
+    path: '/patient',
+    name: 'Patient',
+    component: PatientDashboard,
+    children: [
+      {
+        path: '/patient/profile',
+        name: 'PatientProfile',
+        component: PatientProfile
       },
     ]
   }

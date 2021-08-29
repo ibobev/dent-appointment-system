@@ -136,7 +136,7 @@ export default {
         this.$router.push({ path: "/dentist/profile" });
       } else if (role === roles.PATIENT) {
         //console.log('patient');
-        this.$router.push({ path: "/test" });
+        this.$router.push({ path: "/patient/profile" });
       }
     }
   },
@@ -159,7 +159,7 @@ export default {
               if (role === roles.DENTIST) {
                 this.$router.push({ path: "/dentist/profile" });
               } else if (role === roles.PATIENT) {
-                this.$router.push({ path: "/test" });
+                this.$router.push({ path: "/patient/profile" });
               }
             },
           (error) => {
