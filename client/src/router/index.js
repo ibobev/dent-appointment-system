@@ -10,6 +10,9 @@ import AdminView from '../views/Admin/AdminView';
 import AdminLogin from '../views/Admin/AdminLogin';
 import PatientDashboard from '../views/Patient/PatientDashboard';
 import PatientProfile from '../views/Patient/PatientProfile';
+import Search from '../views/Patient/Search';
+import PatientAppointments from '../views/Patient/PatientAppointments';
+import PatientMedRecord from '../views/Patient/PatientMedRecord';
 
 const routes = [
   {
@@ -70,6 +73,21 @@ const routes = [
         path: '/patient/profile',
         name: 'PatientProfile',
         component: PatientProfile
+      },
+      {
+        path: '/patient/search',
+        name: 'Search',
+        component: Search
+      },
+      {
+        path: '/patient/appointments',
+        name: 'PatientAppointments',
+        component: PatientAppointments
+      },
+      {
+        path: '/patient/medical-record',
+        name: 'PatientMedRecord',
+        component: PatientMedRecord
       },
     ]
   }

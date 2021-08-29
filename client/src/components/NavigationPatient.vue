@@ -6,12 +6,26 @@
         <router-link to="/patient/profile">Profile</router-link>
       </div>
       <div class="wrap-icon-link">
+        <i class="fas fa-search fa-lg"></i>
+        <router-link to="/patient/search">Search</router-link>
+      </div>
+      <div class="wrap-icon-link">
+        <i class="fas fa-calendar-alt fa-lg"></i>
+        <router-link to="/patient/appointments">Appointments</router-link>
+      </div>
+      <div class="wrap-icon-link">
+        <i class="fas fa-file-medical fa-lg"></i>
+        <router-link to="/patient/medical-record">Record</router-link>
+      </div>
+      <div class="wrap-icon-link">
         <i class="fas fa-power-off fa-lg"></i>
         <router-link to="/" @click="onLogout">Logout</router-link>
       </div>
     </div>
   </div>
 </template>
+
+
 
 <style scoped>
 #side-nav {
@@ -55,7 +69,7 @@
   #side-nav {
     height: 45px;
     width: 100%;
-    position:absolute;
+    position: absolute;
   }
   .wrap-icon-link {
     display: inline-flex;
@@ -77,13 +91,13 @@
 </style>
 
 <script>
-import auth from '../auth'
+import auth from "../auth";
 export default {
-  methods:{
-    onLogout(){
+  methods: {
+    onLogout() {
       auth.data().deleteToken();
       this.$router.push({ path: "/" });
-    }
-  }
+    },
+  },
 };
 </script>
