@@ -19,6 +19,7 @@ const adminAuth = (req, res, next) => {
 
   // Check if authorization type is token
   if (authHeader[0] !== 'Token') {
+    console.log('no auth token');
     return res.status(401).json({ status: 'error', statusmsg: 'Invalid auth token' });
   }
 
@@ -26,12 +27,14 @@ const adminAuth = (req, res, next) => {
   const token = authHeader[1];
 
   if (!jwt.verify(token, config.JWT_SECRET)) {
+    console.log('invalid token');
     return res.status(401).json({ status: 'error', statusmsg: 'Invalid auth token' });
   }
 
-  const { roleId } = jwt.decode(token);
+  const { role } = jwt.decode(token);
 
-  if (roleId !== '1') {
+  if (role !== 1) {
+    console.log('invalid role for admin');
     return res.status(401).json({ status: 'error', statusmsg: 'Invalid auth token' });
   }
 

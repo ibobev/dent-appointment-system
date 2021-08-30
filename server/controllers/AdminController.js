@@ -62,15 +62,15 @@ module.exports.getAllAccounts = async (req, res) => {
   const limit = parseInt(req.query.limit) || 1000;
   const getAccountsQuery = 'select id,email,first_name,last_name,created_at,role_id,status,strikes from accounts order by created_at desc limit $1';
   const getAccountsParams = [limit];
-  let users = [];
+  let accounts = [];
 
   try {
-    users = await db.query(getAccountsQuery, getAccountsParams);
-    users = users.rows;
+    accounts = await db.query(getAccountsQuery, getAccountsParams);
+    accounts = accounts.rows;
   } catch (error) {
     console.log(error);
     return res.status(500).json({ status: 'error', statusmsg: error.message });
   }
 
-  res.json({ status: 'success', statusmsg: '', users });
+  res.json({ status: 'success', statusmsg: '', accounts: accounts });
 };

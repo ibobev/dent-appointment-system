@@ -150,18 +150,20 @@ export default {
           password: this.state.password,
         })
         .then(
-            (res) => {
-              const { token, role } = res.data;
-              auth.data().setToken(token, this.state.rememberMe);
-              auth.data().setRole(role, this.state.rememberMe);
-              /*console.log(role);
-              console.log(token);*/
-              if (role === roles.DENTIST) {
-                this.$router.push({ path: "/dentist/profile" });
-              } else if (role === roles.PATIENT) {
-                this.$router.push({ path: "/patient/profile" });
-              }
-            },
+          (res) => {
+            const { token, role } = res.data;
+            auth.data().setToken(token, this.state.rememberMe);
+            auth.data().setRole(role, this.state.rememberMe);
+            /*console.log(role);
+            console.log(token);*/
+            if (role === roles.DENTIST) {
+              this.$router.push({ path: "/dentist/profile" });
+            } else if (role === roles.PATIENT) {
+              this.$router.push({ path: "/patient/profile" });
+            } else if (role === roles.ADMIN) {
+              this.$router.push({ path: '/admin/accounts' });
+            }
+          },
           (error) => {
             if (error.response) {
               console.log(error.response);
