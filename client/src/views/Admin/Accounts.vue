@@ -13,6 +13,7 @@
               <th>Name</th>
               <th>Email</th>
               <th>Registered</th>
+              <th>Status</th>
               <th></th>
             </tr>
           </thead>
@@ -21,6 +22,13 @@
               <td>{{ account.first_name + ' ' + account.last_name }}</td>
               <td>{{ account.email }}</td>
               <td>{{ new Date(account.created_at) }}</td>
+              <td>
+                <span
+                  class="badge"
+                  v-bind:class="[account.status.trim() === 'Active' ? 'bg-primary' : 'bg-danger']">
+                  {{ account.status }}
+                </span>
+              </td>
               <td>
                 <button class="btn btn-sm btn-danger">Delete</button>
               </td>
