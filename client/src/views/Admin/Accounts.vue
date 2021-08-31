@@ -32,7 +32,32 @@
                 </span>
               </td>
               <td>
-                <button class="btn btn-sm btn-danger">Delete</button>
+                <div class="dropdown">
+                  <button class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" id="accountOptionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-cog"></i>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="accountOptionsDropdown">
+                    <li>
+                      <a class="dropdown-item" href="#" @click="suspendAccount(account.id)">
+                        <i class="far fa-hand-paper"></i>&nbsp;
+                        Suspend
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="fas fa-hand-sparkles"></i>
+                        Unsuspend
+                      </a>
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                      <a class="dropdown-item text-danger" href="#">
+                        <i class="fas fa-trash-alt"></i>&nbsp;
+                        Delete
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -63,6 +88,23 @@ export default {
       }, error => {
         console.log(error.toJSON());
       });
+  },
+  methods: {
+    suspendAccount(accountId) {
+      console.log(`suspend: ${accountId}`);
+      axios
+        .post('/api/v1/admins/accounts/suspend', { accountId })
+        .then(res => {
+          console.log(res.data);
+          const suspendedAccount = this.accounts.find(account => account.id === accountId);
+          if (suspendedAccount) {
+            suspendedAccount.status = 'Suspended';
+          }
+        }, error => {
+          console.lg(error);
+          // TODO: Display error
+        });
+    }
   }
 }
 </script>
