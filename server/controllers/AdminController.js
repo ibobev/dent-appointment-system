@@ -74,3 +74,30 @@ module.exports.getAllAccounts = async (req, res) => {
 
   res.json({ status: 'success', statusmsg: '', accounts: accounts });
 };
+
+
+module.exports.suspendAccount = async (req, res) => {
+  const { accountId } = req.body;
+
+  const FIND_ACCOUNT_QUERY = 'select id from accounts where id=$1';
+
+
+  // Check if account with given id exists
+  const queryResult = await db.query(FIND_ACCOUNT_QUERY, [accountId]);
+
+  if (queryResult.rows.length === 0) {
+    return res.status(400).json({ status: 'error', statusmsg: 'No account found with the given id!'});
+  }
+
+  // Suspend account
+  const SUSPEND_ACCOUNT_QUERY = "update accounts set status='Suspended' where id=$1";
+
+  try {
+    await db.query(SUSPEND_ACCOUNT_QUERY, [accountId]);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 'error', statusmsg: 'Error occurred while suspending account!' });
+  }
+
+  res.json({ status: 'success', statusmsg: 'Account suspended!' });
+};

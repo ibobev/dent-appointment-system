@@ -2,6 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 const AdminController = require('../controllers/AdminController');
+const { body, check, validationResult } = require('express-validator');
 
 const router = express.Router();
 
@@ -52,5 +53,26 @@ router.post('/', adminAuth, AdminController.register);
  * GET /admin/accounts - Get all accounts
  */
 router.get('/accounts/:limit?', adminAuth, AdminController.getAllAccounts);
+
+
+/**
+ * POST /admin/accounts/:accountId/suspend - Suspend account
+ * accountId - the id of the account to suspend
+ */
+router.post(
+  '/accounts/suspend',
+  adminAuth,
+  body('accountId').isNumeric(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    next();
+  },
+  AdminController.suspendAccount
+);
 
 module.exports = router;

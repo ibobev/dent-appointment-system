@@ -10,6 +10,7 @@
         <table class="table">
           <thead>
             <tr>
+              <th>ID</th>
               <th>Name</th>
               <th>Email</th>
               <th>Registered</th>
@@ -19,6 +20,7 @@
           </thead>
           <tbody>
             <tr v-for="account in accounts" :key="account.id">
+              <td>{{ account.id }}</td>
               <td>{{ account.first_name + ' ' + account.last_name }}</td>
               <td>{{ account.email }}</td>
               <td>{{ new Date(account.created_at) }}</td>
