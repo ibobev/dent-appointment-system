@@ -56,7 +56,7 @@ router.get('/accounts/:limit?', adminAuth, AdminController.getAllAccounts);
 
 
 /**
- * POST /admin/accounts/:accountId/suspend - Suspend account
+ * POST /admin/accounts/suspend - Suspend account
  * accountId - the id of the account to suspend
  */
 router.post(
@@ -75,4 +75,23 @@ router.post(
   AdminController.suspendAccount
 );
 
+/**
+ * POST /admin/accounts/unsuspend - Unsuspend account
+ * accountId - the id of the account to suspend
+ */
+router.post(
+  '/accounts/unsuspend',
+  adminAuth,
+  body('accountId').isNumeric(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    next();
+  },
+  AdminController.unsuspendAccount
+);
 module.exports = router;
