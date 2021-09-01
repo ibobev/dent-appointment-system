@@ -44,7 +44,7 @@
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="#" @click="unsuspendAccount(account.id)">
                         <i class="fas fa-hand-sparkles"></i>
                         Unsuspend
                       </a>
@@ -99,6 +99,21 @@ export default {
           const suspendedAccount = this.accounts.find(account => account.id === accountId);
           if (suspendedAccount) {
             suspendedAccount.status = 'Suspended';
+          }
+        }, error => {
+          console.lg(error);
+          // TODO: Display error
+        });
+    },
+    unsuspendAccount(accountId) {
+      console.log(`unsuspend: ${accountId}`);
+      axios
+        .post('/api/v1/admins/accounts/unsuspend', { accountId })
+        .then(res => {
+          console.log(res.data);
+          const suspendedAccount = this.accounts.find(account => account.id === accountId);
+          if (suspendedAccount) {
+            suspendedAccount.status = 'Active';
           }
         }, error => {
           console.lg(error);
