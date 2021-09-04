@@ -32,6 +32,37 @@
       </div>
     </div>
 
+    <div class="row mt-2">
+      <div class="col-sm-12">
+        <small class="text-muted">Filters</small>
+      </div>
+      <div class="col-sm-4">
+        City:
+        <div class="input-group input-group-sm" v-if="cityFilter && !cityFilterOn">
+          <input type="text" class="form-control" :value="cityFilter" disabled/>
+          <button type="button" class="btn btn-sm btn-secondary" @click="removeCityFilter">-</button>
+        </div>
+        <button
+          type="button"
+          class="btn btn-sm btn-secondary"
+          @click="cityFilterOn = !cityFilterOn"
+          v-if="!cityFilterOn && !cityFilter.length"
+        >
+          + Add
+        </button>
+        <div class="input-group" v-if="cityFilterOn">
+          <input type="text" class="form-control" v-model="cityFilter"/>
+          <button type="button" class="btn btn-sm btn-secondary" @click="addCityFilter">+</button>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        rating 
+      </div>
+      <div class="col-sm-4">
+        type 
+      </div>
+    </div>
+
     <div class="row my-3">
       <div class="col-sm-12 col-md-4 mb-4" v-for="dentist of computedDentists" v-bind:key="dentist.id">
         <div class="card shadow-sm border-0">
@@ -42,11 +73,14 @@
             height="130"
           />
           <div class="card-body">
-            <h5 class="card-text">
+            <h4 class="card-text">
               {{ dentist.name }}
-            </h5>
+            </h4>
+            <p>City: {{dentist.city}}</p>
             <p>Email: {{dentist.email}}</p>
+            <p>Type: {{dentist.dentist_type}}</p>
             <p>Description: {{dentist.description}}</p>
+            <p>Rating: {{dentist.rating}}</p>
             <a href="#" class="btn btn-primary">View profile</a>
           </div>
         </div>
@@ -88,7 +122,11 @@ export default {
     return {
       isLoading: true,
       searchTerm: '',
+      search: null,
       dentists: [],
+      cityFilterOn: false,
+      cityFilter: '',
+      cityFilterString: '',
     }
   },
   async mounted() {
@@ -104,13 +142,21 @@ export default {
   },
   computed: {
     computedDentists() {
-      return this.dentists.map(dentist => {
+      // Add full name property and generate picture
+      let _dentists = this.dentists.map(dentist => {
         dentist.name = `${dentist.first_name} ${dentist.last_name}`
         if (!dentist.img) {
           dentist.profilePic = `https://avatars.dicebear.com/api/open-peeps/${dentist.name}.svg`;
         }
         return dentist;
       }); 
+
+      // City filter
+      if (this.cityFilterString) {
+        _dentists = _dentists.filter(dentist => dentist.city.toLowerCase() === this.cityFilterString.toLowerCase());
+      }
+
+      return _dentists;
     }
   },
   methods: {
@@ -124,7 +170,15 @@ export default {
         console.log(error);
         // TODO: show error to client
       }
-    } 
+    },
+    addCityFilter: function() {
+      this.cityFilterOn = false;
+      this.cityFilterString = this.cityFilter;
+    },
+    removeCityFilter: function() {
+      this.cityFilter = '';
+      this.cityFilterString = '';
+    }
   },
   watch: {
     // Handle dynamic search with debounce
@@ -133,14 +187,14 @@ export default {
           clearTimeout(searchTimeout);
       }
       searchTimeout = setTimeout(() => {
-        this.isLoading = true;
+        // this.isLoading = true;
         console.log(newSearchTerm); 
         // NOTE: Artificial delay, probably delete
         setTimeout(() => {
           this.filterDentists(newSearchTerm);
         }, 300);
       }, 500);
-    }
+    },
   }
 }
 </script>

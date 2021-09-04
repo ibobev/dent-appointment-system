@@ -7,11 +7,12 @@ const roles = require('../utils/roles');
 module.exports.getAll = async (req, res) => {
   const { term } = req.query;
   let dentists = [];
-  let searchQuery = 'select id,first_name,last_name,email from accounts where role_id=$1';
+  let searchQuery = 'select id,first_name,last_name,email,description,city,dentist_type,phone from accounts join dentists on dentists.account_id=accounts.id where role_id=$1';
   let searchParams = [roles.DENTIST];
 
   if (term && term.length !== 0) {
-    searchQuery += ' and (first_name like $2 or last_name like $2 or email like $2)';
+    // Note: Use 'ilike' for case-insensitive searching
+    searchQuery += ' and (first_name ilike $2 or last_name ilike $2 or email ilike $2)';
     searchParams.push(`%${term}%`);
   }
 
