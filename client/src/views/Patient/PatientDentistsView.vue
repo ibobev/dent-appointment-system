@@ -32,6 +32,22 @@
       </div>
     </div>
 
+    <div class="row mt-2">
+      <div class="col-sm-12">
+        <small class="text-muted">Filters</small>
+      </div>
+      <div class="col-sm-4">
+        City:
+        <Filter @onFilterSet="onCityFilterSet" @onFilterRemove="onCityFilterRemove" />
+      </div>
+      <div class="col-sm-4">
+        rating 
+      </div>
+      <div class="col-sm-4">
+        type 
+      </div>
+    </div>
+
     <div class="row my-3">
       <div class="col-sm-12 col-md-4 mb-4" v-for="dentist of computedDentists" v-bind:key="dentist.id">
         <div class="card shadow-sm border-0">
@@ -42,11 +58,14 @@
             height="130"
           />
           <div class="card-body">
-            <h5 class="card-text">
+            <h4 class="card-text">
               {{ dentist.name }}
-            </h5>
+            </h4>
+            <p>City: {{dentist.city}}</p>
             <p>Email: {{dentist.email}}</p>
+            <p>Type: {{dentist.dentist_type}}</p>
             <p>Description: {{dentist.description}}</p>
+            <p>Rating: {{dentist.rating}}</p>
             <a href="#" class="btn btn-primary">View profile</a>
           </div>
         </div>
@@ -81,14 +100,21 @@
 
 <script>
 import axios from 'axios';
+import Filter from '@/components/Filter';
+
 let searchTimeout = null;
 
 export default {
+  components: {
+    Filter,
+  },
   data() {
     return {
       isLoading: true,
       searchTerm: '',
+      search: null,
       dentists: [],
+      cityFilter: '',
     }
   },
   async mounted() {
@@ -104,13 +130,22 @@ export default {
   },
   computed: {
     computedDentists() {
-      return this.dentists.map(dentist => {
+      // Add full name property and generate picture
+      let _dentists = this.dentists.map(dentist => {
         dentist.name = `${dentist.first_name} ${dentist.last_name}`
         if (!dentist.img) {
           dentist.profilePic = `https://avatars.dicebear.com/api/open-peeps/${dentist.name}.svg`;
         }
         return dentist;
       }); 
+
+      // Apply city filter if any
+      if (this.cityFilter) {
+        _dentists = _dentists.filter(dentist => dentist.city.toLowerCase() === this.cityFilter.toLowerCase());
+      }
+
+      // Filtered dentists
+      return _dentists;
     }
   },
   methods: {
@@ -124,7 +159,13 @@ export default {
         console.log(error);
         // TODO: show error to client
       }
-    } 
+    },
+    onCityFilterSet: function (cityFilterValue) {
+      this.cityFilter = cityFilterValue;
+    },
+    onCityFilterRemove: function () {
+      this.cityFilter= '';
+    },
   },
   watch: {
     // Handle dynamic search with debounce
@@ -140,7 +181,7 @@ export default {
           this.filterDentists(newSearchTerm);
         }, 300);
       }, 500);
-    }
+    },
   }
 }
 </script>
