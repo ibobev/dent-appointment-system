@@ -1,8 +1,11 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const { body, validationResult } = require('express-validator');
+
 const config = require('../config');
+const roles = require('../utils/roles');
+
 const AdminController = require('../controllers/AdminController');
-const { body, check, validationResult } = require('express-validator');
 
 const router = express.Router();
 
@@ -27,14 +30,16 @@ const adminAuth = (req, res, next) => {
   //Check if token is valid
   const token = authHeader[1];
 
-  if (!jwt.verify(token, config.JWT_SECRET)) {
-    console.log('invalid token');
+  let decodedToken = null;
+
+  try {
+    decodedToken = jwt.verify(token, config.JWT_SECRET);
+  } catch(error) {
+    console.log(error.message);
     return res.status(401).json({ status: 'error', statusmsg: 'Invalid auth token' });
   }
 
-  const { role } = jwt.decode(token);
-
-  if (role !== 1) {
+  if (decodedToken.role !== roles.ADMIN) {
     console.log('invalid role for admin');
     return res.status(401).json({ status: 'error', statusmsg: 'Invalid auth token' });
   }

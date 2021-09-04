@@ -4,6 +4,8 @@ const {
   validationResult
 } = require('express-validator');
 const jwt = require('jsonwebtoken');
+
+const roles = require('../utils/roles');
 const config = require('../config');
 
 const router = express.Router();
@@ -45,7 +47,7 @@ const dentistAuth = (req, res, next) => {
 
   const decodedToken = jwt.decode(token);
 
-  if (decodedToken.role !== 2) {
+  if (decodedToken.role !== roles.DENTIST) {
     console.log('INVALID ROLE', decodedToken.role);
     return res.status(401).json({
       status: 'error',
