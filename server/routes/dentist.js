@@ -59,6 +59,14 @@ const dentistAuth = (req, res, next) => {
   next();
 };
 
+
+/**
+ * GET /dentists
+ * Get all dentists public info
+ * Note: Does not require auth
+ */
+router.get('/', dentistController.getAll);
+
 /**
  * GET dentists/dentist-details
  */

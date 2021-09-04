@@ -2,6 +2,31 @@ const db = require('../utils/db');
 const config = require('../config');
 const jwt = require('jsonwebtoken');
 
+const roles = require('../utils/roles');
+
+module.exports.getAll = async (req, res) => {
+  const { term } = req.query;
+  let dentists = [];
+  let searchQuery = 'select id,first_name,last_name,email from accounts where role_id=$1';
+  let searchParams = [roles.DENTIST];
+
+  if (term && term.length !== 0) {
+    searchQuery += ' and (first_name like $2 or last_name like $2 or email like $2)';
+    searchParams.push(`%${term}%`);
+  }
+
+  try {
+    const queryResult = await db.query(searchQuery, searchParams);
+    dentists = queryResult.rows;
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ status: 'error', statusmsg: 'Could not fetch dentists!' });
+    return;
+  }
+
+  res.json({ status: 'success', statusmsg: '', dentists: dentists });
+};
+
 module.exports.getDentistDetails = async (req, res) => {
   const id = req.account.id;
 
