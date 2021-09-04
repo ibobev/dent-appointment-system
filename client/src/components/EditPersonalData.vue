@@ -1,119 +1,107 @@
 <template>
-  <div
-    id="personal-details"
-    class="container mt-3 mb-3 shadow pt-2 pb-3 text-center"
-  >
-    <i class="far fa-edit fa-2x mt-2"></i>
-    <h3 class="mt-3 mb-4">Edit Account Details</h3>
-    <div class="row mt-4" v-if="state.error">
-      <div class="col-12">
-        <div class="alert alert-danger">{{ state.error }}</div>
-      </div>
-    </div>
-    <div class="row mt-4" v-if="state.success">
-      <div class="col-12">
-        <div class="alert alert-success" role="alert">{{ state.success }}</div>
-      </div>
-    </div>
-    <form @submit.prevent="onEditDetails">
-      <div class="form-group mx-auto">
-        <div class="input-group mt-2">
-          <i class="fas fa-pen fa-2x mt-2"></i>
-          <input
-            type="text"
-            class="form-control mt-2"
-            id="first-name"
-            placeholder="First name"
-            v-model="state.account.firstName"
-          />
-        </div>
-        <span class="m-3" v-if="v$.account.firstName.$error">{{
-          v$.account.firstName.$errors[0].$message
-        }}</span>
-      </div>
-      <div class="form-group mx-auto">
-        <div class="input-group mt-2">
-          <i class="fas fa-pen fa-2x mt-2"></i>
-          <input
-            type="text"
-            class="form-control mt-2"
-            id="last-name"
-            placeholder="Last name"
-            v-model="state.account.lastName"
-          />
-        </div>
-        <span class="m-3" v-if="v$.account.lastName.$error">{{
-          v$.account.lastName.$errors[0].$message
-        }}</span>
-      </div>
+  <div class="card personal-details-card shadow rounded-0">
+    <div class="card-body">
+      <h4 class="card-title mb-3">
+        <i class="far fa-edit"></i>
+        Edit Account Details
+      </h4>
 
-      <div class="form-group mx-auto">
-        <div class="input-group mt-2">
-          <i class="far fa-envelope fa-2x mt-2"></i>
-          <input
-            type="email"
-            class="form-control mt-2"
-            id="email"
-            placeholder="Enter new email"
-            v-model="state.account.email"
-          />
+      <form @submit.prevent="onEditDetails">
+        <div class="form-group text-center mb-3">
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="fas fa-pen fa-lg"></i>
+            </span>
+            <input
+              type="text"
+              class="form-control"
+              id="first-name"
+              placeholder="First name"
+              v-model="state.account.firstName"
+            />
+          </div>
+          <span class="input-error" v-if="v$.account.firstName.$error">
+            {{ v$.account.firstName.$errors[0].$message }}
+          </span>
         </div>
-        <span v-if="v$.account.email.$error">{{
-          v$.account.email.$errors[0].$message
-        }}</span>
-      </div>
 
-      <button type="submit" class="btn mt-3 mb-2">Update</button>
-    </form>
+        <div class="form-group text-center mb-3">
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="fas fa-pen fa-lg"></i>
+            </span>
+            <input
+              type="text"
+              class="form-control"
+              id="last-name"
+              placeholder="Last name"
+              v-model="state.account.lastName"
+            />
+          </div>
+          <span class="input-error" v-if="v$.account.lastName.$error">
+            {{ v$.account.lastName.$errors[0].$message }}
+          </span>
+        </div>
+
+        <div class="form-group text-center mb-3">
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="far fa-envelope fa-lg"></i>
+            </span>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Enter new email"
+              v-model="state.account.email"
+            />
+          </div>
+          <span class="input-error" v-if="v$.account.email.$error">
+            {{ v$.account.email.$errors[0].$message }}
+          </span>
+        </div>
+
+        <button type="submit" class="btn">Update</button>
+      </form>
+
+    </div>
   </div>
 </template>
 
 <style scoped>
-#personal-details {
-  width: 390px;
-  background-color: #fff;
+.personal-details-card {
   border-top: 4px solid #0292f8;
 }
 
 .fas {
-  margin-left: 5px;
-  margin-right: 10px;
   color: #0292f8;
 }
 
 .far {
-  margin-left: 5px;
-  margin-right: 10px;
   color: #0292f8;
 }
 
 button {
   background-color: #0292f8;
   color: #fff;
-  width: 60%;
 }
 
-span {
+span.input-error {
   color: red;
   text-align: center;
   font-size: 10px;
 }
 
 @media only screen and (max-width: 450px) {
-  #personal-details {
-    width: 320px;
-  }
   .fas {
     font-size: 18px;
   }
   .far {
     font-size: 18px;
   }
+
   input {
     height: 33px;
-  }
-  h3 {
-    font-size: 16px;
   }
 
   p {

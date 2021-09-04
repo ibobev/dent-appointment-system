@@ -7,18 +7,25 @@
 </template>
 
 <style>
+body {
+  background-color:#f2f5f7f8;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  padding-bottom:205px;
-  min-height:100vh;
-  position:relative;
 }
-body{
-  background-color:#f2f5f7f8;
- 
+
+@media screen and (min-width: 768px) {
+  #app {
+    min-height: 100vh;
+  }
+
+  #app > div {
+    min-height: 100vh;
+    height: 100vh;
+  }
 }
 </style>
 
