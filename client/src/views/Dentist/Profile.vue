@@ -1,7 +1,6 @@
 <template>
-  <main>
     <div class="container text-center">
-      <div class="d-flex justify-content-evenly" id="main-account-content">
+      <div class="d-flex justify-content-evenly mt-3" id="main-account-content">
         <div id="account-card" class="card mb-3 shadow rounded-0">
           <i class="fas fa-user-alt fa-2x mt-3"></i>
           <div class="row g-0">
@@ -30,7 +29,6 @@
         <ChangePassword />
       </div>
     </div>
-  </main>
 </template>
 
 <style scoped>

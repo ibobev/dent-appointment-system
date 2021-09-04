@@ -1,22 +1,20 @@
 <template>
-  <div id="dentist-dashboard">
-    <NavigationDentist />
-    <router-view />
+  <div class="container-fluid patient-dashboard-container p-0">
+    <div class="row h-100 m-0">
+      <!-- Navigation -->
+      <div class="col-sm-12 col-md-2 m-0 p-0">
+        <NavigationDentist />
+      </div>
+      <!-- Content -->
+      <div class="col-sm-12 col-md-10 p-0">
+        <router-view />
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-main {
-  margin-top: 15px;
-  margin-left: 155px;
-}
 
-@media only screen and (max-width: 600px) {
-  main {
-    margin-left: 0;
-    margin-top: 55px;
-  }
-}
 </style>
 
 <script>

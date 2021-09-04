@@ -1,97 +1,79 @@
 <template>
-  <div id="side-nav">
-    <div id="side-nav-content">
-      <div class="wrap-icon-link">
-        <i class="fas fa-user-circle fa-lg"></i>
-        <router-link to="/dentist/profile">Profile</router-link>
-      </div>
-      <div class="wrap-icon-link">
-        <i class="fas fa-calendar-alt fa-lg"></i>
-        <router-link to="/dentist/appointments">Appointments</router-link>
-      </div>
-      <div class="wrap-icon-link">
-        <i class="fas fa-file-medical fa-lg"></i>
-        <router-link to="/dentist/patients">Patients</router-link>
-      </div>
-      <div class="wrap-icon-link">
-        <i class="fas fa-power-off fa-lg"></i>
-        <router-link to="/" @click="onLogout">Logout</router-link>
-      </div>
+  <nav class="nav flex-column dentist-navbar navbar-dark bg-dark py-2">
+    <button
+      type="button"
+      class="navbar-toggler"
+      @click="navCollapsed = !navCollapsed"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="nav flex-column navbar-collapse"
+      id="side-nav"
+      v-bind:class="{ collapse: !navCollapsed, colapsed: navCollapsed }"
+    >
+      <router-link to="/dentist/profile">
+        <i class="fas fa-user-circle fa-lg"></i>&nbsp;&nbsp;
+        Profile
+      </router-link>
+      <router-link to="/dentist/appointments">
+        <i class="fas fa-calendar-alt fa-lg"></i>&nbsp;&nbsp;
+        Appointments
+      </router-link>
+      <router-link to="/dentist/patients">
+        <i class="fas fa-file-medical fa-lg"></i>&nbsp;&nbsp;
+        Patients
+      </router-link>
+      <router-link to="/" @click="onLogout">
+        <i class="fas fa-power-off fa-lg"></i>&nbsp;&nbsp;
+        Logout
+      </router-link>
     </div>
-  </div>
+  </nav>
 </template>
 
 <style scoped>
-#side-nav {
-  height: 91%;
-  width: 150px;
-  position: absolute;
-  top: 55px;
-  left: 0;
-  background-color: black;
+.dentist-navbar button {
+  margin: 0 auto;
 }
 
-#side-nav-content {
-  margin-top: 10px;
-}
-
-#side-nav a {
-  padding: 15px 8px 6px 10px;
+.dentist-navbar div.nav a {
+  width: 100%;
+  padding: 12px 0px 12px 15px;
   text-decoration: none;
-  font-size: 16px;
-  color: #818181;
-  display: block;
+  color: #fff;
 }
 
-#side-nav a:hover {
-  color: #f1f1f1;
+.dentist-navbar div.nav a:hover {
+  background-color: rgba(0,0,0,0.2);
 }
 
-.wrap-icon-link {
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
+@media screen and (min-width: 768px) {
+  .dentist-navbar {
+    height: 100%;
+  }
+  .dentist-navbar button {
+    display: none;
+  }
 }
 
 .fas {
   color: #fff;
-  margin-top: 20px;
-  margin-left: 10px;
 }
 
-@media only screen and (max-width: 600px) {
-  #side-nav {
-    height: 45px;
-    width: 100%;
-    position:absolute;
-  }
-  .wrap-icon-link {
-    display: inline-flex;
-    justify-content: center;
-  }
-  .fas {
-    margin-top: 5px;
-    font-size: 15px;
-  }
-  #side-nav a {
-    padding-top: 2px;
-    font-size: 12px;
-  }
-
-  #side-nav-content {
-    text-align: center;
-  }
-}
 </style>
 
 <script>
-import auth from '../auth'
+import auth from "../auth";
 export default {
-  methods:{
-    onLogout(){
+  data() {
+    return { navCollapsed: true, }; 
+  },
+  methods: {
+    onLogout() {
       auth.data().deleteToken();
       this.$router.push({ path: "/" });
-    }
-  }
+    },
+  },
 };
 </script>
