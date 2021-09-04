@@ -25,7 +25,7 @@ body{
 <script>
 import Navigation from "./components/Navigation.vue"
 import Footer from "./components/Footer.vue"
-
+import axios from 'axios';
 
 export default{
   name: 'app',
@@ -33,7 +33,12 @@ export default{
     Navigation,
     Footer,
   },
-  
+  mounted() {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Token ${token}`;
+    }
+  }
 };
 
 </script>

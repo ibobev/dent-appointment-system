@@ -1,13 +1,18 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
-import Register from '../views/Register.vue'
-import DentistDashboard from '../views/Dentist/DentistDashboard'
-import Appointments from '../views/Dentist/Appointments'
-import Profile from '../views/Dentist/Profile'
-import PatientsList from '../views/Dentist/PatientsList'
+import { createRouter, createWebHistory } from 'vue-router';
+import Home from '../views/Home.vue';
+import Login from '../views/Login.vue';
+import Register from '../views/Register.vue';
+// Admin
 import AdminView from '../views/Admin/AdminView';
-import AdminLogin from '../views/Admin/AdminLogin';
+import AdminAccounts from '../views/Admin/Accounts';
+
+// Dentists
+import DentistDashboard from '../views/Dentist/DentistDashboard';
+import Appointments from '../views/Dentist/Appointments';
+import Profile from '../views/Dentist/Profile';
+import PatientsList from '../views/Dentist/PatientsList';
+
+// Patients
 import PatientDashboard from '../views/Patient/PatientDashboard';
 import PatientProfile from '../views/Patient/PatientProfile';
 import Search from '../views/Patient/Search';
@@ -26,9 +31,9 @@ const routes = [
     component: AdminView,
     children: [
       {
-        name: 'AdminLogin',
-        path: 'login',
-        component: AdminLogin
+        name: 'AdminAccounts',
+        path: '/admin/accounts',
+        component: AdminAccounts
       }
     ]
   },
