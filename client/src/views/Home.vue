@@ -1,5 +1,5 @@
 <template>
-  <main class="container text-center">
+  <main class="container-fluid text-center">
     <section class="pt-4" id="home">
       <h1>The Dentist Appointment App</h1>
       <p class="pb-4">Dentist appointments made easy</p>
@@ -59,8 +59,8 @@
 }
 .user-style-img{
   margin-top:40px;
-
 }
+
 .btn {
   background-color: #0292f8;
   color: #fff;
@@ -70,6 +70,7 @@
   margin-left: 5px;
   margin-right: 5px;
 }
+
 </style>
 
 <script>

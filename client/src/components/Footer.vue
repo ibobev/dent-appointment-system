@@ -1,5 +1,5 @@
 <template>
-  <footer class="text-center text-white">
+  <footer class="text-center text-white mt-auto">
     <!-- Grid container -->
     <div class="container p-4 pb-0">
       <div class="row">
@@ -55,11 +55,6 @@
 <style scoped>
 footer {
   background-color: #0292f8;
-  /*  
-  position: absolute;
-  bottom:0;
-  width:100%;
-  */
 }
 </style>
     

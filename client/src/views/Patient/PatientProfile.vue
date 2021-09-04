@@ -2,7 +2,7 @@
   <div class="container-fluid pt-3">
     <div class="row">
 
-      <div class="col-md-12 col-lg-4">
+      <div class="col-md-12 col-lg-4 mb-3">
         <div class="card account-card shadow rounded-0">
           <div class="card-body">
             <h3 class="card-title mb-3">
@@ -17,11 +17,11 @@
         </div>
       </div>
 
-      <div class="col-md-12 col-lg-4">
+      <div class="col-md-12 col-lg-4 mb-3">
         <EditPersonalData />
       </div>
 
-      <div class="col-md-12 col-lg-4">
+      <div class="col-md-12 col-lg-4 mb-3">
         <ChangePassword />
       </div>
     </div>

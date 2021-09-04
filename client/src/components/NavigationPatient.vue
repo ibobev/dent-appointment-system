@@ -37,9 +37,11 @@
   </nav>
 </template>
 
-
-
 <style scoped>
+/*.profile-navbar{
+  height: 100%;
+}*/
+
 .profile-navbar button {
   margin: 0 auto;
 }

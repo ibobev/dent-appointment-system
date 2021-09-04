@@ -14,12 +14,19 @@
 </template>
 
 <style scoped>
-@media screen and (min-width: 768px) {
+@media (min-width: 991px) and (max-width: 2600px)
+{
+  .patient-dashboard-container{
+  height:80vh;
+  }
+}
+
+/*@media screen and (min-width: 768px) {
   .patient-dashboard-container {
     min-height: 100vh;
     height: 100vh;
   }
-}
+}*/
 </style>
 
 <script>
