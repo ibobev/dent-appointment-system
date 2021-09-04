@@ -129,13 +129,9 @@ export default {
     const token = auth.data().token;
     if (token) {
       const role = parseInt(auth.data().role);
-      /*console.log(role);
-      console.log(typeof role);*/
       if (role === roles.DENTIST) {
-        //console.log('dentist');
         this.$router.push({ path: "/dentist/profile" });
       } else if (role === roles.PATIENT) {
-        //console.log('patient');
         this.$router.push({ path: "/patient/profile" });
       }
     }
@@ -154,8 +150,6 @@ export default {
             const { token, role } = res.data;
             auth.data().setToken(token, this.state.rememberMe);
             auth.data().setRole(role, this.state.rememberMe);
-            /*console.log(role);
-            console.log(token);*/
             if (role === roles.DENTIST) {
               this.$router.push({ path: "/dentist/profile" });
             } else if (role === roles.PATIENT) {
