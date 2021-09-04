@@ -1,11 +1,11 @@
 <template>
   <div class="card shadow rounded-0" id="update-details">
-    <div class="row mt-4" v-if="state.error">
+    <div class="row mt-4 err" v-if="state.error">
       <div class="col-12">
         <div class="alert alert-danger">{{ state.error }}</div>
       </div>
     </div>
-    <div class="row mt-4" v-if="state.success">
+    <div class="row mt-4 scs" v-if="state.success">
       <div class="col-12">
         <div class="alert alert-success" role="alert">{{ state.success }}</div>
       </div>
@@ -122,6 +122,15 @@ span {
 textarea {
   width: 85%;
   height: 55px;
+}
+
+.err{
+  margin-left:10px;
+  margin-right: 10px;
+}
+.scs{
+  margin-left:10px;
+  margin-right: 10px;
 }
 
 @media only screen and (max-width: 450px) {

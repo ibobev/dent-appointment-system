@@ -1,5 +1,15 @@
 <template>
   <div class="card personal-details-card shadow rounded-0">
+    <div class="row mt-4 err" v-if="state.error">
+      <div class="col-12">
+        <div class="alert alert-danger">{{ state.error }}</div>
+      </div>
+    </div>
+    <div class="row mt-4 scs" v-if="state.success">
+      <div class="col-12">
+        <div class="alert alert-success" role="alert">{{ state.success }}</div>
+      </div>
+    </div>
     <div class="card-body">
       <h4 class="card-title mb-3">
         <i class="far fa-edit"></i>
@@ -90,6 +100,15 @@ span.input-error {
   color: red;
   text-align: center;
   font-size: 10px;
+}
+
+.err{
+  margin-left:10px;
+  margin-right: 10px;
+}
+.scs{
+  margin-left:10px;
+  margin-right: 10px;
 }
 
 @media only screen and (max-width: 450px) {
