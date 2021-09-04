@@ -38,22 +38,7 @@
       </div>
       <div class="col-sm-4">
         City:
-        <div class="input-group input-group-sm" v-if="cityFilter && !cityFilterOn">
-          <input type="text" class="form-control" :value="cityFilter" disabled/>
-          <button type="button" class="btn btn-sm btn-secondary" @click="removeCityFilter">-</button>
-        </div>
-        <button
-          type="button"
-          class="btn btn-sm btn-secondary"
-          @click="cityFilterOn = !cityFilterOn"
-          v-if="!cityFilterOn && !cityFilter.length"
-        >
-          + Add
-        </button>
-        <div class="input-group" v-if="cityFilterOn">
-          <input type="text" class="form-control" v-model="cityFilter"/>
-          <button type="button" class="btn btn-sm btn-secondary" @click="addCityFilter">+</button>
-        </div>
+        <Filter @onFilterSet="onCityFilterSet" @onFilterRemove="onCityFilterRemove" />
       </div>
       <div class="col-sm-4">
         rating 
@@ -115,18 +100,21 @@
 
 <script>
 import axios from 'axios';
+import Filter from '@/components/Filter';
+
 let searchTimeout = null;
 
 export default {
+  components: {
+    Filter,
+  },
   data() {
     return {
       isLoading: true,
       searchTerm: '',
       search: null,
       dentists: [],
-      cityFilterOn: false,
       cityFilter: '',
-      cityFilterString: '',
     }
   },
   async mounted() {
@@ -151,11 +139,12 @@ export default {
         return dentist;
       }); 
 
-      // City filter
-      if (this.cityFilterString) {
-        _dentists = _dentists.filter(dentist => dentist.city.toLowerCase() === this.cityFilterString.toLowerCase());
+      // Apply city filter if any
+      if (this.cityFilter) {
+        _dentists = _dentists.filter(dentist => dentist.city.toLowerCase() === this.cityFilter.toLowerCase());
       }
 
+      // Filtered dentists
       return _dentists;
     }
   },
@@ -171,14 +160,12 @@ export default {
         // TODO: show error to client
       }
     },
-    addCityFilter: function() {
-      this.cityFilterOn = false;
-      this.cityFilterString = this.cityFilter;
+    onCityFilterSet: function (cityFilterValue) {
+      this.cityFilter = cityFilterValue;
     },
-    removeCityFilter: function() {
-      this.cityFilter = '';
-      this.cityFilterString = '';
-    }
+    onCityFilterRemove: function () {
+      this.cityFilter= '';
+    },
   },
   watch: {
     // Handle dynamic search with debounce
@@ -187,7 +174,7 @@ export default {
           clearTimeout(searchTimeout);
       }
       searchTimeout = setTimeout(() => {
-        // this.isLoading = true;
+        this.isLoading = true;
         console.log(newSearchTerm); 
         // NOTE: Artificial delay, probably delete
         setTimeout(() => {
