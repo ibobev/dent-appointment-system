@@ -1,34 +1,40 @@
 <template>
-    <div class="container text-center">
-      <div class="d-flex justify-content-evenly mt-3" id="main-account-content">
-        <div id="account-card" class="card mb-3 shadow rounded-0">
-          <i class="fas fa-user-alt fa-2x mt-3"></i>
-          <div class="row g-0">
-            <div class="col-md-12" id="account-card-details">
-              <div class="card-body">
-                <h3 class="card-title">Account Details</h3>
-                <p class="card-text"><b>First Name:</b> {{ firstName }}</p>
-                <p class="card-text"><b>Last Name:</b> {{ lastName }}</p>
-                <p class="card-text"><b>Email:</b> {{ acc_email }}</p>
-                <p class="card-text"><b>Phone:</b> {{ phone }}</p>
-                <p class="card-text"><b>City:</b> {{ city }}</p>
-                <p class="card-text"><b>Expertise:</b> {{ type }}</p>
-                <p id="description-content" class="card-text">
-                  <b>Description:</b> {{ description }}
-                </p>
-                <p class="card-text"><b>Rating:</b> {{ rating }}</p>
-              </div>
+  <div class="container text-center">
+    <div class="d-flex justify-content-evenly mt-3" id="main-account-content">
+      <div id="account-card" class="card mb-3 shadow rounded-0">
+        <i class="fas fa-user-alt fa-2x mt-3"></i>
+        <div class="row g-0">
+          <div class="col-md-12" id="account-card-details">
+            <div class="card-body">
+              <h3 class="card-title">Account Details</h3>
+              <p class="card-text"><b>First Name:</b> {{ firstName }}</p>
+              <p class="card-text"><b>Last Name:</b> {{ lastName }}</p>
+              <p class="card-text"><b>Email:</b> {{ acc_email }}</p>
+              <p class="card-text"><b>Phone:</b> {{ phone }}</p>
+              <p class="card-text"><b>City:</b> {{ city }}</p>
+              <p class="card-text"><b>Expertise:</b> {{ type }}</p>
+              <p id="description-content" class="card-text">
+                <b>Description:</b> {{ description }}
+              </p>
+              <p class="card-text"><b>Rating:</b> {{ rating }}</p>
             </div>
           </div>
         </div>
-        <DentistReview />
       </div>
-      <div class="d-flex justify-content-evenly" id="details-content">
+      <DentistReview />
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-lg-4 mt-2 mb-3">
         <UpdateDentistDetails />
+      </div>
+      <div class="col-md-12 col-lg-4 mt-2 mb-3">
         <EditPersonalData />
+      </div>
+      <div class="col-md-12 col-lg-4 mt-2 mb-3">
         <ChangePassword />
       </div>
     </div>
+  </div>
 </template>
 
 <style scoped>
@@ -41,36 +47,34 @@ p {
 }
 
 #account-card {
-  width:47%;
+  width: 47%;
   border-top: 4px solid #0292f8;
-  margin-left:20px;
-  margin-right:20px;
+  margin-left: 20px;
+  margin-right: 20px;
   overflow-y: scroll;
   max-height: 460px;
 }
 
 @media only screen and (max-width: 1450px) {
   #account-card {
-    width:49%;
-    margin-right:auto;
-    margin-left:10px;
-    
+    width: 49%;
+    margin-right: auto;
+    margin-left: 10px;
   }
 }
 
-@media only screen and (max-width: 1401px){
+@media only screen and (max-width: 1401px) {
   #details-content {
     flex-direction: column;
   }
   #main-account-content {
     flex-direction: column;
   }
-  #account-card{
-    width:390px;
-    margin-left:auto;
-    margin-right:auto;
+  #account-card {
+    width: 390px;
+    margin-left: auto;
+    margin-right: auto;
   }
-
 }
 
 @media only screen and (max-width: 450px) {
@@ -115,7 +119,7 @@ export default {
     ChangePassword,
     UpdateDentistDetails,
     EditPersonalData,
-    DentistReview
+    DentistReview,
   },
   data() {
     return {
