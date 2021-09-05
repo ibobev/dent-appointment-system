@@ -33,7 +33,7 @@
           </span>
         </div>
 
-        <div class="form-group text-cente mb-3">
+        <div class="form-group text-center mb-3">
           <div class="input-group">
             <span class="input-group-text">
               <i class="fas fa-fingerprint fa-lg"></i>
