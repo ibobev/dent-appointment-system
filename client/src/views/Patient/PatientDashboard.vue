@@ -2,7 +2,7 @@
   <div class="container-fluid patient-dashboard-container p-0">
     <div class="row h-100 m-0">
       <!-- Navigation -->
-      <div class="col-sm-12 col-md-2 m-0 p-0">
+      <div class="col-sm-12 col-md-2 m-0 p-0 nav-patient">
         <NavigationPatient />
       </div>
       <!-- Content -->
@@ -16,8 +16,8 @@
 <style scoped>
 @media (min-width: 991px) and (max-width: 2600px)
 {
-  .patient-dashboard-container{
-  height:100vh;
+  .nav-patient{
+  min-height:100vh;
   }
 }
 

@@ -39,7 +39,7 @@
 
 <style scoped>
 /*.profile-navbar{
-  height: 100%;
+  height: 100vh;
 }*/
 
 .profile-navbar button {

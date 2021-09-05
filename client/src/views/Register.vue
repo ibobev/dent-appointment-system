@@ -7,7 +7,7 @@
     </div>
     <div class="row">
       <div class="col-sm-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
-        <div id="register-page" class="container mt-3 mb-3 shadow pt-2 pb-3 text-center">
+        <div id="register-page" class="container mt-4 mb-3 shadow pt-2 pb-3 text-center">
           <i class="fas fa-user-edit fa-3x mt-2"></i>
           <h3 class="mt-3 mb-4">Register</h3>
           <form @submit.prevent="onRegisterSubmit">
