@@ -11,15 +11,15 @@
     />
     <button
       type="button"
-      class="btn btn-secondary"
+      class="btn btn-outline-danger"
       @click="removeFilter"
     >
-      -
+      <i class="fas fa-times"></i>
     </button>
   </div>
   <button
     type="button"
-    class="btn btn-sm btn-outline-secondary"
+    class="btn btn-sm btn-outline-primary"
     v-if="!onFilter && !filterString.length"
     @click="onFilter = !onFilter"
   >
@@ -37,11 +37,18 @@
     />
     <button
       type="button"
-      class="btn btn-secondary"
+      class="btn btn-primary"
       :disabled="!filterString.length"
       @click="addFilter"
     >
       +
+    </button>
+    <button
+      type="button"
+      class="btn btn-secondary"
+      @click="closeFilterInput"
+    >
+      -
     </button>
   </div>
 </template>
@@ -75,6 +82,11 @@ export default {
       this.filterString = '';
 
       this.$emit('onFilterRemove');
+    },
+    closeFilterInput: function () {
+      this.filter = '';
+      this.filterString = '';
+      this.onFilter = false;
     }
   },
 }

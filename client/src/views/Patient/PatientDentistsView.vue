@@ -24,6 +24,7 @@
           <button
             type="button"
             class="btn btn-outline-secondary"
+            v-if="searchTerm.length"
             @click="searchTerm = ''"
           >
             <i class="fas fa-times"></i> 
