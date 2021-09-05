@@ -15,8 +15,8 @@
       </h4>
 
       <form @submit.prevent="onChangePasswordSubmit">
-        <div class="form-group text-center">
-          <div class="input-group mb-1 mt-3">
+        <div class="form-group text-center mb-3">
+          <div class="input-group">
             <span class="input-group-text">
               <i class="fas fa-lock fa-lg"></i>
             </span>
@@ -33,8 +33,8 @@
           </span>
         </div>
 
-        <div class="form-group text-center">
-          <div class="input-group mb-1 mt-3">
+        <div class="form-group text-cente mb-3">
+          <div class="input-group">
             <span class="input-group-text">
               <i class="fas fa-fingerprint fa-lg"></i>
             </span>
@@ -51,8 +51,8 @@
           </span>
         </div>
 
-        <div class="form-group text-center">
-          <div class="input-group mb-2 mt-3">
+        <div class="form-group text-center mb-3">
+          <div class="input-group">
             <span class="input-group-text">
               <i class="fas fa-fingerprint fa-lg"></i>
             </span>
@@ -69,7 +69,7 @@
           </span>
         </div>
 
-        <button type="submit" class="btn mt-2">Change Password</button>
+        <button type="submit" class="btn">Change Password</button>
       </form>
     </div>
   </div>
