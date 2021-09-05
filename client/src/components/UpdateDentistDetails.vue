@@ -89,7 +89,7 @@
           }}</span>
         </div>
 
-        <button type="submit" class="btn mt-3 mb-2">Update</button>
+        <button type="submit" class="btn">Update</button>
       </form>
     </div>
   </div>

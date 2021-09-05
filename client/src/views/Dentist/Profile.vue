@@ -5,7 +5,7 @@
         <div class="account-card card shadow rounded-0">
           <div class="card-body">
             <h3 class="card-title mb-3">
-              <i class="fas fa-user-alt fa-lg"></i>
+              <i class="fas fa-user-alt fa-1x"></i>
               Account Details
             </h3>
             <p class="card-text"><b>First Name:</b> {{ firstName }}</p>
@@ -22,8 +22,9 @@
         </div>
       </div>
       <div class="col-md-12 col-lg-8 mb-3">
-        <DentistReview />
+        <UpdateWorkingHours />
       </div>
+      
       <div class="col-md-12 col-lg-4 mt-2 mb-3">
         <UpdateDentistDetails />
       </div>
@@ -32,6 +33,10 @@
       </div>
       <div class="col-md-12 col-lg-4 mt-2 mb-3">
         <ChangePassword />
+      </div>
+      
+      <div class="col-md-12 col-lg-12 mb-3">
+        <DentistReview />
       </div>
     </div>
   </div>
@@ -48,7 +53,7 @@ p {
 
 .account-card {
   border-top: 4px solid #0292f8;
-  height:415px;
+  height:255px;
   max-height: 415px;
   overflow-y: scroll;
 }
@@ -57,9 +62,6 @@ p {
   #details-content {
     flex-direction: column;
   }
-  /*#main-account-content {
-    flex-direction: column;
-  }*/
 }
 
 @media only screen and (max-width: 450px) {
@@ -93,6 +95,7 @@ import ChangePassword from "../../components/ChangePassword.vue";
 import UpdateDentistDetails from "../../components/UpdateDentistDetails.vue";
 import EditPersonalData from "../../components/EditPersonalData.vue";
 import DentistReview from "../../components/DentistReview.vue";
+import UpdateWorkingHours from "../../components/UpdateWorkingHours.vue";
 
 export default {
   name: "Profile",
@@ -101,6 +104,7 @@ export default {
     UpdateDentistDetails,
     EditPersonalData,
     DentistReview,
+    UpdateWorkingHours
   },
   data() {
     return {
