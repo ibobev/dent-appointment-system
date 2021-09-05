@@ -61,7 +61,7 @@
 <style scoped>
 #dentist-review-content {
   background-color: #fff;
-  
+  height:415px;
   max-height: 415px;
   border-top: 4px solid #0292f8;
   overflow-y: scroll;
