@@ -89,6 +89,8 @@
 <style scoped>
 #update-working-hours{
   border-top: 4px solid #0292f8;
+  height:300px;
+  max-height: 415px;
 }
 
 button {
