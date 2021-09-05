@@ -89,7 +89,7 @@
 <style scoped>
 #update-working-hours{
   border-top: 4px solid #0292f8;
-  height:300px;
+  height:260px;
   max-height: 415px;
 }
 

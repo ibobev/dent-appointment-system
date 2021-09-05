@@ -53,8 +53,7 @@ p {
 
 .account-card {
   border-top: 4px solid #0292f8;
-  height:300px;
-  max-height: 415px;
+  height:260px;
   overflow-y: scroll;
 }
 
