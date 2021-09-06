@@ -39,13 +39,20 @@
       </div>
       <div class="col-sm-4">
         City:
-        <Filter @onFilterSet="onCityFilterSet" @onFilterRemove="onCityFilterRemove" />
+        <Filter
+          @onFilterSet="onCityFilterSet"
+          @onFilterRemove="onCityFilterRemove"
+        />
       </div>
       <div class="col-sm-4">
-        rating 
+        Type
+        <DentistTypeFilter
+          @onFilterSet="onDentistTypeFilterSet"
+          @onFilterRemove="onDentistTypeFilterRemove"
+        />
       </div>
       <div class="col-sm-4">
-        type 
+        rating
       </div>
     </div>
 
@@ -102,20 +109,24 @@
 <script>
 import axios from 'axios';
 import Filter from '@/components/Filter';
+import DentistTypeFilter from '@/components/DentistTypeFilter';
 
 let searchTimeout = null;
 
 export default {
   components: {
     Filter,
+    DentistTypeFilter,
   },
   data() {
     return {
+      showError: false,
       isLoading: true,
       searchTerm: '',
       search: null,
       dentists: [],
       cityFilter: '',
+      dentistTypeFilter: '',
     }
   },
   async mounted() {
@@ -145,6 +156,11 @@ export default {
         _dentists = _dentists.filter(dentist => dentist.city.toLowerCase() === this.cityFilter.toLowerCase());
       }
 
+      // Apply dentist type filter if any
+      if (this.dentistTypeFilter) {
+        _dentists = _dentists.filter(dentist => dentist.dentist_type && dentist.dentist_type.toLowerCase() === this.dentistTypeFilter.toLowerCase());
+      }
+
       // Filtered dentists
       return _dentists;
     }
@@ -165,7 +181,13 @@ export default {
       this.cityFilter = cityFilterValue;
     },
     onCityFilterRemove: function () {
-      this.cityFilter= '';
+      this.cityFilter = '';
+    },
+    onDentistTypeFilterSet: function (dentistTypeFilterValue) {
+      this.dentistTypeFilter = dentistTypeFilterValue;
+    },
+    onDentistTypeFilterRemove: function () {
+      this.dentistTypeFilter = '';
     },
   },
   watch: {
