@@ -57,7 +57,7 @@ p {
   overflow-y: scroll;
 }
 
-@media only screen and (min-width: 1331px) {
+@media only screen and (min-width: 1345px) {
   .account-card {
     height:300px;
   }
