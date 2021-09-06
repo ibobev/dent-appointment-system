@@ -63,11 +63,6 @@ p {
     max-height:283px;
   }
 }
-@media only screen and (max-width: 1401px) {
-  #details-content {
-    flex-direction: column;
-  }
-}
 
 @media only screen and (max-width: 450px) {
   .fas {

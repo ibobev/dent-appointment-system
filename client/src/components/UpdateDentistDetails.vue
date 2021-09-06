@@ -134,9 +134,6 @@ textarea {
 }
 
 @media only screen and (max-width: 450px) {
-  #update-details {
-    width: 320px;
-  }
   .fas {
     font-size: 18px;
   }
