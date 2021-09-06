@@ -113,7 +113,7 @@ button {
 }
 
 .form-data{
-  border:2px solid #e6e6e6;
+  border:3px dotted #4ea2dd;
   padding-top: 15px;
   padding-right:5px;
   padding-left:5px;
