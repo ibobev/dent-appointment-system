@@ -16,8 +16,8 @@
         Update Work Schedule
       </h4>
       <form @submit.prevent="onWorkHoursSubmit">
-        <div class="form-group text-center form-data mt-5 mb-4">
-          <div class="input-group mb-3" id="checkList">
+        <div class="form-group text-center form-data mb-4">
+          <div class="input-group mt-3 mb-3" id="checkList">
             <span class="input-group-text">
               <i class="fas fa-calendar-day fa-lg"></i>
             </span>
@@ -96,7 +96,7 @@
           </div>
 
         </div>
-          <button type="submit" class="btn mt-1">Update</button>
+          <button type="submit" class="btn mt-3">Update</button>
       </form>
     </div>
   </div>
@@ -117,7 +117,7 @@ button {
   padding-top: 15px;
   padding-right:5px;
   padding-left:5px;
-  padding-bottom:15px;
+  padding-bottom:12px;
 }
 
 .fas {
