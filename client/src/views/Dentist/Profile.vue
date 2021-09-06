@@ -24,20 +24,18 @@
           </div>
         </div>
       </div>
-      <div class="col-md-12 col-lg-8 mb-3">
-        <UpdateWorkingHours />
-      </div>
-      
-      <div class="col-md-12 col-lg-4 mt-2 mb-3">
-        <UpdateDentistDetails />
-      </div>
-      <div class="col-md-12 col-lg-4 mt-2 mb-3">
+      <div class="col-md-12 col-lg-4 mb-3">
         <EditPersonalData />
       </div>
-      <div class="col-md-12 col-lg-4 mt-2 mb-3">
+      <div class="col-md-12 col-lg-4 mb-3">
         <ChangePassword />
       </div>
-      
+      <div class="col-md-12 col-lg-4 mb-3">
+        <UpdateDentistDetails />
+      </div>
+      <div class="col-md-12 col-lg-8 mb-3">
+        <UpdateWorkingHours />
+      </div> 
       <div class="col-md-12 col-lg-12 mb-3">
         <DentistReview />
       </div>
@@ -56,13 +54,13 @@ p {
 
 .account-card {
   border-top: 4px solid #0292f8;
-  max-height: 326px;
+  max-height: 310px;
   overflow-y: scroll;
 }
 
-@media only screen and (min-width: 1345px) {
+@media only screen and (min-width: 1137px) {
   .account-card {
-    height:304px;
+    max-height:284px;
   }
 }
 @media only screen and (max-width: 1401px) {
