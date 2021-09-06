@@ -11,7 +11,7 @@
             <span class="input-group-text">
               <i class="fas fa-calendar-day fa-lg"></i>
             </span>
-            <label class=" px-2" for="work-days">Working Days:</label>
+            <label class=" px-2" for="work-days">Work Days:</label>
             <div class="form-check form-check-inline">
               <input
                 class="form-check-input"
@@ -64,7 +64,7 @@
               <span class="input-group-text">
                 <i class="far fa-clock fa-lg"></i>
               </span>
-              <label class="px-2" for="start-time">Working From:</label>
+              <label class="px-2" for="start-time">From:</label>
               <input id="start-time" type="time">
             </div>
           </div>
@@ -74,7 +74,7 @@
               <span class="input-group-text">
                 <i class="fas fa-clock fa-lg"></i>
               </span>
-              <label class="px-2" for="end-time">Working To:</label>
+              <label class="px-3" for="end-time">To:</label>
               <input id="end-time" type="time">
             </div>
           </div>
@@ -89,7 +89,6 @@
 <style scoped>
 #update-working-hours{
   border-top: 4px solid #0292f8;
-  height:280px;
 }
 
 button {

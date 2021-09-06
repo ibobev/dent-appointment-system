@@ -4,10 +4,10 @@
       <div class="col-md-12 col-lg-4 mb-3">
         <div class="account-card card shadow rounded-0">
           <div class="card-body">
-            <h3 class="card-title mb-3">
-              <i class="fas fa-user-alt fa-1x"></i>
+            <h4 class="card-title mb-3">
+              <i class="fas fa-user-alt"></i>
               Account Details
-            </h3>
+            </h4>
             <p class="card-text"><b>First Name:</b> {{ firstName }}</p>
             <p class="card-text"><b>Last Name:</b> {{ lastName }}</p>
             <p class="card-text"><b>Email:</b> {{ acc_email }}</p>
@@ -53,7 +53,7 @@ p {
 
 .account-card {
   border-top: 4px solid #0292f8;
-  height:280px;
+  max-height: 300px;
   overflow-y: scroll;
 }
 
