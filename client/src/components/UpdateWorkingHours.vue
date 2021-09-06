@@ -207,12 +207,14 @@ export default {
         this.state.error = "Select at least one work day!";
         this.state.success = "";
       } else {
+        this.state.work.days = days;
         flag = false;
       }
 
       if(!this.v$.error && !flag){
         this.state.error= "";
         console.log('ok');
+        console.log(this.state.work);
       }
       
 
