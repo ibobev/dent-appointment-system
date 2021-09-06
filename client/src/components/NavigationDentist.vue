@@ -20,6 +20,10 @@
         <i class="fas fa-calendar-alt fa-lg"></i>&nbsp;&nbsp;
         Appointments
       </router-link>
+      <router-link to="/dentist/search">
+          <i class="fas fa-search fa-lg"></i>&nbsp;
+          Search
+        </router-link>
       <router-link to="/dentist/patients">
         <i class="fas fa-file-medical fa-lg"></i>&nbsp;&nbsp;
         Patients

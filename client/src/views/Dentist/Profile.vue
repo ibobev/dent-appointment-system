@@ -60,7 +60,7 @@ p {
 
 @media only screen and (min-width: 1137px) {
   .account-card {
-    max-height:284px;
+    max-height:283px;
   }
 }
 @media only screen and (max-width: 1401px) {

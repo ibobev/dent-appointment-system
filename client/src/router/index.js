@@ -11,11 +11,11 @@ import DentistDashboard from '../views/Dentist/DentistDashboard';
 import Appointments from '../views/Dentist/Appointments';
 import Profile from '../views/Dentist/Profile';
 import PatientsList from '../views/Dentist/PatientsList';
+import Search from '../views/Dentist/Search';
 
 // Patients
 import PatientDashboard from '../views/Patient/PatientDashboard';
 import PatientProfile from '../views/Patient/PatientProfile';
-import Search from '../views/Patient/Search';
 import PatientAppointments from '../views/Patient/PatientAppointments';
 import PatientMedRecord from '../views/Patient/PatientMedRecord';
 import PatientDentistsView from '../views/Patient/PatientDentistsView';
@@ -64,6 +64,11 @@ const routes = [
         component: Appointments
       },
       {
+        path: '/dentist/search',
+        name: 'Search',
+        component: Search
+      },
+      {
         path: '/dentist/patients',
         name: 'Patients',
         component: PatientsList
@@ -84,11 +89,6 @@ const routes = [
         name: 'Dentists',
         path: '/patient/dentists',
         component: PatientDentistsView
-      },
-      {
-        path: '/patient/search',
-        name: 'Search',
-        component: Search
       },
       {
         path: '/patient/appointments',

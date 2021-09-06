@@ -17,10 +17,6 @@
           <i class="fas fa-user-md fa-lg"></i>&nbsp;&nbsp;
           Dentists
         </router-link>
-        <router-link to="/patient/search">
-          <i class="fas fa-search fa-lg"></i>&nbsp;
-          Search
-        </router-link>
         <router-link to="/patient/appointments">
           <i class="fas fa-calendar-alt fa-lg"></i>&nbsp;&nbsp;
           Appointments
