@@ -205,11 +205,13 @@ export default {
 
       if (!days) {
         this.state.error = "Select at least one work day!";
+        this.state.success = "";
       } else {
         flag = false;
       }
 
       if(!this.v$.error && !flag){
+        this.state.error= "";
         console.log('ok');
       }
       
