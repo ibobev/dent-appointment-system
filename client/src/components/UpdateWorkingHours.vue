@@ -1,12 +1,12 @@
 <template>
   <div class="card shadow rounded-0" id="update-working-hours">
     <div class="card-body">
-      <h4 class="card-title mb-3">
+      <h4 class="card-title mb-4">
         <i class="fas fa-calendar-week"></i>
         Update Work Schedule
       </h4>
       <form @submit.prevent="onWorkHoursSubmit">
-        <div class="form-group text-center">
+        <div class="form-group text-center form-data">
           <div class="input-group mb-3">
             <span class="input-group-text">
               <i class="fas fa-calendar-day fa-lg"></i>
@@ -80,7 +80,7 @@
           </div>
 
         </div>
-          <button type="submit" class="btn">Update</button>
+          <button type="submit" class="btn mt-3">Update</button>
       </form>
     </div>
   </div>
@@ -94,6 +94,14 @@
 button {
   background-color: #0292f8;
   color: #fff;
+}
+
+.form-data{
+  border:2px solid #e6e6e6;
+  padding-top: 15px;
+  padding-right:5px;
+  padding-left:5px;
+  padding-bottom: 2px;
 }
 
 .fas {

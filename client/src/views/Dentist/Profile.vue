@@ -53,10 +53,15 @@ p {
 
 .account-card {
   border-top: 4px solid #0292f8;
-  max-height: 300px;
+  max-height: 326px;
   overflow-y: scroll;
 }
 
+@media only screen and (min-width: 1331px) {
+  .account-card {
+    height:300px;
+  }
+}
 @media only screen and (max-width: 1401px) {
   #details-content {
     flex-direction: column;
