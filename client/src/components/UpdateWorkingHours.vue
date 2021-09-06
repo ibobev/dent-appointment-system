@@ -211,7 +211,7 @@ export default {
         flag = false;
       }
 
-      if(!this.v$.error && !flag){
+      if(!this.v$.$error && !flag){
         this.state.error= "";
         axios.put("/api/v1/dentists/update-working-details", this.state.work).then(
           (res) => {
