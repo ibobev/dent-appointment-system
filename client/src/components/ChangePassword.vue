@@ -1,13 +1,15 @@
 <template>
   <div class="card change-pass-card shadow rounded-0">
-    <div
-      class="card-header text-light"
-      v-bind:class="{'bg-danger': state.error, 'bg-success': state.success}"
-      v-if="state.error || state.success">
-      <span v-if="state.error">{{ state.error }}</span>
-      <span v-if="state.success">{{ state.success }}</span>
+    <div class="row mt-4 err" v-if="state.error">
+      <div class="col-12">
+        <div class="alert alert-danger">{{ state.error }}</div>
+      </div>
     </div>
-
+    <div class="row mt-4 scs" v-if="state.success">
+      <div class="col-12">
+        <div class="alert alert-success" role="alert">{{ state.success }}</div>
+      </div>
+    </div>
     <div class="card-body">
       <h4 class="card-title mb-3">
         <i class="fas fa-key"></i>
@@ -97,6 +99,15 @@ button {
 span.input-error {
   color: red;
   font-size: 10px;
+}
+
+.err{
+  margin-left:10px;
+  margin-right: 10px;
+}
+.scs{
+  margin-left:10px;
+  margin-right: 10px;
 }
 
 @media only screen and (max-width: 450px) {
