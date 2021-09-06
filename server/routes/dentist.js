@@ -91,5 +91,10 @@ router.put('/update-dentist-details',
   dentistController.updateDentistDetails
 );
 
+/**
+ * PUT dentists/update-working-details
+ */
+router.put('/update-working-details', dentistAuth, dentistController.updateWorkDetails);
+
 
 module.exports = router;

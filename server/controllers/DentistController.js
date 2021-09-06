@@ -121,3 +121,29 @@ module.exports.updateDentistDetails = async (req, res) => {
 
   return res.status(201).json({ status: 'success', statusmsg: 'Details updated successfully!' });
 }
+
+module.exports.updateWorkDetails = async (req, res) => {
+  const {
+    days,
+    start,
+    end
+  } = req.body;
+
+  const id = req.account.id;
+
+  const updateWork = 'UPDATE dentists SET work_days=$1, work_from=$2, work_to=$3 WHERE account_id=$4';
+  const values = [days, start, end, id];
+
+  try {
+    await db.query(updateWork, values);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      status: 'error',
+      statusmsg: 'Internal server error!'
+    });
+  }
+
+return res.status(201).json({ status: 'success', statusmsg: 'Work schedule updated successfully!' });
+
+}

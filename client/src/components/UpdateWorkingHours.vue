@@ -149,7 +149,7 @@ span.input-error {
 </style>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 import useValidate from "@vuelidate/core";
 import { helpers, required } from "@vuelidate/validators";
 import { reactive, computed } from "vue";
@@ -213,13 +213,23 @@ export default {
 
       if(!this.v$.error && !flag){
         this.state.error= "";
-        console.log('ok');
-        console.log(this.state.work);
+        axios.put("/api/v1/dentists/update-working-details", this.state.work).then(
+          (res) => {
+            this.state.success = res.data.statusmsg;
+          },
+          (error) => {
+            if (error.response) {
+              console.log(error.response);
+              this.state.error = error.response.data.statusmsg;
+            } else if (error.request) {
+              console.log(error.request);
+            } else {
+              console.log(error);
+            }
+          }
+        );
       }
-      
-
-      
-    }
+    },
   }
 };
 </script>

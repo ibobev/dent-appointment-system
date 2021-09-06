@@ -14,6 +14,9 @@
             <p class="card-text"><b>Phone:</b> {{ phone }}</p>
             <p class="card-text"><b>City:</b> {{ city }}</p>
             <p class="card-text"><b>Expertise:</b> {{ type }}</p>
+            <p class="card-text"><b>Work Days:</b> {{ work_days }}</p>
+            <p class="card-text"><b>Work From:</b> {{ work_from }}</p>
+            <p class="card-text"><b>Work To:</b> {{ work_to }}</p>
             <p id="description-content" class="card-text">
               <b>Description:</b> {{ description }}
             </p>
@@ -119,6 +122,9 @@ export default {
       city: "",
       type: "",
       description: "",
+      work_days: "",
+      work_from: "",
+      work_to: "",
       rating: "",
     };
   },
@@ -156,6 +162,9 @@ export default {
         this.city = dentist.city;
         this.phone = dentist.phone;
         this.description = dentist.description;
+        this.work_days = dentist.work_days;
+        this.work_from = dentist.work_from;
+        this.work_to = dentist.work_to;
         this.rating = dentist.rating;
       },
       (error) => {
