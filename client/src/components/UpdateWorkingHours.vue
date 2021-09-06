@@ -1,5 +1,15 @@
 <template>
   <div class="card shadow rounded-0" id="update-working-hours">
+    <div class="row mt-4 err" v-if="state.error">
+      <div class="col-12">
+        <div class="alert alert-danger">{{ state.error }}</div>
+      </div>
+    </div>
+    <div class="row mt-4 scs" v-if="state.success">
+      <div class="col-12">
+        <div class="alert alert-success" role="alert">{{ state.success }}</div>
+      </div>
+    </div>
     <div class="card-body">
       <h4 class="card-title mb-4">
         <i class="fas fa-calendar-week"></i>
@@ -7,7 +17,7 @@
       </h4>
       <form @submit.prevent="onWorkHoursSubmit">
         <div class="form-group text-center form-data">
-          <div class="input-group mb-3">
+          <div class="input-group mb-3" id="checkList">
             <span class="input-group-text">
               <i class="fas fa-calendar-day fa-lg"></i>
             </span>
@@ -65,7 +75,10 @@
                 <i class="far fa-clock fa-lg"></i>
               </span>
               <label class="px-2" for="start-time">From:</label>
-              <input id="start-time" type="time">
+              <input id="start-time" type="time" v-model="state.work.start">
+            <span class="input-error" v-if="v$.work.start.$error">
+            {{ v$.work.start.$errors[0].$message }}
+          </span>
             </div>
           </div>
 
@@ -75,7 +88,10 @@
                 <i class="fas fa-clock fa-lg"></i>
               </span>
               <label class="px-3" for="end-time">To:</label>
-              <input id="end-time" type="time">
+              <input id="end-time" type="time" v-model="state.work.end">
+              <span class="input-error" v-if="v$.work.end.$error">
+            {{ v$.work.end.$errors[0].$message }}
+          </span>
             </div>
           </div>
 
@@ -112,10 +128,94 @@ button {
   color: #0292f8;
 }
 
+span.input-error {
+  color: red;
+  text-align: center;
+  font-size: 10px;
+  padding-top:5px;
+  padding-left:15px;
+}
+
+.err{
+  margin-left:10px;
+  margin-right: 10px;
+}
+
+.scs{
+  margin-left:10px;
+  margin-right: 10px;
+}
+
 </style>
 
 <script>
+//import axios from "axios";
+import useValidate from "@vuelidate/core";
+import { helpers, required } from "@vuelidate/validators";
+import { reactive, computed } from "vue";
+
 export default {
   name: "UpdateWorkingHours",
+  setup() {
+    const state = reactive({
+      error: "",
+      success: "",
+      work:{
+        days:"",
+        start:"",
+        end:""
+      },
+    });
+    const rules = computed(() => {
+      return {
+        work: {
+          start: {
+            required: helpers.withMessage("Starting hour is required!", required),
+          },
+          end: {
+            required: helpers.withMessage("Ending hour is required!", required),
+          },
+        },
+      };
+    });
+    const v$ = useValidate(rules, state);
+    return{
+      state,
+      v$,
+    };
+  },
+  methods: {
+    getCheckedDays(){
+      let checkForm = document.getElementById('checkList');
+      let checkedBoxes = checkForm.querySelectorAll('input[type="checkbox"]');
+      let result = [];
+
+      checkedBoxes.forEach(item => {
+        if(item.checked){
+          result.push(item.value);
+        }
+      });
+      result = result.toString();
+      return result;
+    },
+    onWorkHoursSubmit(){
+      this.v$.$validate();
+      let flag = true; // if flag is true days string is empty thus this is an error
+      let days = this.getCheckedDays();
+
+      if (!days) {
+        this.state.error = "Select at least one work day!";
+      } else {
+        flag = false;
+      }
+
+      if(!this.v$.error && !flag){
+        console.log('ok');
+      }
+      
+
+      
+    }
+  }
 };
 </script>
