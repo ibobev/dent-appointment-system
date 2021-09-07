@@ -224,7 +224,7 @@ export default {
         this.state.error = "";
         axios
           .put(
-            "/api/v1/dentists/update-dentist-details",
+            "/api/v1/dentists/details",
             this.state.dentistDetails
           )
           .then(

@@ -20,9 +20,9 @@
         <i class="fas fa-calendar-alt fa-lg"></i>&nbsp;&nbsp;
         Appointments
       </router-link>
-      <router-link to="/dentist/search">
-          <i class="fas fa-search fa-lg"></i>&nbsp;
-          Search
+      <router-link to="/dentist/events">
+          <i class="fas fa-calendar fa-lg"></i>&nbsp;&nbsp;
+          Global Events
         </router-link>
       <router-link to="/dentist/patients">
         <i class="fas fa-file-medical fa-lg"></i>&nbsp;&nbsp;

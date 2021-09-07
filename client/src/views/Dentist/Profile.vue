@@ -147,7 +147,7 @@ export default {
         }
       }
     );
-    axios.get("/api/v1/dentists/dentist-details").then(
+    axios.get("/api/v1/dentists/details").then(
       (res) => {
         console.log(res.data);
         const { dentist } = res.data;

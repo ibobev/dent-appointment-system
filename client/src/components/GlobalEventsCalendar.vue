@@ -1,36 +1,35 @@
 <template>
-  <div id="dentist-appointments">
-    <h2 class="text-center mt-3">Appointments Calendar</h2>
-    <div id="calendar-appointment" class="m-3 shadow">
+  <div id="global-cal-wrap">
+    <div id="global-events-cal" class="m-3 shadow">
       <vue-cal
+        ref="vuecal"
         :time-from="8 * 60"
         :time-to="20 * 60"
         :time-step="30"
         hide-weekends
         active-view="month"
         :disable-views="['years', 'year', 'week']"
-      >
-      </vue-cal>
+        :cell-click-hold="false"
+        :drag-to-create-event="false"
+      ></vue-cal>
     </div>
   </div>
 </template>
 
 <style scoped>
-#calendar-appointment {
-  height: 500px;
+#global-events-cal {
+  height: 388px;
 }
 </style>
-
 
 <script>
 import VueCal from "vue-cal";
 import "vue-cal/dist/vuecal.css";
 
 export default {
-  name: "Appointments",
+  name: "GlobalEventsCalendar",
   components: {
     VueCal,
   },
-  data: () => ({}),
 };
 </script>

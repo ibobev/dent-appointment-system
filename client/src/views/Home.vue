@@ -21,13 +21,15 @@
                 <p class="card-text">
                   Click on Register to create a free account.
                 </p>
-                <router-link to="/register/patient" class="btn mt-auto">Register</router-link>
+                <router-link to="/register/patient" class="btn mt-auto"
+                  >Register</router-link
+                >
               </div>
             </div>
           </div>
         </div>
         <div class="card mx-auto shadow">
-            <div class="row g-0">
+          <div class="row g-0">
             <div class="col-md-4">
               <img
                 src="../assets/dental-care.png"
@@ -35,19 +37,21 @@
                 alt="dentist"
               />
             </div>
-            <div class="col-md-8 ">
+            <div class="col-md-8">
               <div class="card-body d-flex flex-column">
                 <h3 class="card-title">Are you a dentist?</h3>
                 <p class="card-text">
                   Click on Register to create a free account.
                 </p>
-                <router-link to="/register/dentist" class="btn mt-auto">Register</router-link>
+                <router-link to="/register/dentist" class="btn mt-auto"
+                  >Register</router-link
+                >
               </div>
             </div>
           </div>
         </div>
-        </div>
       </div>
+    </div>
   </main>
 </template>
 
@@ -57,8 +61,8 @@
   margin-bottom: 15px;
   border-top: 4px solid #0292f8;
 }
-.user-style-img{
-  margin-top:40px;
+.user-style-img {
+  margin-top: 40px;
 }
 
 .btn {
@@ -66,11 +70,10 @@
   color: #fff;
 }
 
-.row{
+.row {
   margin-left: 5px;
   margin-right: 5px;
 }
-
 </style>
 
 <script>

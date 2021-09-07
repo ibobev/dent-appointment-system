@@ -21,30 +21,19 @@
             <span class="input-group-text">
               <i class="fas fa-calendar-day fa-lg"></i>
             </span>
-            <label class=" px-2" for="work-days">Work Days:</label>
+            <label class="px-2" for="work-days">Work Days:</label>
             <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value="Monday"
-                
-              />
+              <input class="form-check-input" type="checkbox" value="Monday" />
               <label class="form-check-label">Monday</label>
             </div>
             <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                
-                value="Tuesday"
-              />
+              <input class="form-check-input" type="checkbox" value="Tuesday" />
               <label class="form-check-label">Tuesday</label>
             </div>
             <div class="form-check form-check-inline">
               <input
                 class="form-check-input"
                 type="checkbox"
-                
                 value="Wednesday"
               />
               <label class="form-check-label">Wednesday</label>
@@ -53,32 +42,26 @@
               <input
                 class="form-check-input"
                 type="checkbox"
-                
                 value="Thursday"
               />
               <label class="form-check-label">Thursday</label>
             </div>
             <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                
-                value="Friday"
-              />
+              <input class="form-check-input" type="checkbox" value="Friday" />
               <label class="form-check-label">Friday</label>
             </div>
           </div>
-          
+
           <div class="form-group text-center mb-3">
             <div class="input-group">
               <span class="input-group-text">
                 <i class="far fa-clock fa-lg"></i>
               </span>
               <label class="px-2" for="start-time">From:</label>
-              <input id="start-time" type="time" v-model="state.work.start">
-            <span class="input-error" v-if="v$.work.start.$error">
-            {{ v$.work.start.$errors[0].$message }}
-          </span>
+              <input id="start-time" type="time" v-model="state.work.start" />
+              <span class="input-error" v-if="v$.work.start.$error">
+                {{ v$.work.start.$errors[0].$message }}
+              </span>
             </div>
           </div>
 
@@ -88,22 +71,21 @@
                 <i class="fas fa-clock fa-lg"></i>
               </span>
               <label class="px-3" for="end-time">To:</label>
-              <input id="end-time" type="time" v-model="state.work.end">
+              <input id="end-time" type="time" v-model="state.work.end" />
               <span class="input-error" v-if="v$.work.end.$error">
-            {{ v$.work.end.$errors[0].$message }}
-          </span>
+                {{ v$.work.end.$errors[0].$message }}
+              </span>
             </div>
           </div>
-
         </div>
-          <button type="submit" class="btn mt-3">Update</button>
+        <button type="submit" class="btn mt-3">Update</button>
       </form>
     </div>
   </div>
 </template>
 
 <style scoped>
-#update-working-hours{
+#update-working-hours {
   border-top: 4px solid #0292f8;
 }
 
@@ -112,12 +94,12 @@ button {
   color: #fff;
 }
 
-.form-data{
-  border:3px dotted #4ea2dd;
+.form-data {
+  border: 3px dotted #4ea2dd;
   padding-top: 15px;
-  padding-right:5px;
-  padding-left:5px;
-  padding-bottom:12px;
+  padding-right: 5px;
+  padding-left: 5px;
+  padding-bottom: 12px;
 }
 
 .fas {
@@ -132,20 +114,19 @@ span.input-error {
   color: red;
   text-align: center;
   font-size: 10px;
-  padding-top:5px;
-  padding-left:15px;
+  padding-top: 5px;
+  padding-left: 15px;
 }
 
-.err{
-  margin-left:10px;
+.err {
+  margin-left: 10px;
   margin-right: 10px;
 }
 
-.scs{
-  margin-left:10px;
+.scs {
+  margin-left: 10px;
   margin-right: 10px;
 }
-
 </style>
 
 <script>
@@ -160,17 +141,20 @@ export default {
     const state = reactive({
       error: "",
       success: "",
-      work:{
-        days:"",
-        start:"",
-        end:""
+      work: {
+        days: "",
+        start: "",
+        end: "",
       },
     });
     const rules = computed(() => {
       return {
         work: {
           start: {
-            required: helpers.withMessage("Starting hour is required!", required),
+            required: helpers.withMessage(
+              "Starting hour is required!",
+              required
+            ),
           },
           end: {
             required: helpers.withMessage("Ending hour is required!", required),
@@ -179,26 +163,26 @@ export default {
       };
     });
     const v$ = useValidate(rules, state);
-    return{
+    return {
       state,
       v$,
     };
   },
   methods: {
-    getCheckedDays(){
-      let checkForm = document.getElementById('checkList');
+    getCheckedDays() {
+      let checkForm = document.getElementById("checkList");
       let checkedBoxes = checkForm.querySelectorAll('input[type="checkbox"]');
       let result = [];
 
-      checkedBoxes.forEach(item => {
-        if(item.checked){
+      checkedBoxes.forEach((item) => {
+        if (item.checked) {
           result.push(item.value);
         }
       });
       result = result.toString();
       return result;
     },
-    onWorkHoursSubmit(){
+    onWorkHoursSubmit() {
       this.v$.$validate();
       let flag = true; // if flag is true days string is empty thus this is an error
       let days = this.getCheckedDays();
@@ -211,9 +195,9 @@ export default {
         flag = false;
       }
 
-      if(!this.v$.$error && !flag){
-        this.state.error= "";
-        axios.put("/api/v1/dentists/update-working-details", this.state.work).then(
+      if (!this.v$.$error && !flag) {
+        this.state.error = "";
+        axios.put("/api/v1/dentists/schedule", this.state.work).then(
           (res) => {
             this.state.success = res.data.statusmsg;
           },
@@ -230,6 +214,6 @@ export default {
         );
       }
     },
-  }
+  },
 };
 </script>

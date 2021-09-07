@@ -68,14 +68,14 @@ const dentistAuth = (req, res, next) => {
 router.get('/', dentistController.getAll);
 
 /**
- * GET dentists/dentist-details
+ * GET dentists/details
  */
-router.get('/dentist-details', dentistAuth, dentistController.getDentistDetails);
+router.get('/details', dentistAuth, dentistController.getDentistDetails);
 
 /**
- * PUT dentists/update-dentist-details
+ * PUT dentists/details
  */
-router.put('/update-dentist-details',
+router.put('/details',
   check('phone').isAlphanumeric().optional({checkFalsy: true}),
   check('description').isLength({max: 255}).optional({checkFalsy: true}),
   (req, res, next) => {
@@ -92,9 +92,9 @@ router.put('/update-dentist-details',
 );
 
 /**
- * PUT dentists/update-working-details
+ * PUT dentists/schedule
  */
-router.put('/update-working-details', dentistAuth, dentistController.updateWorkDetails);
+router.put('/schedule', dentistAuth, dentistController.updateWorkDetails);
 
 
 module.exports = router;

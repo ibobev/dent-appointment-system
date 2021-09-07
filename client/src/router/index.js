@@ -11,7 +11,7 @@ import DentistDashboard from '../views/Dentist/DentistDashboard';
 import Appointments from '../views/Dentist/Appointments';
 import Profile from '../views/Dentist/Profile';
 import PatientsList from '../views/Dentist/PatientsList';
-import Search from '../views/Dentist/Search';
+import GlobalEvents from '../views/Dentist/GlobalEvents';
 
 // Patients
 import PatientDashboard from '../views/Patient/PatientDashboard';
@@ -64,9 +64,9 @@ const routes = [
         component: Appointments
       },
       {
-        path: '/dentist/search',
-        name: 'Search',
-        component: Search
+        path: '/dentist/events',
+        name: 'GlobalEvents',
+        component: GlobalEvents
       },
       {
         path: '/dentist/patients',
