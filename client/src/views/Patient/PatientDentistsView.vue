@@ -153,7 +153,7 @@ export default {
 
       // Apply city filter if any
       if (this.cityFilter) {
-        _dentists = _dentists.filter(dentist => dentist.city.toLowerCase() === this.cityFilter.toLowerCase());
+        _dentists = _dentists.filter(dentist => dentist.city && dentist.city.toLowerCase() === this.cityFilter.toLowerCase());
       }
 
       // Apply dentist type filter if any
