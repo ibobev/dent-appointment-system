@@ -214,7 +214,7 @@ module.exports.updateAccount = async (req, res) => {
   
   return res.status(201).json({ status: 'success', statusmsg: 'Account updated successfully!' });
   
-}
+};
 
 module.exports.changePassword = async (req, res) => {
   const {
@@ -258,5 +258,5 @@ module.exports.changePassword = async (req, res) => {
 
   return res.status(201).json({ status: 'success', statusmsg: 'Password changed successfully!' });
 
-}
+};
 

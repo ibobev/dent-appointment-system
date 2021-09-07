@@ -124,12 +124,12 @@ textarea {
   height: 55px;
 }
 
-.err{
-  margin-left:10px;
+.err {
+  margin-left: 10px;
   margin-right: 10px;
 }
-.scs{
-  margin-left:10px;
+.scs {
+  margin-left: 10px;
   margin-right: 10px;
 }
 
@@ -222,26 +222,21 @@ export default {
       };
       if (!this.v$.$error && !checkForEmptyInput()) {
         this.state.error = "";
-        axios
-          .put(
-            "/api/v1/dentists/details",
-            this.state.dentistDetails
-          )
-          .then(
-            (res) => {
-              this.state.success = res.data.statusmsg;
-            },
-            (error) => {
-              if (error.response) {
-                console.log(error.response);
-                this.state.error = error.response.data.statusmsg;
-              } else if (error.request) {
-                console.log(error.request);
-              } else {
-                console.log(error);
-              }
+        axios.put("/api/v1/dentists/details", this.state.dentistDetails).then(
+          (res) => {
+            this.state.success = res.data.statusmsg;
+          },
+          (error) => {
+            if (error.response) {
+              console.log(error.response);
+              this.state.error = error.response.data.statusmsg;
+            } else if (error.request) {
+              console.log(error.request);
+            } else {
+              console.log(error);
             }
-          );
+          }
+        );
       }
     },
   },

@@ -1,6 +1,6 @@
 const db = require('../utils/db');
-const config = require('../config');
-const jwt = require('jsonwebtoken');
+//const config = require('../config');
+//const jwt = require('jsonwebtoken');
 
 const roles = require('../utils/roles');
 
@@ -120,7 +120,7 @@ module.exports.updateDentistDetails = async (req, res) => {
   }
 
   return res.status(201).json({ status: 'success', statusmsg: 'Details updated successfully!' });
-}
+};
 
 module.exports.updateWorkDetails = async (req, res) => {
   const {
@@ -146,4 +146,4 @@ module.exports.updateWorkDetails = async (req, res) => {
 
 return res.status(201).json({ status: 'success', statusmsg: 'Work schedule updated successfully!' });
 
-}
+};

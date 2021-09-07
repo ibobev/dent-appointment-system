@@ -10,6 +10,7 @@ const adminRoutes = require('./routes/admin');
 const accountRoutes = require('./routes/account');
 const dentistRoutes = require('./routes/dentist');
 const patientRoutes = require('./routes/patient');
+const eventRoutes = require('./routes/event');
 
 // Middleware
 app.use(cookieParser());
@@ -24,6 +25,7 @@ app.use('/api/v1/admins', adminRoutes);
 app.use('/api/v1/accounts', accountRoutes);
 app.use('/api/v1/dentists', dentistRoutes);
 app.use('/api/v1/patients', patientRoutes);
+app.use('/api/v1/events', eventRoutes);
 
 // Server
 app.listen(PORT, () => {

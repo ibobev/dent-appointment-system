@@ -132,7 +132,7 @@ span.input-error {
 </style>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 import useValidate from "@vuelidate/core";
 import { helpers, required, maxLength } from "@vuelidate/validators";
 import { reactive, computed } from "vue";
@@ -189,8 +189,21 @@ export default {
     onAddGlobalEvent() {
       this.v$.$validate();
       if (!this.v$.$error) {
-        //axios
-        //console.log("ok");
+        axios.post("/api/v1/events", this.state.event).then(
+          (res) => {
+            this.state.success = res.data.statusmsg;
+          },
+          (error) => {
+            if (error.response) {
+              console.log(error.response);
+              this.state.error = error.response.data.statusmsg;
+            } else if (error.request) {
+              console.log(error.request);
+            } else {
+              console.log(error);
+            }
+          }
+        );
       }
     },
   },
