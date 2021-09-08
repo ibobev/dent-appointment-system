@@ -52,7 +52,11 @@
         />
       </div>
       <div class="col-sm-4">
-        rating
+        Rating:
+        <RatingFilter
+          @onFilterSet="onRatingFilterSet"
+          @onFilterRemove="onRatingFilterRemove"
+        />
       </div>
     </div>
 
@@ -116,6 +120,7 @@
 import axios from 'axios';
 import Filter from '@/components/Filter';
 import DentistTypeFilter from '@/components/DentistTypeFilter';
+import RatingFilter from '@/components/RatingFilter';
 
 let searchTimeout = null;
 
@@ -123,6 +128,7 @@ export default {
   components: {
     Filter,
     DentistTypeFilter,
+    RatingFilter,
   },
   data() {
     return {
@@ -133,6 +139,7 @@ export default {
       dentists: [],
       cityFilter: '',
       dentistTypeFilter: '',
+      ratingFilter: null,
     }
   },
   async mounted() {
@@ -167,6 +174,11 @@ export default {
         _dentists = _dentists.filter(dentist => dentist.dentist_type && dentist.dentist_type.toLowerCase() === this.dentistTypeFilter.toLowerCase());
       }
 
+      // Apply rating filter if any
+      if (this.ratingFilter) {
+        _dentists = _dentists.filter(dentist => dentist.rating && dentist.rating >= this.ratingFilter);
+      }
+
       // Filtered dentists
       return _dentists;
     }
@@ -194,6 +206,12 @@ export default {
     },
     onDentistTypeFilterRemove: function () {
       this.dentistTypeFilter = '';
+    },
+    onRatingFilterSet: function (ratingFilter) {
+      this.ratingFilter = ratingFilter;
+    },
+    onRatingFilterRemove: function () {
+      this.ratingFilter = null;
     },
   },
   watch: {
