@@ -1,7 +1,7 @@
 <template>
   <div
     id="add-global-events"
-    class="card shadow rounded-0 mb-3 m-3 text-center"
+    class="card shadow rounded-0 mb-3 text-center"
   >
     <div class="row mt-4 err" v-if="state.error">
       <div class="col-12">

@@ -1,5 +1,21 @@
 const db = require('../utils/db');
 
+module.exports.getGlobalEvents = async (req, res) => {
+  let globalEvents = [];
+  const selectAllEvents = 'SELECT * FROM global_events';
+
+  try {
+    const result = await db.query(selectAllEvents);
+    globalEvents = result.rows;
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ status: 'error', statusmsg: 'No events to display!' });
+    return;
+  }
+
+  res.json({ status: 'success', statusmsg: '', globalEvents: globalEvents });
+}
+
 module.exports.addGlobalEvent = async (req, res) => {
   const {
     title,

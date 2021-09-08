@@ -1,7 +1,9 @@
 <template>
   <div class="container-fluid pt-3">
     <div class="row">
-
+      <div class="col-md-12 col-lg-12 mb-3">
+        <GlobalEventsCalendar />
+      </div>
       <div class="col-md-12 col-lg-4 mb-3">
         <div class="card account-card shadow rounded-0">
           <div class="card-body">
@@ -16,7 +18,7 @@
           </div>
         </div>
       </div>
-
+      
       <div class="col-md-12 col-lg-4 mb-3">
         <EditPersonalData />
       </div>
@@ -24,6 +26,7 @@
       <div class="col-md-12 col-lg-4 mb-3">
         <ChangePassword />
       </div>
+      
     </div>
   </div>
 </template>
@@ -43,11 +46,13 @@ import auth from "../../auth";
 import axios from "axios";
 import ChangePassword from "../../components/ChangePassword.vue";
 import EditPersonalData from "../../components/EditPersonalData.vue";
+import GlobalEventsCalendar from "../../components/GlobalEventsCalendar.vue";
 export default {
   name: "PatientProfile",
   components: {
     ChangePassword,
     EditPersonalData,
+    GlobalEventsCalendar
   },
   data() {
     return {
