@@ -97,20 +97,25 @@ module.exports.register = async (req, res) => {
 module.exports.login = async (req, res) => {
   const { email, password } = req.body;
 
-  const findAccountQuery = 'select id, email, pwd, role_id from accounts where email=$1';
+  const findAccountQuery = 'select id, email, pwd, role_id, status from accounts where email=$1';
   const findAccountValues = [email];
 
   let foundAccount = null;
   try {
     const foundAccountResult = await db.query(findAccountQuery, findAccountValues);
-    foundAccount = foundAccountResult.rows[0];
 
     if (foundAccountResult.rows.length === 0) {
       return res.status(400).json({ status: 'error', statusmsg: 'Invalid email or password!' });
     }
+
+    foundAccount = foundAccountResult.rows[0];
   } catch (error) {
     console.log(error);
     return res.status(500).json({ status: 'error', statusmsg: 'Internal error!' });
+  }
+
+  if (foundAccount.status.trim().toLowerCase() !== 'active') {
+    return res.json({ status: 'error', statusmsg: 'Account is suspended!' });
   }
 
   // Validate password

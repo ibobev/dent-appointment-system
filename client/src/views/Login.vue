@@ -139,36 +139,41 @@ export default {
   methods: {
     onLoginSubmit() {
       this.v$.$validate();
-      if(!this.v$.$error){
-      axios
-        .post("/api/v1/accounts/login", {
-          email: this.state.email,
-          password: this.state.password,
-        })
-        .then(
-          (res) => {
-            const { token, role } = res.data;
-            auth.data().setToken(token, this.state.rememberMe);
-            auth.data().setRole(role, this.state.rememberMe);
-            if (role === roles.DENTIST) {
-              this.$router.push({ path: "/dentist/profile" });
-            } else if (role === roles.PATIENT) {
-              this.$router.push({ path: "/patient/profile" });
-            } else if (role === roles.ADMIN) {
-              this.$router.push({ path: '/admin/accounts' });
+      if (!this.v$.$error) {
+        axios
+          .post("/api/v1/accounts/login", {
+            email: this.state.email,
+            password: this.state.password,
+          })
+          .then(
+            (res) => {
+              if (res.data.status !== 'success') {
+                this.state.error = res.data.statusmsg;
+                return;
+              }
+
+              const { token, role } = res.data;
+              auth.data().setToken(token, this.state.rememberMe);
+              auth.data().setRole(role, this.state.rememberMe);
+              if (role === roles.DENTIST) {
+                this.$router.push({ path: "/dentist/profile" });
+              } else if (role === roles.PATIENT) {
+                this.$router.push({ path: "/patient/profile" });
+              } else if (role === roles.ADMIN) {
+                this.$router.push({ path: '/admin/accounts' });
+              }
+            },
+            (error) => {
+              if (error.response) {
+                console.log(error.response);
+                this.state.error = error.response.data.statusmsg;
+              } else if (error.request) {
+                console.log(error.request);
+              } else {
+                console.log(error);
+              }
             }
-          },
-          (error) => {
-            if (error.response) {
-              console.log(error.response);
-              this.state.error = error.response.data.statusmsg;
-            } else if (error.request) {
-              console.log(error.request);
-            } else {
-              console.log(error);
-            }
-          }
-        );
+          );
       }
     },
   },
