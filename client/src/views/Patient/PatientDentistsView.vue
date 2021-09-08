@@ -72,8 +72,14 @@
             <p>City: {{dentist.city}}</p>
             <p>Email: {{dentist.email}}</p>
             <p>Type: {{dentist.dentist_type}}</p>
-            <p>Description: {{dentist.description}}</p>
-            <p>Rating: {{dentist.rating}}</p>
+            <p>
+              Description:<br>
+              <small class="text-muted">{{dentist.description}}</small>
+            </p>
+            <p>
+              Rating:
+              <span class="badge bg-warning fs-6">{{dentist.rating}}</span>
+            </p>
             <a href="#" class="btn btn-primary">View profile</a>
           </div>
         </div>

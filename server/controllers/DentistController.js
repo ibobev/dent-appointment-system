@@ -25,6 +25,21 @@ module.exports.getAll = async (req, res) => {
     return;
   }
 
+  for (const dentist of dentists) {
+    try {
+      // Calculate dentist rating inside the query
+      const CALCULATE_RATING_QUERY = 'select AVG(rating)::numeric(10,1) as dentist_rating from dentist_ratings where dentist_id=$1';
+      const dentistRating = await db.query(CALCULATE_RATING_QUERY, [dentist.id]);
+
+      // Set the dentist rating
+      dentist.rating = dentistRating.rows[0].dentist_rating; 
+    } catch (error) {
+      console.log(error);
+      dentist.rating = 0;
+      // TODO: maybe do something else
+    }
+  }
+
   res.json({ status: 'success', statusmsg: '', dentists: dentists });
 };
 

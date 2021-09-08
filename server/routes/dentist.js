@@ -34,18 +34,19 @@ const dentistAuth = (req, res, next) => {
     });
   }
 
-  //Check if token is valid
   const token = authHeader[1];
+  let decodedToken = null;
 
-  if (!jwt.verify(token, config.JWT_SECRET)) {
-    console.log('JWT says token not valid');
+  try {
+    decodedToken = jwt.verify(token, config.JWT_SECRET);
+  } catch (error) {
+    console.log('token is expired');
+    console.log(error);
     return res.status(401).json({
       status: 'error',
       statusmsg: 'Invalid auth token'
     });
   }
-
-  const decodedToken = jwt.decode(token);
 
   if (decodedToken.role !== roles.DENTIST) {
     console.log('INVALID ROLE', decodedToken.role);
