@@ -1,6 +1,6 @@
 <template>
   <div id="global-cal-wrap">
-    <div id="global-events-cal" class="shadow">
+    <div id="global-events-cal" class="mb-2 shadow">
       <vue-cal
         style="height: 388px"
         :time-from="8 * 60"
