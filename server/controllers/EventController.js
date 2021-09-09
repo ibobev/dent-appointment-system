@@ -2,7 +2,7 @@ const db = require('../utils/db');
 
 module.exports.getGlobalEvents = async (req, res) => {
   let globalEvents = [];
-  const selectAllEvents = 'SELECT * FROM global_events';
+  const selectAllEvents = 'SELECT * FROM global_events ';
 
   try {
     const result = await db.query(selectAllEvents);

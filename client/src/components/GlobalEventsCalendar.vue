@@ -67,8 +67,11 @@ export default {
   methods: {
     parseEvents() {
       this.events.map((event) => {
-        event.start = `${event.event_date.split("T")[0]} ${event.event_start}`;
-        event.end = `${event.event_date.split("T")[0]} ${event.event_end}`;
+        let correct_date =  new Date(event.event_date);
+        correct_date = new Date(correct_date.getTime() - (correct_date.getTimezoneOffset() * 60000)).toISOString();
+        //console.log(correct_date);
+        event.start = `${correct_date.split('T')[0]} ${event.event_start}`;
+        event.end = `${correct_date.split('T')[0]} ${event.event_end}`;
         event.title = `${event.title}`;
         event.content = `${event.description}`;
       });
