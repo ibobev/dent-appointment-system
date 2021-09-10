@@ -71,7 +71,9 @@ router.get('/', dentistController.getAll);
 /**
  * GET dentists/details
  */
-router.get('/details', dentistAuth, dentistController.getDentistDetails);
+router.get('/details/', dentistAuth, dentistController.getDentistDetails);
+
+router.get('/details/:id', dentistController.getSelectedDentistFullDetails);
 
 /**
  * PUT dentists/details

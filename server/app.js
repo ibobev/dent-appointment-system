@@ -11,6 +11,7 @@ const accountRoutes = require('./routes/account');
 const dentistRoutes = require('./routes/dentist');
 const patientRoutes = require('./routes/patient');
 const eventRoutes = require('./routes/event');
+const appointmentRoutes = require('./routes/appointment');
 
 // Middleware
 app.use(cookieParser());
@@ -26,6 +27,7 @@ app.use('/api/v1/accounts', accountRoutes);
 app.use('/api/v1/dentists', dentistRoutes);
 app.use('/api/v1/patients', patientRoutes);
 app.use('/api/v1/events', eventRoutes);
+app.use('/api/v1/appointments', appointmentRoutes);
 
 // Server
 app.listen(PORT, () => {

@@ -84,7 +84,7 @@
               Rating:
               <span class="badge bg-warning fs-6">{{dentist.rating}}</span>
             </p>
-            <a href="#" class="btn btn-primary">View profile</a>
+            <router-link :to="'/patient/dentists/' + dentist.id" class="btn btn-primary">View Profile</router-link>
           </div>
         </div>
       </div>

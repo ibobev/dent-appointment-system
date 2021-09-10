@@ -45,7 +45,7 @@ module.exports.getAll = async (req, res) => {
 
 module.exports.getDentistDetails = async (req, res) => {
   const id = req.account.id;
-
+    
   const result = await db.query('select * from dentists where account_id=$1', [id]);
   const dentist = result.rows[0];
 
@@ -56,6 +56,27 @@ module.exports.getDentistDetails = async (req, res) => {
     dentist: dentist
   });
 };
+
+module.exports.getSelectedDentistFullDetails = async (req, res) => {
+  const id = parseInt(req.params.id);
+  
+  const dentistDetailsQuery = 'SELECT id, first_name, last_name, email, description, city, dentist_type, phone, work_from, work_to, work_days FROM accounts JOIN dentists ON dentists.account_id=accounts.id WHERE account_id=$1';
+  const values = [id];
+
+  try {
+    const result = await db.query(dentistDetailsQuery, values);
+    dentistDetails = result.rows[0];
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ status: 'error', statusmsg: 'Could not get selected dentist details!' });
+    return;
+  }
+
+  // Add avg rating query
+
+  res.json({ status: 'success', statusmsg: '', dentistDetails: dentistDetails });
+
+}
 
 module.exports.updateDentistDetails = async (req, res) => {
   const {

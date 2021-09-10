@@ -19,6 +19,7 @@ import PatientProfile from '../views/Patient/PatientProfile';
 import PatientAppointments from '../views/Patient/PatientAppointments';
 import PatientMedRecord from '../views/Patient/PatientMedRecord';
 import PatientDentistsView from '../views/Patient/PatientDentistsView';
+import PatientViewDentist from '../views/Patient/PatientViewDentist';
 
 const routes = [
   {
@@ -89,6 +90,11 @@ const routes = [
         name: 'Dentists',
         path: '/patient/dentists',
         component: PatientDentistsView
+      },
+      {
+        name: 'ViewDentist',
+        path: '/patient/dentists/:id',
+        component: PatientViewDentist
       },
       {
         path: '/patient/appointments',

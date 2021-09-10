@@ -63,7 +63,7 @@ export default {
     };
   },
   mounted() {
-    axios.get("/api/v1/accounts/dentist-profile").then(
+    axios.get("/api/v1/accounts/profile").then(
       (res) => {
         console.log(res.data);
         const { account } = res.data;

@@ -100,9 +100,9 @@ const accountAuth = (req, res, next) => {
 };
 
 /**
- * GET /dentist-profile - Authenticate dentist account
+ * GET /profile - Authenticate account
  */
-router.get('/dentist-profile', accountAuth, accountController.getAccountDetails);
+router.get('/profile', accountAuth, accountController.getAccountDetails);
 
 /**
  * PUT accounts/update-account - Update dentist account details with auth and validation
