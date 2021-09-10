@@ -100,6 +100,8 @@ const accountAuth = (req, res, next) => {
  */
 router.get('/:id', appointmentController.getDentistAppointmentCalendar);
 
+router.get('/', dentistAuth, appointmentController.getCurrentDentistAppointmentCalendar);
+
 /**
  * POST /appointments
  */

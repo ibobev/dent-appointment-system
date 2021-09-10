@@ -27,6 +27,33 @@ module.exports.getDentistAppointmentCalendar = async (req, res) => {
 
 }
 
+module.exports.getCurrentDentistAppointmentCalendar = async (req, res) => {
+  const id = req.account.id;
+  let dentistAppointments = [];
+
+  const selectAppointments = 'SELECT id, title, appointment_date, start_time, end_time, status FROM appointments WHERE dentist_id = $1';
+  const values = [id];
+
+  try {
+    const result = await db.query(selectAppointments, values);
+    dentistAppointments = result.rows;
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: 'error',
+      statusmsg: 'Could not get dentist appointment calendar!'
+    });
+    return;
+  }
+
+  res.json({
+    status: 'success',
+    statusmsg: '',
+    dentistAppointments: dentistAppointments
+  });
+
+}
+
 module.exports.scheduleAppointment = async (req, res) => {
   const patient_id = req.account.id;
   const {
