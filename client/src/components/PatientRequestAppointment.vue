@@ -157,6 +157,7 @@ export default {
 
       if(start < dentistStartTime || start > dentistEndTime){
         flag= true;
+        this.state.success="";
         this.state.error = 'Please select a time within the dentist work time schedule!';
       }
       
