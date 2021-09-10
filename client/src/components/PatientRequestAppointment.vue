@@ -147,19 +147,11 @@ export default {
       this.state.appointment.end = endTime.getHours() + ':' + ( endTime.getMinutes() < 10 ? '0': '') + endTime.getMinutes(); //Get minutes  ternary operator checks if minutes start with single digit and if so an extra 0 is added infront thus minutes format is :00 
       //console.log(this.state.appointment.end);
     },
-    checkWorkTime() {
-      let flag = false;
-      if(this.dentistWork.work_from < this.state.appointment.start || this.dentistWork.wrok_to > this.state.appointment.end){
-        flag = true;
-        this.state.error = "Please select a time interval within the selected dentist work time schedule!";
-      }
-      return flag;
-    },
+  
     onRequestAppointment() {
       this.v$.$validate();
       this.prepareRequestAppointment();
-      let checkTime = this.checkWorkTime();
-      if (!this.v$.$error && !checkTime) {
+      if (!this.v$.$error) {
         axios.post("/api/v1/appointments", this.state.appointment).then(
           (res) => {
             this.state.success = res.data.statusmsg;
