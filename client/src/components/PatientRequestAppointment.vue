@@ -96,7 +96,8 @@ export default {
   name: "RequestAppointment",
   data() {
     return {
-      dentist_id : this.$route.params.id
+      dentist_id : this.$route.params.id,
+      dentistWork: []
     };
   },
   setup() {
@@ -146,10 +147,19 @@ export default {
       this.state.appointment.end = endTime.getHours() + ':' + ( endTime.getMinutes() < 10 ? '0': '') + endTime.getMinutes(); //Get minutes  ternary operator checks if minutes start with single digit and if so an extra 0 is added infront thus minutes format is :00 
       //console.log(this.state.appointment.end);
     },
+    checkWorkTime() {
+      let flag = false;
+      if(this.dentistWork.work_from < this.state.appointment.start || this.dentistWork.wrok_to > this.state.appointment.end){
+        flag = true;
+        this.state.error = "Please select a time interval within the selected dentist work time schedule!";
+      }
+      return flag;
+    },
     onRequestAppointment() {
       this.v$.$validate();
       this.prepareRequestAppointment();
-      if (!this.v$.$error) {
+      let checkTime = this.checkWorkTime();
+      if (!this.v$.$error && !checkTime) {
         axios.post("/api/v1/appointments", this.state.appointment).then(
           (res) => {
             this.state.success = res.data.statusmsg;
@@ -168,6 +178,24 @@ export default {
       }
     },
   },
+  mounted() {
+    axios.get(`/api/v1/dentists/details/${this.dentist_id}`).then(
+      (res) => {
+        this.dentistWork  = res.data.dentistDetails;
+        console.log(this.dentistWork);
+      },
+      (error) => {
+        if (error.request) {
+          console.log(error.request);
+          console.log(error.request.status);
+        } else if (error.response) {
+          console.log(error.response);
+        } else {
+          console.log(error);
+        }
+      }
+    );
+  }
 };
 
 </script>
