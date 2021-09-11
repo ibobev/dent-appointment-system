@@ -1,10 +1,10 @@
 <template>
-  <div class="container text-center mt-3">
+  <div class="container mt-3 text-center">
     <h2>Appointments Calendar</h2>
-    <div class="col-md-12 col-lg-12 mb-3">
+    <div class="col-md-12 col-lg-12 mb-5">
       <DentistAppointmentCalendar />
     </div>
-    <div class="col-md-12 col-lg-4 mb-3">
+    <div class="col-md-12 col-lg-12 mb-3">
       <DentistViewAppointmentRequests />
     </div>
   </div>

@@ -98,6 +98,8 @@ const accountAuth = (req, res, next) => {
 /**
  * GET appointments/
  */
+router.get('/pending', dentistAuth, appointmentController.getPendingRequests);
+
 router.get('/:id', appointmentController.getDentistAppointmentCalendar);
 
 router.get('/', dentistAuth, appointmentController.getCurrentDentistAppointmentCalendar);
@@ -106,5 +108,10 @@ router.get('/', dentistAuth, appointmentController.getCurrentDentistAppointmentC
  * POST /appointments
  */
 router.post('/', accountAuth, appointmentController.scheduleAppointment);
+
+/**
+ * PUT /appointments/:id
+ */
+router.put('/:id', dentistAuth, appointmentController.acceptAppointment);
 
 module.exports = router;
