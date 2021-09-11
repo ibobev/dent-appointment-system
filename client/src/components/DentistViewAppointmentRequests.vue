@@ -23,7 +23,7 @@
             <div class="col">
               <button
                 class="btn btn-success mb-2"
-                v-on:click="acceptAppointment(patient.patient_id)"
+                v-on:click="acceptAppointment(patient.patient_id, patient.id)"
               >
                 Accept
               </button>
@@ -56,6 +56,7 @@ export default {
   data() {
     return {
       pendingDetails: [],
+      appointment_id : ""
     };
   },
   methods: {
@@ -67,9 +68,11 @@ export default {
       });
       return this.pendingDetails;
     },
-    acceptAppointment(id) {
+    acceptAppointment(patient_id, a_id) {
+      this.appointment_id = a_id;
+      console.log(this.appointment_id);
       try{
-      axios.put(`/api/v1/appointments/${id}`);
+      axios.put(`/api/v1/appointments/${a_id}/${patient_id}`);
       } catch (error) {
         console.log(error);
       }
@@ -84,6 +87,7 @@ export default {
       const res = await axios.get("/api/v1/appointments/pending");
       this.pendingDetails = res.data.pending;
       this.parsePatientAppointmentDate();
+      console.log(this.pendingDetails);
     } catch (error) {
       console.log(error.toJSON());
     }

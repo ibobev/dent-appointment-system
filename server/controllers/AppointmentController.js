@@ -33,7 +33,7 @@ module.exports.getPendingRequests = async (req, res) => {
   const status = 'Pending';
 
   const getPendingPatients = `
-  SELECT patient_id, appointment_date, start_time, end_time, appointments.status, accounts.first_name, accounts.last_name, accounts.email
+  SELECT appointments.id, patient_id, appointment_date, start_time, end_time, appointments.status, accounts.first_name, accounts.last_name, accounts.email
   FROM appointments
   JOIN patients ON appointments.patient_id=patients.account_id
   JOIN accounts ON patients.account_id=accounts.id
@@ -144,12 +144,13 @@ module.exports.scheduleAppointment = async (req, res) => {
 
 module.exports.acceptAppointment = async (req, res) => {
   const dentist_id = req.account.id;
-  const patient_id = parseInt(req.params.id);
+  const patient_id = parseInt(req.params.p_id);
+  const a_id = parseInt(req.params.a_id);
 
   const status = 'Accepted';
 
-  const updateStatus = 'UPDATE appointments SET status=$1 WHERE dentist_id=$2 AND patient_id=$3';
-  const values = [status, dentist_id, patient_id];
+  const updateStatus = 'UPDATE appointments SET status=$1 WHERE dentist_id=$2 AND patient_id=$3 AND id=$4';
+  const values = [status, dentist_id, patient_id, a_id];
 
   try {
     await db.query(updateStatus, values);
@@ -165,4 +166,28 @@ module.exports.acceptAppointment = async (req, res) => {
     });
   }
 
+}
+
+module.exports.rejectAppointment = async (req, res) => {
+  const dentist_id = req.account.id;
+  const patient_id = parseInt(req.params.id);
+
+  const status = 'Cancelled';
+
+  const updateStatus = 'UPDATE appointments SET status=$1 WHERE dentist_id=$2 AND patient_id=$3';
+  const values = [status, dentist_id, patient_id];
+
+  try {
+    await db.query(updateStatus, values);
+    return res.status(201).json({
+      status: 'success',
+      statusmsg: 'Patient request rejected!'
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      status: 'error',
+      statusmsg: 'Internal server error!'
+    });
+  }
 }

@@ -112,6 +112,7 @@ router.post('/', accountAuth, appointmentController.scheduleAppointment);
 /**
  * PUT /appointments/:id
  */
-router.put('/:id', dentistAuth, appointmentController.acceptAppointment);
+//router.put('/reject/:id', dentistAuth, appointmentController.rejectAppointment);
+router.put('/:a_id/:p_id', dentistAuth, appointmentController.acceptAppointment);
 
 module.exports = router;
