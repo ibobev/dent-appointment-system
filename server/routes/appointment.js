@@ -107,12 +107,16 @@ router.get('/', dentistAuth, appointmentController.getCurrentDentistAppointmentC
 /**
  * POST /appointments
  */
+
 router.post('/', accountAuth, appointmentController.scheduleAppointment);
 
 /**
  * PUT /appointments/:id
  */
-//router.put('/reject/:id', dentistAuth, appointmentController.rejectAppointment);
+router.put('/reject/:a_id/:p_id', dentistAuth, appointmentController.rejectAppointment);
+
 router.put('/:a_id/:p_id', dentistAuth, appointmentController.acceptAppointment);
+
+
 
 module.exports = router;

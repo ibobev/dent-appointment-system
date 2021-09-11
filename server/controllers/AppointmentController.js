@@ -4,7 +4,7 @@ module.exports.getDentistAppointmentCalendar = async (req, res) => {
   const dentist_id = parseInt(req.params.id);
   let dentistAppointments = [];
 
-  const selectAppointments = 'SELECT id, appointment_date, start_time, end_time, status FROM appointments WHERE dentist_id = $1';
+  const selectAppointments = 'SELECT id, appointment_date, start_time, end_time, status FROM appointments WHERE dentist_id = $1 ';
   const values = [dentist_id];
 
   try {
@@ -68,8 +68,11 @@ module.exports.getCurrentDentistAppointmentCalendar = async (req, res) => {
   const id = req.account.id;
   let dentistAppointments = [];
 
-  const selectAppointments = 'SELECT id, title, appointment_date, start_time, end_time, status FROM appointments WHERE dentist_id = $1';
-  const values = [id];
+  const statusPending = 'Pending';
+  const statusAccepted = 'Accepted';
+
+  const selectAppointments = 'SELECT id, title, appointment_date, start_time, end_time, status FROM appointments WHERE dentist_id = $1 AND status=$2 OR status=$3';
+  const values = [id, statusPending, statusAccepted];
 
   try {
     const result = await db.query(selectAppointments, values);
@@ -170,12 +173,13 @@ module.exports.acceptAppointment = async (req, res) => {
 
 module.exports.rejectAppointment = async (req, res) => {
   const dentist_id = req.account.id;
-  const patient_id = parseInt(req.params.id);
+  const patient_id = parseInt(req.params.p_id);
+  const appointment_id = parseInt(req.params.a_id);
 
   const status = 'Cancelled';
 
-  const updateStatus = 'UPDATE appointments SET status=$1 WHERE dentist_id=$2 AND patient_id=$3';
-  const values = [status, dentist_id, patient_id];
+  const updateStatus = 'UPDATE appointments SET status=$1 WHERE dentist_id=$2 AND patient_id=$3 AND id=$4';
+  const values = [status, dentist_id, patient_id, appointment_id];
 
   try {
     await db.query(updateStatus, values);

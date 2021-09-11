@@ -31,7 +31,7 @@
             <div class="col">
               <button
                 class="btn btn-danger"
-                v-on:clicl="rejectAppointment(patient.patient_id)"
+                v-on:click="rejectAppointment(patient.patient_id, patient.id)"
               >
                 Reject
               </button>
@@ -56,7 +56,6 @@ export default {
   data() {
     return {
       pendingDetails: [],
-      appointment_id : ""
     };
   },
   methods: {
@@ -69,18 +68,22 @@ export default {
       return this.pendingDetails;
     },
     acceptAppointment(patient_id, a_id) {
-      this.appointment_id = a_id;
-      console.log(this.appointment_id);
-      try{
-      axios.put(`/api/v1/appointments/${a_id}/${patient_id}`);
+      try {
+        axios.put(`/api/v1/appointments/${a_id}/${patient_id}`);
       } catch (error) {
         console.log(error);
       }
       window.location.reload();
     },
-    /*rejectAppointment(id) {
-
-    }*/
+    rejectAppointment(patient_id, a_id) {
+      console.log(a_id);
+      try {
+        axios.put(`/api/v1/appointments/reject/${a_id}/${patient_id}`);
+      } catch (error) {
+        console.log(error);
+      }
+      window.location.reload();
+    },
   },
   async mounted() {
     try {
