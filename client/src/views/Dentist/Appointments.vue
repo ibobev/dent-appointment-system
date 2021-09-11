@@ -1,67 +1,31 @@
 <template>
-  <div id="dentist-appointments">
-    <h2 class="text-center mt-3">Appointments Calendar</h2>
-    <div id="calendar-appointment" class="m-3 shadow">
-      <vue-cal
-        :time-from="8 * 60"
-        :time-to="20 * 60"
-        :time-step="30"
-        hide-weekends
-        active-view="month"
-        :events="events"
-        :disable-views="['years', 'year', 'week']"
-        :cell-click-hold="false"
-        :drag-to-create-event="false"
-      >
-      </vue-cal>
+  <div class="container text-center mt-3">
+    <h2>Appointments Calendar</h2>
+    <div class="col-md-12 col-lg-12 mb-3">
+      <DentistAppointmentCalendar />
+    </div>
+    <div class="col-md-12 col-lg-4 mb-3">
+      <DentistViewAppointmentRequests />
     </div>
   </div>
 </template>
 
 <style scoped>
-#calendar-appointment {
-  height: 500px;
-}
+
 </style>
 
 
 <script>
-import axios from "axios";
-import VueCal from "vue-cal";
-import "vue-cal/dist/vuecal.css";
+
+import DentistViewAppointmentRequests from "../../components/DentistViewAppointmentRequests.vue";
+import DentistAppointmentCalendar from "../../components/DentistAppointmentCalendar.vue";
 
 export default {
   name: "Appointments",
   components: {
-    VueCal,
+    DentistAppointmentCalendar,
+    DentistViewAppointmentRequests
   },
-  data() {
-    return{
-      events: [],
-    }
-  },
-  async mounted() {
-    try {
-      const res = await axios.get("/api/v1/appointments");
-      this.events = res.data.dentistAppointments;
-      this.parseEvents();
-      //console.log(this.events);
-    } catch (error) {
-      console.log(error);
-    }
-  },
-  methods: {
-    parseEvents() {
-      this.events.map((event) => {
-        let correct_date =  new Date(event.appointment_date);
-        correct_date = new Date(correct_date.getTime() - (correct_date.getTimezoneOffset() * 60000)).toISOString();
-        //console.log(correct_date);
-        event.start = `${correct_date.split('T')[0]} ${event.start_time}`;
-        event.end = `${correct_date.split('T')[0]} ${event.end_time}`;
-        event.title = `${event.title}`;
-      });
-      return this.events;
-    },
-  },
+  
 };
 </script>
