@@ -58,6 +58,7 @@ export default {
         event.start = `${correct_date.split("T")[0]} ${event.start_time}`;
         event.end = `${correct_date.split("T")[0]} ${event.end_time}`;
         event.title = `${event.title}`;
+        event.content = `${event.status}`;
       });
       return this.events;
     },
