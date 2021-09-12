@@ -171,7 +171,7 @@ export default {
 
       if(requestedDay < today) {
         this.state.success="";
-        this.state.error = 'Please select a date that has not passed!';
+        this.state.error = 'Please select a date that has not yet passed!';
         flag = true;
       }
 
