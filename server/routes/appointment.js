@@ -98,6 +98,8 @@ const accountAuth = (req, res, next) => {
 /**
  * GET appointments/
  */
+router.get('/history', accountAuth, appointmentController.getPatientCurrentAppointments);
+
 router.get('/pending', dentistAuth, appointmentController.getPendingRequests);
 
 router.get('/:id', appointmentController.getDentistAppointmentCalendar);

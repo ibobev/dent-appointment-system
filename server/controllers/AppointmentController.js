@@ -210,3 +210,38 @@ module.exports.rejectAppointment = async (req, res) => {
     });
   }
 }
+
+module.exports.getPatientCurrentAppointments = async (req, res) => {
+  const patient_id = req.account.id;
+  let p_appointments = [];
+
+  const getAppointmentDetails = `
+  SELECT appointments.id, dentist_id, appointment_date, start_time, end_time, appointments.status, accounts.first_name, accounts.last_name, accounts.email, dentists.phone, dentists.city
+  FROM appointments
+  JOIN dentists ON appointments.dentist_id=dentists.account_id
+  JOIN accounts ON dentists.account_id=accounts.id
+  WHERE patient_id=$1;
+  `;
+
+  const values = [patient_id];
+
+  try {
+    const result = await db.query(getAppointmentDetails, values);
+    p_appointments = result.rows;
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: 'error',
+      statusmsg: 'Internal server error!'
+    });
+    return;
+  }
+
+  res.json({
+    status: 'success',
+    statusmsg: '',
+    p_appointments: p_appointments
+  });
+
+
+}
