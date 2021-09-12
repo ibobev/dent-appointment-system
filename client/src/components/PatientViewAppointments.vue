@@ -1,56 +1,82 @@
 <template>
   <div id="patient-view-appointments">
-    
-    <div class="row mt-4">
-      <h2>In Progress</h2>
+    <div class="container mt-4">
       <div
-        class="col-sm-12 col-md-4 mb-4"
-        v-for="appointment of inProgress"
-        v-bind:key="appointment.id"
+        id="nav-appointments"
+        class="col-sm-12 col-lg-12 mx-auto text-center mt-3 mb-3"
       >
-        <div class="card shadow border-0">
-          <div class="card-body" id="card-top-border">
-            <h4 class="card-text">
-              Appointment Details
-            </h4>
-            <div class="break-line"></div>
-            <p><b>Dentist:</b> {{ appointment.first_name }} {{ appointment.last_name }}</p>
-            <p><b>ID:</b> {{ appointment.dentist_id }}</p>
-            <p><b>Email:</b> {{ appointment.email }}</p>
-            <p><b>Phone:</b> {{appointment.phone}}</p>
-            <div class="break-line"></div>
-            <p><b>Appointment:</b> {{ appointment.appointment_date }}</p>
-            <p><b>Address:</b> {{appointment.city}}</p>
-            <p><b>From:</b> {{ appointment.start_time }}</p>
-            <p><b>To:</b> {{ appointment.end_time }}</p>
-            <p><b>Status:</b> {{ appointment.status }}</p>
-            <div class="break-line"></div>
+        <button
+          v-on:click="hideCurrent = hideCurrent=false,hideCancelled=true"
+          id="btn-current"
+          class="btn-appointments-nav"
+        >
+          Current
+        </button>
+        <button
+          v-on:click="hideCancelled = hideCancelled=false, hideCurrent=true"
+          id="btn-cancelled"
+          class="btn-appointments-nav"
+        >
+          Cancelled
+        </button>
+      </div>
+
+      <div id="current" class="row" v-if="!hideCurrent">
+        <h2 class="text-center">Current</h2>
+        <div
+          class="col-sm-12 col-md-4 mb-4"
+          v-for="appointment of inProgress"
+          v-bind:key="appointment.id"
+        >
+          <div class="card shadow border-0 mt-3">
+            <div class="card-body" id="card-top-border">
+              <h4 class="card-text text-center">Appointment Details</h4>
+              <div class="break-line"></div>
+              <p>
+                <b>Dentist:</b> {{ appointment.first_name }}
+                {{ appointment.last_name }}
+              </p>
+              <p><b>ID:</b> {{ appointment.dentist_id }}</p>
+              <p><b>Email:</b> {{ appointment.email }}</p>
+              <p><b>Phone:</b> {{ appointment.phone }}</p>
+              <div class="break-line"></div>
+              <p><b>Appointment:</b> {{ appointment.appointment_date }}</p>
+              <p><b>Address:</b> {{ appointment.city }}</p>
+              <p><b>From:</b> {{ appointment.start_time }}</p>
+              <p><b>To:</b> {{ appointment.end_time }}</p>
+              <p><b>Status:</b> {{ appointment.status }}</p>
+              <div class="break-line"></div>
+            </div>
           </div>
         </div>
       </div>
-      <h2>Cancelled</h2>
-      <div
-        class="col-sm-12 col-md-4 mb-4"
-        v-for="appointment of cancelled"
-        v-bind:key="appointment.id"
-      >
-        <div class="card shadow border-0">
-          <div class="card-body" id="card-top-border-red">
-            <h4 class="card-text">
-              Appointment Details
-            </h4>
-            <div class="break-line-red"></div>
-            <p><b>Dentist:</b> {{ appointment.first_name }} {{ appointment.last_name }}</p>
-            <p><b>ID:</b> {{ appointment.dentist_id }}</p>
-            <p><b>Email:</b> {{ appointment.email }}</p>
-            <p><b>Phone:</b> {{appointment.phone}}</p>
-            <div class="break-line-red"></div>
-            <p><b>Appointment:</b> {{ appointment.appointment_date }}</p>
-            <p><b>Address:</b> {{appointment.city}}</p>
-            <p><b>From:</b> {{ appointment.start_time }}</p>
-            <p><b>To:</b> {{ appointment.end_time }}</p>
-            <p><b>Status:</b> {{ appointment.status }}</p>
-            <div class="break-line-red"></div>
+
+      <div id="cancelled" class="row" v-if="!hideCancelled">
+        <h2 class="text-center">Cancelled</h2>
+        <div
+          class="col-sm-12 col-md-4 mb-4"
+          v-for="appointment of cancelled"
+          v-bind:key="appointment.id"
+        >
+          <div class="card shadow border-0 mt-3">
+            <div class="card-body" id="card-top-border-red">
+              <h4 class="card-text text-center">Appointment Details</h4>
+              <div class="break-line-red"></div>
+              <p>
+                <b>Dentist:</b> {{ appointment.first_name }}
+                {{ appointment.last_name }}
+              </p>
+              <p><b>ID:</b> {{ appointment.dentist_id }}</p>
+              <p><b>Email:</b> {{ appointment.email }}</p>
+              <p><b>Phone:</b> {{ appointment.phone }}</p>
+              <div class="break-line-red"></div>
+              <p><b>Appointment:</b> {{ appointment.appointment_date }}</p>
+              <p><b>Address:</b> {{ appointment.city }}</p>
+              <p><b>From:</b> {{ appointment.start_time }}</p>
+              <p><b>To:</b> {{ appointment.end_time }}</p>
+              <p><b>Status:</b> {{ appointment.status }}</p>
+              <div class="break-line-red"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -59,23 +85,42 @@
 </template>
 
 <style scoped>
+#nav-appointments {
+  width: 90%;
+  background-color: #0292f8;
+  color:#fff;
+  border-radius: 25px;
+  height: 40px;
+}
+
+.btn-appointments-nav {
+  height: 40px;
+  border: none;
+  background-color: transparent;
+  color: #fff;
+}
+
+.btn-appointments-nav:hover {
+  background-color: hsla(0,0%,100%,.15);
+  
+}
 
 #card-top-border {
   border-top: 4px solid #0292f8;
 }
 
-.break-line{
-  width:100%;
-  border-bottom:3px dashed #0292f8;
+.break-line {
+  width: 100%;
+  border-bottom: 3px dashed #0292f8;
 }
 
 #card-top-border-red {
   border-top: 4px solid red;
 }
 
-.break-line-red{
-  width:100%;
-  border-bottom:3px dashed red;
+.break-line-red {
+  width: 100%;
+  border-bottom: 3px dashed red;
 }
 </style>
 
@@ -88,6 +133,8 @@ export default {
       myAppointments: [],
       inProgress: [],
       cancelled: [],
+      hideCurrent: true,
+      hideCancelled: true
     };
   },
   methods: {
