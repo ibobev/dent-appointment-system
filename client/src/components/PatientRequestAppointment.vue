@@ -163,11 +163,26 @@ export default {
       
       return flag;
     },
+    acceptFromToday() {
+      let flag = false;
+
+      let today = new Date();
+      let requestedDay = new Date(this.state.appointment.date);
+
+      if(requestedDay < today) {
+        this.state.success="";
+        this.state.error = 'Please select a date that has not passed!';
+        flag = true;
+      }
+
+      return flag;
+    },
     onRequestAppointment() {
       this.v$.$validate();
       this.prepareRequestAppointment();
       let interval = this.checkTime();
-      if (!this.v$.$error && !interval) {
+      let validDay = this.acceptFromToday();
+      if (!this.v$.$error && !interval && !validDay) {
         this.state.error = "";
         axios.post("/api/v1/appointments", this.state.appointment).then(
           (res) => {
