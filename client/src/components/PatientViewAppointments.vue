@@ -24,7 +24,7 @@
       <div id="current" class="row" v-if="!hideCurrent">
         <h2 class="text-center">Current</h2>
         <div
-          class="col-sm-12 col-md-4 mb-4"
+          class="col-sm-12 col-lg-4 mb-4"
           v-for="appointment of inProgress"
           v-bind:key="appointment.id"
         >
@@ -54,7 +54,7 @@
       <div id="cancelled" class="row" v-if="!hideCancelled">
         <h2 class="text-center">Cancelled</h2>
         <div
-          class="col-sm-12 col-md-4 mb-4"
+          class="col-sm-12 col-lg-4 mb-4"
           v-for="appointment of cancelled"
           v-bind:key="appointment.id"
         >
@@ -133,7 +133,7 @@ export default {
       myAppointments: [],
       inProgress: [],
       cancelled: [],
-      hideCurrent: true,
+      hideCurrent: false,
       hideCancelled: true
     };
   },
