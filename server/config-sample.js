@@ -7,4 +7,5 @@ module.exports = {
   DB_NAME: '',
   JWT_SECRET: '',
   BCRYPT_ROUNDS: 6,
+  CRON_SCHEDULE: '',
 }

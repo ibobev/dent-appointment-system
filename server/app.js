@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use(express.json({ extended: true }));
 
 // Scheduled jobs (CRON)
-cron.schedule('*/1 * * * *', () => {
+cron.schedule(config.CRON_SCHEDULE, () => {
   console.log('Cron job run...');
   // TODO: Send appointments mail
 });
