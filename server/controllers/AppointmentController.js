@@ -4,8 +4,11 @@ module.exports.getDentistAppointmentCalendar = async (req, res) => {
   const dentist_id = parseInt(req.params.id);
   let dentistAppointments = [];
 
-  const selectAppointments = 'SELECT id, appointment_date, start_time, end_time, status FROM appointments WHERE dentist_id = $1 ';
-  const values = [dentist_id];
+  let statusA = 'Accepted';
+  let statusP = 'Pending';
+
+  const selectAppointments = 'SELECT id, appointment_date, start_time, end_time, status FROM appointments WHERE dentist_id = $1 AND status=$2 OR status=$3 ';
+  const values = [dentist_id, statusA, statusP];
 
   try {
     const result = await db.query(selectAppointments, values);
@@ -103,31 +106,43 @@ module.exports.scheduleAppointment = async (req, res) => {
     end
   } = req.body;
 
+  //Chekc for availability
+  const checkAppointmentQuery = 'SELECT appointment_date, start_time, status FROM appointments WHERE dentist_id = $1 AND appointment_date=$2 AND start_time=$3';
+  const valuesCheck = [dentist, date, start];
+  let appointmentRes = null;
+
+  try {
+    const appointmentSearch = await db.query(checkAppointmentQuery, valuesCheck);
+    appointmentRes = appointmentSearch.rows;
+    console.log(appointmentRes);
+    if (appointmentSearch.rows.length !== 0) {
+      for (let appointment of appointmentRes) {
+        if (appointment.status === 'Pending' || appointment.status === 'Accepted') {
+          return res.status(400).json({
+            status: 'error',
+            statusmsg: 'Selected appointment is taken!'
+          });
+        }
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      status: 'error',
+      statusmsg: 'Internal error!'
+    });
+  }
+
   //Get patient details
   const getPatientDetailsQuery = await db.query('SELECT first_name, last_name FROM accounts WHERE id=$1', [patient_id]);
   const patientDetails = getPatientDetailsQuery.rows[0];
 
   let title = patientDetails.first_name + ' ' + patientDetails.last_name + ' - ID: ' + patient_id;
-  let status = 'Pending';
-
-  //Chekc for availability
-  const checkAppointmentQuery = 'SELECT appointment_date, start_time FROM appointments WHERE dentist_id = $1 AND appointment_date=$2 AND start_time=$3';
-  const valuesCheck = [dentist, date, start];
-  
-  try {
-    const appointmentSearch = await db.query(checkAppointmentQuery, valuesCheck);
-    //console.log(appointmentResult);
-    if (appointmentSearch.rows.length !== 0) {
-      return res.status(400).json({ status: 'error', statusmsg: 'Selected appointment is taken!' });
-    }    
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ status: 'error', statusmsg: 'Internal error!' });
-  }
 
   //Request appointment
+  let statusPending = 'Pending';
   const insertAppointment = 'INSERT INTO appointments (dentist_id, patient_id, appointment_date, start_time, end_time, status, title) VALUES ($1,$2,$3,$4,$5,$6,$7)';
-  const values = [dentist, patient_id, date, start, end, status, title];
+  const values = [dentist, patient_id, date, start, end, statusPending, title];
 
   try {
     await db.query(insertAppointment, values);
