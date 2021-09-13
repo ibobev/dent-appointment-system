@@ -28,7 +28,7 @@
         </button>
       </div>
       <div id="pending" class="row" v-if="!hidePending">
-        <h2 class="text-center">Appointment Requests</h2>
+        <h2 class="text-center mb-3">Appointment Requests</h2>
         <div
           class="col-sm-12 col-md-4 mb-4"
           v-for="appointment of pending"
@@ -40,14 +40,14 @@
                 Request Details
               </h4>
               <div class="break-line mb-2"></div>
-              <p>Name: {{ appointment.first_name }} {{ appointment.last_name }} </p>
-              <p>ID: {{ appointment.patient_id }}</p>
-              <p>Email: {{ appointment.email }}</p>
+              <p><b>Name:</b> {{ appointment.first_name }} {{ appointment.last_name }} </p>
+              <p><b>ID:</b> {{ appointment.patient_id }}</p>
+              <p><b>Email:</b> {{ appointment.email }}</p>
               <div class="break-line mb-2"></div>
-              <p>Appointment: {{ appointment.appointment_date }}</p>
-              <p>From: {{ appointment.start_time }}</p>
-              <p>To: {{ appointment.end_time }}</p>
-              <p>Status: {{ appointment.status }}</p>
+              <p><b>Appointment:</b> {{ appointment.appointment_date }}</p>
+              <p><b>From:</b> {{ appointment.start_time }}</p>
+              <p><b>To:</b> {{ appointment.end_time }}</p>
+              <p><b>Status:</b> {{ appointment.status }}</p>
               <div class="break-line"></div>
             </div>
             <div class="row mb-3 text-center">
@@ -85,14 +85,14 @@
                 Appointment Details
               </h4>
               <div class="break-line mb-2"></div>
-              <p>Name: {{ appointment.first_name }} {{ appointment.last_name }}</p>
-              <p>ID: {{ appointment.patient_id }}</p>
-              <p>Email: {{ appointment.email }}</p>
+              <p><b>Name:</b> {{ appointment.first_name }} {{ appointment.last_name }}</p>
+              <p><b>ID:</b> {{ appointment.patient_id }}</p>
+              <p><b>Email:</b> {{ appointment.email }}</p>
               <div class="break-line mb-2"></div>
-              <p>Appointment: {{ appointment.appointment_date }}</p>
-              <p>From: {{ appointment.start_time }}</p>
-              <p>To: {{ appointment.end_time }}</p>
-              <p>Status: {{ appointment.status }}</p>
+              <p><b>Appointment:</b> {{ appointment.appointment_date }}</p>
+              <p><b>From:</b> {{ appointment.start_time }}</p>
+              <p><b>To:</b> {{ appointment.end_time }}</p>
+              <p><b>Status:</b> {{ appointment.status }}</p>
               <div class="break-line"></div>
             </div>
             <div class="row mb-3 text-center">
@@ -130,15 +130,15 @@
                 Cancelled Details
               </h4>
               <div class="break-line-red mb-2"></div>
-              <p>Name:{{ appointment.first_name }} {{ appointment.last_name }} </p>
-              <p>ID: {{ appointment.patient_id }}</p>
-              <p>Email: {{ appointment.email }}</p>
+              <p><b>Name:</b>{{ appointment.first_name }} {{ appointment.last_name }} </p>
+              <p><b>ID:</b> {{ appointment.patient_id }}</p>
+              <p><b>Email:</b> {{ appointment.email }}</p>
               <div class="break-line-red mb-2"></div>
-              <p>Appointment: {{ appointment.appointment_date }}</p>
-              <p>Appointment ID: {{ appointment.id }}</p>
-              <p>From: {{ appointment.start_time }}</p>
-              <p>To: {{ appointment.end_time }}</p>
-              <p>Status: {{ appointment.status }}</p>
+              <p><b>Appointment:</b> {{ appointment.appointment_date }}</p>
+              <p><b>Appointment ID:</b> {{ appointment.id }}</p>
+              <p><b>From:</b> {{ appointment.start_time }}</p>
+              <p><b>To:</b> {{ appointment.end_time }}</p>
+              <p><b>Status:</b> {{ appointment.status }}</p>
               <div class="break-line-red"></div>
             </div>
           </div>

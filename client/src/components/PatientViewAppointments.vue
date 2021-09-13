@@ -31,7 +31,7 @@
           <div class="card shadow border-0 mt-3">
             <div class="card-body" id="card-top-border">
               <h4 class="card-text text-center">Appointment Details</h4>
-              <div class="break-line"></div>
+              <div class="break-line mb-2"></div>
               <p>
                 <b>Dentist:</b> {{ appointment.first_name }}
                 {{ appointment.last_name }}
@@ -39,7 +39,7 @@
               <p><b>ID:</b> {{ appointment.dentist_id }}</p>
               <p><b>Email:</b> {{ appointment.email }}</p>
               <p><b>Phone:</b> {{ appointment.phone }}</p>
-              <div class="break-line"></div>
+              <div class="break-line mb-2"></div>
               <p><b>Appointment:</b> {{ appointment.appointment_date }}</p>
               <p><b>Address:</b> {{ appointment.city }}</p>
               <p><b>From:</b> {{ appointment.start_time }}</p>
@@ -61,7 +61,7 @@
           <div class="card shadow border-0 mt-3">
             <div class="card-body" id="card-top-border-red">
               <h4 class="card-text text-center">Appointment Details</h4>
-              <div class="break-line-red"></div>
+              <div class="break-line-red mb-2"></div>
               <p>
                 <b>Dentist:</b> {{ appointment.first_name }}
                 {{ appointment.last_name }}
@@ -69,7 +69,7 @@
               <p><b>ID:</b> {{ appointment.dentist_id }}</p>
               <p><b>Email:</b> {{ appointment.email }}</p>
               <p><b>Phone:</b> {{ appointment.phone }}</p>
-              <div class="break-line-red"></div>
+              <div class="break-line-red mb-2"></div>
               <p><b>Appointment:</b> {{ appointment.appointment_date }}</p>
               <p><b>Address:</b> {{ appointment.city }}</p>
               <p><b>From:</b> {{ appointment.start_time }}</p>
