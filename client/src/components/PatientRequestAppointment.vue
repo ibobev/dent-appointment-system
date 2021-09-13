@@ -169,9 +169,9 @@ export default {
       let today = new Date();
       let requestedDay = new Date(this.state.appointment.date);
 
-      if(requestedDay < today) {
+      if(requestedDay <= today) {
         this.state.success="";
-        this.state.error = 'Please select a date that has not yet passed!';
+        this.state.error = 'Please select a date that is at least 1 business day from now!';
         flag = true;
       }
 

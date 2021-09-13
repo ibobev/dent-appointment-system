@@ -167,8 +167,8 @@ export default {
       this.correctAppointmentDate();
       this.inProgress = this.currentAppointments();
       this.cancelled = this.cancelledAppointments();
-      console.log(this.inProgress);
-      console.log(this.cancelled);
+      //console.log(this.inProgress);
+      //console.log(this.cancelled);
     } catch (error) {
       console.log(error.toJSON);
     }

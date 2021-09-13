@@ -30,24 +30,23 @@ module.exports.getDentistAppointmentCalendar = async (req, res) => {
 
 }
 
-module.exports.getPendingRequests = async (req, res) => {
+module.exports.getAppointmentRequests = async (req, res) => {
   const dentist_id = req.account.id;
-  let pending = [];
-  const status = 'Pending';
+  let allAppointments = [];
 
   const getPendingPatients = `
   SELECT appointments.id, patient_id, appointment_date, start_time, end_time, appointments.status, accounts.first_name, accounts.last_name, accounts.email
   FROM appointments
   JOIN patients ON appointments.patient_id=patients.account_id
   JOIN accounts ON patients.account_id=accounts.id
-  WHERE dentist_id=$1 AND appointments.status=$2;
+  WHERE dentist_id=$1;
   `;
 
-  const values = [dentist_id, status];
+  const values = [dentist_id];
 
   try {
     const result = await db.query(getPendingPatients, values);
-    pending = result.rows;
+    allAppointments = result.rows;
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -57,12 +56,12 @@ module.exports.getPendingRequests = async (req, res) => {
     return;
   }
 
-  console.log(pending);
+  console.log(allAppointments);
 
   res.json({
     status: 'success',
     statusmsg: '',
-    pending: pending
+    allAppointments: allAppointments
   });
 
 }
@@ -242,6 +241,5 @@ module.exports.getPatientCurrentAppointments = async (req, res) => {
     statusmsg: '',
     p_appointments: p_appointments
   });
-
 
 }
