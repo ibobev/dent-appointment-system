@@ -119,7 +119,7 @@ module.exports.scheduleAppointment = async (req, res) => {
     console.log(appointmentRes);
     if (appointmentSearch.rows.length !== 0) {
       for (let appointment of appointmentRes) {
-        if (appointment.status === 'Pending' || appointment.status === 'Accepted') {
+        if (appointment.status === 'Pending' || appointment.status === 'Accepted' || appointment.status === 'Completed') {
           return res.status(400).json({
             status: 'error',
             statusmsg: 'Selected appointment is taken!'
