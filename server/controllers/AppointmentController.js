@@ -6,9 +6,10 @@ module.exports.getDentistAppointmentCalendar = async (req, res) => {
 
   let statusA = 'Accepted';
   let statusP = 'Pending';
+  let statusC = 'Completed';
 
-  const selectAppointments = 'SELECT id, appointment_date, start_time, end_time, status FROM appointments WHERE (dentist_id = $1) AND (status=$2 OR status=$3)';
-  const values = [dentist_id, statusA, statusP];
+  const selectAppointments = 'SELECT id, appointment_date, start_time, end_time, status FROM appointments WHERE (dentist_id = $1) AND (status=$2 OR status=$3 OR status=$4)';
+  const values = [dentist_id, statusA, statusP, statusC];
 
   try {
     const result = await db.query(selectAppointments, values);

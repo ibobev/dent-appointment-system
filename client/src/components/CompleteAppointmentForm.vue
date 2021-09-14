@@ -201,6 +201,7 @@ export default {
             }
           }
         );
+        this.$router.push({ path: "/dentist/appointments" });
       }
     },
   }
