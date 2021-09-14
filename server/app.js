@@ -13,6 +13,8 @@ const dentistRoutes = require('./routes/dentist');
 const patientRoutes = require('./routes/patient');
 const eventRoutes = require('./routes/event');
 const appointmentRoutes = require('./routes/appointment');
+const medicalRecordRoutes = require('./routes/medical-record');
+const ratingRoutes = require('./routes/rating');
 
 // Middleware
 app.use(cookieParser());
@@ -35,6 +37,8 @@ app.use('/api/v1/dentists', dentistRoutes);
 app.use('/api/v1/patients', patientRoutes);
 app.use('/api/v1/events', eventRoutes);
 app.use('/api/v1/appointments', appointmentRoutes);
+app.use('/api/v1/medical-records', medicalRecordRoutes);
+app.use('/api/v1/ratings', ratingRoutes);
 
 // Server
 app.listen(PORT, () => {

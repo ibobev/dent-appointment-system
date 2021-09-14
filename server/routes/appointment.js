@@ -16,7 +16,7 @@ const dentistAuth = (req, res, next) => {
   console.log(req.header('Authorization'));
   // Check for Authorization header
   const authHeader = req.header('Authorization') ? req.header('Authorization').split(' ') : null
-  console.log(authHeader);
+  //console.log(authHeader);
   if (!authHeader) {
     return res.status(403).json({
       status: 'error',
@@ -61,7 +61,7 @@ const accountAuth = (req, res, next) => {
   console.log(req.header('Authorization'));
   // Check for Authorization header
   const authHeader = req.header('Authorization') ? req.header('Authorization').split(' ') : null
-  console.log(authHeader);
+  //console.log(authHeader);
   if (!authHeader) {
     return res.status(403).json({
       status: 'error',
@@ -104,6 +104,8 @@ router.get('/all', dentistAuth, appointmentController.getAppointmentRequests);
 
 router.get('/dentist/:id', appointmentController.getDentistAppointmentCalendar);
 
+router.get('/:a_id', dentistAuth, appointmentController.getCurrentAppointment);
+
 router.get('/', dentistAuth, appointmentController.getCurrentDentistAppointmentCalendar);
 
 /**
@@ -115,6 +117,8 @@ router.post('/', accountAuth, appointmentController.scheduleAppointment);
 /**
  * PUT /appointments/:id
  */
+router.put('/complete/:a_id', dentistAuth, appointmentController.completeAppointment);
+
 router.put('/reject/:a_id/:p_id', dentistAuth, appointmentController.rejectAppointment);
 
 router.put('/:a_id/:p_id', dentistAuth, appointmentController.acceptAppointment);

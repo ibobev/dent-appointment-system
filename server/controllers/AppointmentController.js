@@ -72,9 +72,10 @@ module.exports.getCurrentDentistAppointmentCalendar = async (req, res) => {
 
   let statusA = 'Accepted';
   let statusP = 'Pending';
+  let statusC = 'Completed';
 
-  const selectAppointments = 'SELECT id, title, appointment_date, start_time, end_time, status FROM appointments WHERE (dentist_id = $1) AND (status = $2 OR status = $3)';
-  const values = [id, statusA, statusP];
+  const selectAppointments = 'SELECT id, title, appointment_date, start_time, end_time, status FROM appointments WHERE (dentist_id = $1) AND (status = $2 OR status = $3 OR status = $4)';
+  const values = [id, statusA, statusP, statusC];
 
   try {
     const result = await db.query(selectAppointments, values);
@@ -167,7 +168,7 @@ module.exports.acceptAppointment = async (req, res) => {
 
   const status = 'Accepted';
 
-  const updateStatus = 'UPDATE appointments SET status=$1 WHERE dentist_id=$2 AND patient_id=$3 AND id=$4';
+  const updateStatus = 'UPDATE appointments SET status=$1 WHERE dentist_id=$2 AND (patient_id=$3 AND id=$4)';
   const values = [status, dentist_id, patient_id, a_id];
 
   try {
@@ -242,5 +243,67 @@ module.exports.getPatientCurrentAppointments = async (req, res) => {
     statusmsg: '',
     p_appointments: p_appointments
   });
+
+}
+
+module.exports.getCurrentAppointment = async (req, res) => {
+  //const dentist_id = req.account.id;
+  const appointment_id = parseInt(req.params.a_id);
+  let appointmentDetails = [];
+
+  const getAppointmentDetails = `
+  SELECT appointments.id, patient_id, appointment_date, start_time, end_time, appointments.status, accounts.first_name, accounts.last_name, accounts.email
+  FROM appointments
+  JOIN patients ON appointments.patient_id=patients.account_id
+  JOIN accounts ON patients.account_id=accounts.id
+  WHERE appointments.id=$1;
+  `;
+
+  const values=[appointment_id];
+
+  try {
+    const result = await db.query(getAppointmentDetails, values);
+    appointmentDetails = result.rows;
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: 'error',
+      statusmsg: 'Internal server error!'
+    });
+    return;
+  }
+
+  //console.log(appointmentDetails);
+
+  res.json({
+    status: 'success',
+    statusmsg: '',
+    appointmentDetails: appointmentDetails
+  });
+
+}
+
+module.exports.completeAppointment = async (req, res) => {
+  const appointment_id = parseInt(req.params.a_id);
+  const dentist_id = req.account.id;
+  
+  const status = 'Completed';
+
+  const updateStatus = 'UPDATE appointments SET status=$1 WHERE dentist_id=$2 AND id=$3';
+  const values = [status, dentist_id, appointment_id];
+
+  try {
+    await db.query(updateStatus, values);
+    return res.status(201).json({
+      status: 'success',
+      statusmsg: 'Appointment completed'
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      status: 'error',
+      statusmsg: 'Internal server error!'
+    });
+  }
 
 }
