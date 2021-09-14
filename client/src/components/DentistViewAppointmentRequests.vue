@@ -227,33 +227,34 @@ export default {
       );
       return cancelled;
     },
-    acceptAppointment(patient_id, a_id) {
+    async acceptAppointment(patientId, appointmentId) {
       try {
-        axios.put(`/api/v1/appointments/${a_id}/${patient_id}`);
+        await axios.put(`/api/v1/appointments/${patientId}/${appointmentId}`);
+        this._removeFromPending(appointmentId);
       } catch (error) {
         console.log(error);
       }
-      window.location.reload();
     },
-    rejectAppointment(patient_id, a_id) {
-      console.log(a_id);
+    async rejectAppointment(patientId, appointmentId) {
       try {
-        axios.put(`/api/v1/appointments/reject/${a_id}/${patient_id}`);
+        await axios.put(`/api/v1/appointments/reject/${appointmentId}/${patientId}`);
+        this._removeFromPending(appointmentId);
       } catch (error) {
         console.log(error);
       }
-      window.location.reload();
+    },
+    _removeFromPending(appointmentId) {
+      this.pending = this.pending.filter(appointment => parseInt(appointment.id) !== parseInt(appointmentId));
     },
   },
   async mounted() {
     try {
       const res = await axios.get("/api/v1/appointments/all");
-      this.appointmentDetails = res.data.allAppointments;
+      this.appointmentDetails = res.data.allAppointments.map(a => { a.status = a.status.trim(); return a});
       this.parsePatientAppointmentDate();
       this.current = this.getCurrent();
       this.pending = this.getPending();
       this.cancelled = this.getCancelled();
-      //console.log(this.appointmentDetails);
     } catch (error) {
       console.log(error.toJSON());
     }
