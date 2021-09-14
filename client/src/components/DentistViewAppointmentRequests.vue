@@ -97,12 +97,9 @@
             </div>
             <div class="row mb-3 text-center">
               <div class="col">
-                <button
-                  class="btn btn-success"
-                  v-on:click="completeAppointment(appointment.patient_id, appointment.id)"
-                >
+                <router-link :to="'/dentist/complete/' + appointment.id + '/' + appointment.patient_id" class="btn btn-success">
                   Complete
-                </button>
+                </router-link>
               </div>
               <div class="col">
                 <button
@@ -247,9 +244,6 @@ export default {
       }
       window.location.reload();
     },
-    /*completeAppointment(patient_id, a_id) {
-
-    }*/
   },
   async mounted() {
     try {

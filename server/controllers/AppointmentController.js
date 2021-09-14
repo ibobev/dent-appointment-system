@@ -7,7 +7,7 @@ module.exports.getDentistAppointmentCalendar = async (req, res) => {
   let statusA = 'Accepted';
   let statusP = 'Pending';
 
-  const selectAppointments = 'SELECT id, appointment_date, start_time, end_time, status FROM appointments WHERE dentist_id = $1 AND status=$2 OR status=$3 ';
+  const selectAppointments = 'SELECT id, appointment_date, start_time, end_time, status FROM appointments WHERE (dentist_id = $1) AND (status=$2 OR status=$3)';
   const values = [dentist_id, statusA, statusP];
 
   try {
@@ -70,15 +70,16 @@ module.exports.getCurrentDentistAppointmentCalendar = async (req, res) => {
   const id = req.account.id;
   let dentistAppointments = [];
 
-  const statusPending = 'Pending';
-  const statusAccepted = 'Accepted';
+  let statusA = 'Accepted';
+  let statusP = 'Pending';
 
-  const selectAppointments = 'SELECT id, title, appointment_date, start_time, end_time, status FROM appointments WHERE dentist_id = $1 AND status=$2 OR status=$3';
-  const values = [id, statusPending, statusAccepted];
+  const selectAppointments = 'SELECT id, title, appointment_date, start_time, end_time, status FROM appointments WHERE (dentist_id = $1) AND (status = $2 OR status = $3)';
+  const values = [id, statusA, statusP];
 
   try {
     const result = await db.query(selectAppointments, values);
     dentistAppointments = result.rows;
+    console.log(dentistAppointments);
   } catch (error) {
     console.log(error);
     res.status(500).json({

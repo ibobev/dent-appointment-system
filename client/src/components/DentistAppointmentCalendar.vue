@@ -35,20 +35,21 @@ export default {
   data() {
     return {
       events: [],
+      
     };
   },
   async mounted() {
     try {
       const res = await axios.get("/api/v1/appointments");
       this.events = res.data.dentistAppointments;
-      this.parseEvents();
+      this.parseAppointmentDetails();
       //console.log(this.events);
     } catch (error) {
       console.log(error);
     }
   },
   methods: {
-    parseEvents() {
+    parseAppointmentDetails() {
       this.events.map((event) => {
         let correct_date = new Date(event.appointment_date);
         correct_date = new Date(
@@ -60,8 +61,7 @@ export default {
         event.title = `${event.title}`;
         event.content = `${event.status}`;
       });
-      return this.events;
-    },
+    }
   },
 };
 </script>

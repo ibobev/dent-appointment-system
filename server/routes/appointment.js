@@ -102,7 +102,7 @@ router.get('/history', accountAuth, appointmentController.getPatientCurrentAppoi
 
 router.get('/all', dentistAuth, appointmentController.getAppointmentRequests);
 
-router.get('/:id', appointmentController.getDentistAppointmentCalendar);
+router.get('/dentist/:id', appointmentController.getDentistAppointmentCalendar);
 
 router.get('/', dentistAuth, appointmentController.getCurrentDentistAppointmentCalendar);
 

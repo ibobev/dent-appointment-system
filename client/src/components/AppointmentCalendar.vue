@@ -54,10 +54,10 @@ export default {
   },
   async mounted() {
     try {
-      const res = await axios.get(`/api/v1/appointments/${this.dentist_id}`);
+      const res = await axios.get(`/api/v1/appointments/dentist/${this.dentist_id}`);
       this.events = res.data.dentistAppointments;
       this.parseEvents();
-      //console.log(this.events);
+      console.log(this.events);
     } catch (error) {
       console.log(error);
     }
