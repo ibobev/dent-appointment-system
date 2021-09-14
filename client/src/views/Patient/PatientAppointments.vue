@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="text-center mt-2">Appointments</h1>
+    <h2 class="text-center mt-3">Appointments</h2>
     <div class="row">
       <div class="col-sm-12 col-lg-12 mb-4">
         <PatientViewAppointments />

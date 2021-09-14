@@ -40,7 +40,7 @@
                 Request Details
               </h4>
               <div class="break-line mb-2"></div>
-              <p><b>Name:</b> {{ appointment.first_name }} {{ appointment.last_name }} </p>
+              <p><b>Patient:</b> {{ appointment.first_name }} {{ appointment.last_name }} </p>
               <p><b>ID:</b> {{ appointment.patient_id }}</p>
               <p><b>Email:</b> {{ appointment.email }}</p>
               <div class="break-line mb-2"></div>
@@ -85,7 +85,7 @@
                 Appointment Details
               </h4>
               <div class="break-line mb-2"></div>
-              <p><b>Name:</b> {{ appointment.first_name }} {{ appointment.last_name }}</p>
+              <p><b>Patient:</b> {{ appointment.first_name }} {{ appointment.last_name }}</p>
               <p><b>ID:</b> {{ appointment.patient_id }}</p>
               <p><b>Email:</b> {{ appointment.email }}</p>
               <div class="break-line mb-2"></div>
@@ -130,7 +130,7 @@
                 Cancelled Details
               </h4>
               <div class="break-line-red mb-2"></div>
-              <p><b>Name:</b>{{ appointment.first_name }} {{ appointment.last_name }} </p>
+              <p><b>Patient:</b>{{ appointment.first_name }} {{ appointment.last_name }} </p>
               <p><b>ID:</b> {{ appointment.patient_id }}</p>
               <p><b>Email:</b> {{ appointment.email }}</p>
               <div class="break-line-red mb-2"></div>

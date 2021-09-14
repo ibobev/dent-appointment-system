@@ -1,7 +1,7 @@
 <template>
-  <div class="container mt-3">
-    <h2 class="text-center mb-2">Appointments Calendar</h2>
-    <div class="col-md-12 col-lg-12 mb-5">
+  <div class="container">
+    <h2 class="text-center mt-4 mb-4">Appointments Calendar</h2>
+    <div class="col-md-12 col-lg-9 mb-5 mx-auto">
       <DentistAppointmentCalendar />
     </div>
     <div class="col-md-12 col-lg-12 mb-3">

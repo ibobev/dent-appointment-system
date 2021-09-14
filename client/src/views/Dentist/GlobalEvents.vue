@@ -1,11 +1,11 @@
 <template>
   <div id="dentist-global-events" class="container">
     <div class="row">
-      <h2 class="text-center mt-3">Global Events Calendar</h2>
-      <div class="col-md-12 col-lg-6 mb-2">
+      <h2 class="text-center mt-4 mb-4">Global Events Calendar</h2>
+      <div class="col-md-12 col-lg-7 mb-3 mx-auto">
         <GlobalEventsCalendar />
       </div>
-      <div class="col-md-12 col-lg-6">
+      <div class="col-md-12 col-lg-7 mb-3 mx-auto">
         <AddGlobalEvent />
       </div>
     </div>
