@@ -10,7 +10,7 @@ const config = require('../config');
 
 const router = express.Router();
 
-const ratingController = require('../controllers/RatingController');
+const reviewController = require('../controllers/ReviewController');
 
 const patientAuth = (req, res, next) => {
   console.log(req.header('Authorization'));
