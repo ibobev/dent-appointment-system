@@ -1,15 +1,14 @@
 <template>
- <div class="contaienr">
-    <h2 class="text-center mt-4 mb-4">Your Dentists</h2>
+ <div class="contaienr mt-5">
     <div class="col-md-11 col-lg-11 mb-3 mx-auto">
       <table>
-        <tr>
-          <th>ID</th>
+        <tr class="text-center">
+          <th>Dentist ID</th>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Medical Record</th>
         </tr>
-        <tr v-for="dentist of dentists" v-bind:key="dentist.id">
+        <tr v-for="dentist of dentists" v-bind:key="dentist.id" class="text-center"> 
           <td>{{ dentist.dentist_id }}</td>
           <td>{{ dentist.first_name }}</td>
           <td>{{ dentist.last_name }}</td>
@@ -32,20 +31,19 @@ table {
   width: 100%;
 }
 th {
-  border: 2px solid #000;
-  background-color: #333232;
+  background-color: #0292f8;
   color: #fff;
+  
 }
-
-tr:nth-of-type(even) {
-  background: #E3F2FD;
-}
-tr:nth-of-type(odd) {
-  background: #90CAF9;
+tr{
+  background: #fff;
+  border-bottom:10px solid  #f2f5f7f8;
+  height:60px;
 }
 
 td {
-  border: 2px solid #000;
+  border-bottom:10px solid  #f2f5f7f8;
+  height:80px;
 }
 </style>
 
