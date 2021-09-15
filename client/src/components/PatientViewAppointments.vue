@@ -1,9 +1,9 @@
 <template>
   <div id="patient-view-appointments">
-    <div class="container mt-4">
+    <div class="container">
       <div
         id="nav-appointments"
-        class="col-sm-12 col-lg-12 mx-auto text-center mt-3 mb-3"
+        class="col-sm-12 col-lg-12 mx-auto text-center mb-3"
       >
         <button
           v-on:click="hideCurrent = hideCurrent=false,hideCancelled=true, hideCompleted=true"

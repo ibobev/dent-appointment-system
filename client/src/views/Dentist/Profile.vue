@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-3">
+  <div class="container mt-4">
     <div class="row">
       <div class="col-md-12 col-lg-4 mb-3">
         <div class="account-card card shadow rounded-0">

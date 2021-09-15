@@ -1,6 +1,5 @@
 <template>
-  <div class="container">
-    <h2 class="text-center mt-4 mb-4">Appointments Calendar</h2>
+  <div class="container mt-4">
     <div class="col-md-12 col-lg-9 mb-5 mx-auto">
       <DentistAppointmentCalendar />
     </div>

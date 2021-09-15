@@ -2,13 +2,8 @@
   <div class="spinner" v-if="isLoading">
     <i class="fas fa-spinner"></i>
   </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <h1>Dentists</h1>
-      </div>
-    </div>
-
+  <div class="container mt-4">
+    
     <div class="row">
       <div class="col-sm-12">
         <div class="input-group">

@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid pt-3">
+  <div class="container-fluid mt-4">
     <div class="row">
       <div class="col-md-12 col-lg-12 mb-3">
         <GlobalEventsCalendar />
