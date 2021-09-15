@@ -176,12 +176,12 @@
 }
 
 #card-top-border-red {
-  border-top: 4px solid red;
+  border-top: 4px solid #dc3545;
 }
 
 .break-line-red {
   width: 100%;
-  border-bottom: 3px dashed red;
+  border-bottom: 3px dashed #dc3545;
 }
 </style>
 

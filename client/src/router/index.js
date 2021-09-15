@@ -13,6 +13,7 @@ import Profile from '../views/Dentist/Profile';
 import PatientsList from '../views/Dentist/PatientsList';
 import GlobalEvents from '../views/Dentist/GlobalEvents';
 import CompleteAppointment from '../views/Dentist/CompleteAppointment';
+import PatientMedicalRecord from '../views/Dentist/PatientMedicalRecord';
 
 // Patients
 import PatientDashboard from '../views/Patient/PatientDashboard';
@@ -69,6 +70,11 @@ const routes = [
         path: '/dentist/events',
         name: 'GlobalEvents',
         component: GlobalEvents
+      },
+      {
+        path: '/dentist/patients/:p_id',
+        name: 'PatientsMedicalRecord',
+        component: PatientMedicalRecord
       },
       {
         path: '/dentist/patients',

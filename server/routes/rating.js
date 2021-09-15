@@ -58,7 +58,7 @@ const dentistAuth = (req, res, next) => {
   };
 
 /**
- * POST /rating
+ * POST /ratings
  */
 
 router.post('/patient', dentistAuth, ratingController.ratePatient);
