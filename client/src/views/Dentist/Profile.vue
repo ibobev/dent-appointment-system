@@ -1,5 +1,5 @@
 <template>
-  <div class="container text-center mt-3">
+  <div class="container mt-3">
     <div class="row">
       <div class="col-md-12 col-lg-4 mb-3">
         <div class="account-card card shadow rounded-0">
@@ -35,9 +35,22 @@
       </div>
       <div class="col-md-12 col-lg-8 mb-3">
         <UpdateWorkingHours />
-      </div> 
-      <div class="col-md-12 col-lg-12 mb-3">
-        <DentistReview />
+      </div>
+      <div class="col-md-12 col-lg-12 mb-3 ">
+        <div id="dentist-review-content" class="container shadow mb-2">
+          <h3 class="text-center mt-2">Reviews</h3>
+          <div class="break-line mb-2"></div>
+          <div
+            class="col-sm-12 col-lg-12 mb-2"
+            v-for="review of review_details"
+            v-bind:key="review.id"
+          >
+            <p class="m-0"><b>{{ review.first_name }} {{ review.last_name }}</b> </p>
+            <p class="m-0"><b>Comment:</b> {{ review.patient_comment }}</p>
+            <p><b>Date:</b> {{ review.commented_on }}</p>
+            <div class="break-line"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -58,9 +71,21 @@ p {
   overflow-y: scroll;
 }
 
+#dentist-review-content {
+  background-color: #fff;
+  height: 400px;
+  max-height: 400px;
+  border-top: 4px solid #0292f8;
+  overflow-y: scroll;
+}
+
+.break-line{
+  border-bottom: solid 2px #0292f8;
+}
+
 @media only screen and (min-width: 1137px) {
   .account-card {
-    max-height:283px;
+    max-height: 283px;
   }
 }
 
@@ -94,7 +119,6 @@ import axios from "axios";
 import ChangePassword from "../../components/ChangePassword.vue";
 import UpdateDentistDetails from "../../components/UpdateDentistDetails.vue";
 import EditPersonalData from "../../components/EditPersonalData.vue";
-import DentistReview from "../../components/DentistReview.vue";
 import UpdateWorkingHours from "../../components/UpdateWorkingHours.vue";
 
 export default {
@@ -103,8 +127,7 @@ export default {
     ChangePassword,
     UpdateDentistDetails,
     EditPersonalData,
-    DentistReview,
-    UpdateWorkingHours
+    UpdateWorkingHours,
   },
   data() {
     return {
@@ -119,6 +142,7 @@ export default {
       work_from: "",
       work_to: "",
       rating: "",
+      review_details: []
     };
   },
   mounted() {
@@ -177,7 +201,32 @@ export default {
         }
       }
     );
+    axios.get("/api/v1/reviews").then(
+      (res) => {
+        this.review_details = res.data.reviews;
+        this.parsePatientCommentDate();
+      },
+      (error) => {
+        if (error.request) {
+          console.log(error.request);
+          console.log(error.request.status);
+        } else if (error.response) {
+          console.log(error.response);
+        } else {
+          console.log(error);
+        }
+      }
+    );
   },
-  methods: {},
+  methods: {
+    parsePatientCommentDate() {
+      this.review_details.map((review) => {
+        let correct_date = new Date(review.commented_on);
+        correct_date = correct_date.toLocaleDateString();
+        review.commented_on = correct_date;
+      });
+      return this.review_details;
+    },
+  },
 };
 </script>

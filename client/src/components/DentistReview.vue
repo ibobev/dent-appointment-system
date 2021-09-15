@@ -7,9 +7,9 @@
       v-for="review of review_details"
       v-bind:key="review.id"
     >
-      <h5>{{ review.first_name }} {{ review.last_name }}:</h5>
-      <p class="m-0">{{ review.patient_comment }}</p>
-      <p>{{ review.commented_on }}</p>
+      <p class="m-0"><b>{{ review.first_name }} {{ review.last_name }}</b> </p>
+      <p class="m-0"><b>Comment:</b> {{ review.patient_comment }}</p>
+      <p><b> Date:</b> {{ review.commented_on }}</p>
       <div class="break-line"></div>
     </div>
   </div>
@@ -25,7 +25,7 @@
 }
 
 .break-line{
-  border-bottom: solid 3px #0292f8;
+  border-bottom: solid 2px #0292f8;
 }
 
 @media only screen and (max-width: 450px) {

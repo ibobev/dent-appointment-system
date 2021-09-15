@@ -75,3 +75,37 @@ module.exports.getReviews = async (req, res) => {
     reviews: reviews
   });
 }
+
+module.exports.getReviewsDentist = async (req, res) => {
+  let dentist_id = req.account.id;
+
+  let reviews = [];
+
+  const selectReviews = `
+  SELECT dentist_reviews.patient_id, patient_comment, commented_on, accounts.first_name, accounts.last_name 
+  FROM dentist_reviews
+  JOIN patients ON dentist_reviews.patient_id=patients.account_id
+  JOIN accounts ON patients.account_id=accounts.id
+  WHERE dentist_reviews.dentist_id = $1;
+  `;
+
+  const values = [dentist_id];
+
+  try {
+    const result = await db.query(selectReviews, values);
+    reviews = result.rows;
+    console.log(reviews);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      status: 'error',
+      statusmsg: 'Internal server error!'
+    });
+  }
+
+  res.json({
+    status: 'success',
+    statusmsg: '',
+    reviews: reviews
+  });
+}
