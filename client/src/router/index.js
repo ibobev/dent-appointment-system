@@ -23,6 +23,7 @@ import PatientMedRecord from '../views/Patient/PatientMedRecord';
 import PatientDentistsView from '../views/Patient/PatientDentistsView';
 import PatientViewDentist from '../views/Patient/PatientViewDentist';
 import PatientCompletedAppointment from '../views/Patient/PatientCompletedAppointment';
+import PatientMedRecordDetails from '../views/Patient/PatientMedRecordDetails';
 
 const routes = [
   {
@@ -123,6 +124,11 @@ const routes = [
         path: '/patient/medical-record',
         name: 'PatientMedRecord',
         component: PatientMedRecord
+      },
+      {
+        path: '/patient/medical-record/:d_id/',
+        name: 'PatientMedRecordDetails',
+        component: PatientMedRecordDetails
       },
     ]
   }

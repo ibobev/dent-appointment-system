@@ -38,10 +38,10 @@ th {
 }
 
 tr:nth-of-type(even) {
-  background: #9bd0f7;
+  background: #deecf7;
 }
 tr:nth-of-type(odd) {
-  background: #deecf7;
+  background: #9bd0f7;
 }
 
 td {
