@@ -5,7 +5,7 @@
         <ViewDentistDetails />
       </div>
       <div class="col-md-12 col-lg-8 mb-3">
-        <div id="temp-content" class="shadow text-center"><h1 class="mt-3">Dentist reviews go here. </h1></div>
+        <DentistReview />
       </div>
       <div class="col-md-12 col-lg-7 mb-3">
         <AppointmentCalendar />
@@ -29,12 +29,14 @@
 import ViewDentistDetails from "../../components/ViewDentistDetails.vue";
 import AppointmentCalendar from "../../components/AppointmentCalendar.vue";
 import PatientRequestAppointment from "../../components/PatientRequestAppointment.vue";
+import DentistReview from "../../components/DentistReview.vue";
 export default {
   name: "PatientViewDentist",
   components: {
     ViewDentistDetails,
     AppointmentCalendar,
-    PatientRequestAppointment
+    PatientRequestAppointment,
+    DentistReview
   },
   data() {
     return {

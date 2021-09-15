@@ -58,6 +58,11 @@ const patientAuth = (req, res, next) => {
 };
 
 /**
+ * GET /reviews
+ */
+router.get('/:d_id', reviewController.getReviews);
+
+/**
  * POST /reviews
  */
 
