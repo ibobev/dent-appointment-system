@@ -61,7 +61,7 @@ const patientAuth = (req, res, next) => {
  * POST /reviews
  */
 
-router.post('/patient', patientAuth, reviewController.reviewDentist);
+router.post('/', patientAuth, reviewController.reviewDentist);
 
 
 module.exports = router;

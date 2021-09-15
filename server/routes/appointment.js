@@ -104,6 +104,8 @@ router.get('/all', dentistAuth, appointmentController.getAppointmentRequests);
 
 router.get('/dentist/:id', appointmentController.getDentistAppointmentCalendar);
 
+router.get('/patient/:a_id', appointmentController.getCurrentAppointmentPatient);
+
 router.get('/:a_id', dentistAuth, appointmentController.getCurrentAppointment);
 
 router.get('/', dentistAuth, appointmentController.getCurrentDentistAppointmentCalendar);

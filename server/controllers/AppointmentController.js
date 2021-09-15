@@ -284,6 +284,42 @@ module.exports.getCurrentAppointment = async (req, res) => {
 
 }
 
+module.exports.getCurrentAppointmentPatient = async (req, res) => {
+  const appointment_id = parseInt(req.params.a_id);
+  let appointmentDetails = [];
+
+  const getAppointmentDetails = `
+  SELECT appointments.id, dentist_id, appointment_date, start_time, end_time, appointments.status, accounts.first_name, accounts.last_name, accounts.email
+  FROM appointments
+  JOIN dentists ON appointments.dentist_id=dentists.account_id
+  JOIN accounts ON dentists.account_id=accounts.id
+  WHERE appointments.id=$1;
+  `;
+
+  const values=[appointment_id];
+
+  try {
+    const result = await db.query(getAppointmentDetails, values);
+    appointmentDetails = result.rows;
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: 'error',
+      statusmsg: 'Internal server error!'
+    });
+    return;
+  }
+
+  //console.log(appointmentDetails);
+
+  res.json({
+    status: 'success',
+    statusmsg: '',
+    appointmentDetails: appointmentDetails
+  });
+
+}
+
 module.exports.completeAppointment = async (req, res) => {
   const appointment_id = parseInt(req.params.a_id);
   const dentist_id = req.account.id;
