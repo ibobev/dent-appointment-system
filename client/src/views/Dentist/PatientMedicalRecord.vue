@@ -59,7 +59,7 @@ td {
 }
 
 #header-border {
-  border-top: 15px solid #f2f5f7f8;
+  border-top: 15px dashed #f2f5f7f8;
 }
 </style>
 
