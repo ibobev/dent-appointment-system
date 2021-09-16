@@ -1,22 +1,39 @@
 <template>
-    <div class="container mt-4 mb-3">
+  <div class="container mt-4 mb-3">
     <div class="col-sm-12 col-lg-8 mx-auto">
-      <div class="card shadow border-0">
-        <div class="card-body" id="card-top-border">
-          <h2 class="text-center mb-3 card-title">Medical Record</h2>
-          <h3>Dentist</h3>
-          <div class="break-line mb-3"></div>
-          <p class="card-text"><b>First Name: </b>{{ this.firstName }}</p>
-          <p class="card-text"><b>Last Name: </b>{{ this.lastName }}</p>
-          <div class="break-line mb-3"></div>
-          <h3>Details</h3>
-          <div class="break-line mb-3"></div>
-          <div v-for="record of details" v-bind:key="record.id">
-            <p class="card-text"><b>Appointment ID:</b> {{record.appointment_id}}</p>
-            <p class="card-text"><b>Appointment Date:</b> {{record.appointment_date}}</p>
-            <p class="card-text"><b>Details:</b> {{record.details}}</p>
-            <div class="break-line mb-3"></div>
-          </div>
+      <div class="card shadow rounded-0">
+        <div class="card-header">
+          <h2 class="text-center mt-2">Medical Record</h2>
+        </div>
+        <div class="card-body p-0">
+          <table class="text-center">
+            <tr>
+              <th>Dentist ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+            </tr>
+            <tr>
+              <td>{{ this.dentist_id }}</td>
+              <td>{{ this.firstName }}</td>
+              <td>{{ this.lastName }}</td>
+            </tr>
+          </table>
+
+          <h2 class="text-center mt-2 py-3" id="header-border">
+            Appointment Details
+          </h2>
+          <table class="text-center">
+            <tr>
+              <th>ID</th>
+              <th>Date</th>
+              <th>Details</th>
+            </tr>
+            <tr v-for="record of details" v-bind:key="record.id">
+              <td>{{ record.appointment_id }}</td>
+              <td>{{ record.appointment_date }}</td>
+              <td>{{ record.details }}</td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
@@ -24,13 +41,25 @@
 </template>
 
 <style scoped>
-#card-top-border {
-  border-top: 4px solid #0292f8;
+table {
+  width: 100%;
+}
+th {
+  background-color: #0292f8;
+  color: #fff;
+}
+tr {
+  background: #fff;
+  height: 50px;
 }
 
-.break-line {
-  width: 100%;
-  border-bottom: 3px dashed #0292f8;
+td {
+  background: #fff;
+  height: 60px;
+}
+
+#header-border {
+  border-top: 15px solid #f2f5f7f8;
 }
 </style>
 
@@ -48,7 +77,9 @@ export default {
   },
   async mounted() {
     try {
-      const res = await axios.get(`/api/v1/medical-records/dentists/${this.dentist_id}`);
+      const res = await axios.get(
+        `/api/v1/medical-records/dentists/${this.dentist_id}`
+      );
       this.details = res.data.medDetails;
       this.parseAppointmentDate();
       this.firstName = this.details[0].first_name;
@@ -68,6 +99,5 @@ export default {
       return this.details;
     },
   },
-  
-}
+};
 </script>
