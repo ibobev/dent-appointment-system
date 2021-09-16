@@ -3,62 +3,11 @@ const {
   check,
   validationResult
 } = require('express-validator');
-const jwt = require('jsonwebtoken');
-
-const roles = require('../utils/roles');
-const config = require('../config');
+const auth = require('../utils/auth');
 
 const router = express.Router();
 
 const dentistController = require('../controllers/DentistController');
-
-// TODO: REFACTOR dentistAuth
-
-const dentistAuth = (req, res, next) => {
-  console.log(req.header('Authorization'));
-  // Check for Authorization header
-  const authHeader = req.header('Authorization') ? req.header('Authorization').split(' ') : null
-  console.log(authHeader);
-  if (!authHeader) {
-    return res.status(403).json({
-      status: 'error',
-      statusmsg: 'Invalid auth token'
-    });
-  }
-
-  // Check if authorization type is token
-  if (authHeader[0] !== 'Token') {
-    return res.status(401).json({
-      status: 'error',
-      statusmsg: 'Invalid auth token'
-    });
-  }
-
-  const token = authHeader[1];
-  let decodedToken = null;
-
-  try {
-    decodedToken = jwt.verify(token, config.JWT_SECRET);
-  } catch (error) {
-    console.log('token is expired');
-    console.log(error);
-    return res.status(401).json({
-      status: 'error',
-      statusmsg: 'Invalid auth token'
-    });
-  }
-
-  if (decodedToken.role !== roles.DENTIST) {
-    console.log('INVALID ROLE', decodedToken.role);
-    return res.status(401).json({
-      status: 'error',
-      statusmsg: 'Invalid auth token'
-    });
-  }
-
-  req.account = decodedToken;
-  next();
-};
 
 
 /**
@@ -71,7 +20,7 @@ router.get('/', dentistController.getAll);
 /**
  * GET dentists/details
  */
-router.get('/details/', dentistAuth, dentistController.getDentistDetails);
+router.get('/details/', auth.asDentist, dentistController.getDentistDetails);
 
 router.get('/details/:id', dentistController.getSelectedDentistFullDetails);
 
@@ -90,14 +39,14 @@ router.put('/details',
     }
     next();
   },
-  dentistAuth,
+  auth.asDentist,
   dentistController.updateDentistDetails
 );
 
 /**
  * PUT dentists/schedule
  */
-router.put('/schedule', dentistAuth, dentistController.updateWorkDetails);
+router.put('/schedule', auth.asDentist, dentistController.updateWorkDetails);
 
 
 module.exports = router;
