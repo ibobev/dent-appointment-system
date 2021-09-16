@@ -1,31 +1,37 @@
 <template>
-  <div id="dentist-review-content" class="container shadow mb-2">
-    <h3 class="text-center mt-2">Reviews</h3>
-    <div class="break-line mb-2"></div>
-    <div
-      class="col-sm-12 col-lg-12 mb-2"
-      v-for="review of review_details"
-      v-bind:key="review.id"
-    >
-      <p class="m-0"><b>{{ review.first_name }} {{ review.last_name }}</b> </p>
-      <p class="m-0"><b>Comment:</b> {{ review.patient_comment }}</p>
-      <p><b> Date:</b> {{ review.commented_on }}</p>
-      <div class="break-line"></div>
+  <div>
+    <div class="line-breaker"><h2 class="text-center py-1">Comments</h2></div>
+    <div id="dentist-review-content">
+      <div
+        class="mt-1"
+        v-for="review of review_details"
+        v-bind:key="review.id"
+      >
+        <div class="comment rounded-0 border text-justify float-left">
+          <h5 class="m-2">{{ review.first_name }} {{ review.last_name }}</h5>
+          <span class="m-2">{{ review.commented_on }}</span>
+          <p class="m-2">{{ review.patient_comment }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
 #dentist-review-content {
-  background-color: #fff;
   height: 400px;
   max-height: 400px;
-  border-top: 4px solid #0292f8;
   overflow-y: scroll;
 }
 
-.break-line{
-  border-bottom: solid 2px #0292f8;
+.comment {
+  background-color: #fff;
+}
+
+.line-breaker {
+  /*height: 50px;*/
+  background-color: #0292f8;
+  color: #fff;
 }
 
 @media only screen and (max-width: 450px) {

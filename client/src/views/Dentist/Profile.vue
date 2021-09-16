@@ -76,12 +76,11 @@ p {
 }
 
 .comment{
-  background-color: #d6e8f5;
+  background-color: #fff;
 }
 
 .line-breaker {
   width: 30%;
-  height: 50px;
   background-color: #0292f8;
   transform: skewX(-10deg);
   color:#fff;
