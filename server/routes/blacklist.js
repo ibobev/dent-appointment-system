@@ -10,6 +10,11 @@ const router = express.Router();
 const BlacklistController = require('../controllers/BlacklistController');
 
 
+router.get('/patients', BlacklistController.getBlacklistedPatients);
+
+router.get('/dentists', BlacklistController.getBlacklistedDentists);
+
+
 // Blacklist dentist as a patient
 router.post(
   '/dentist',

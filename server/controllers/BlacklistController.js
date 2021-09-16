@@ -94,3 +94,33 @@ async function addAccountToBlacklist(blacklistTable, dentistId, patientId, reaso
   }
 }
 
+
+module.exports.getBlacklistedPatients = async function(req, res) {
+  const QUERY = 'select * from blacklisted_patients order by patient_id,created_at desc';
+
+  let blacklistedPatients;
+  try {
+    const result = await db.query(QUERY);
+    blacklistedPatients = result.rows;
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 'error', statusmsg: 'Internal server error!' });
+  }
+
+  res.json({ status: 'success', statusmsg: '', blacklistedPatients});
+};
+
+module.exports.getBlacklistedDentists = async function(req, res) {
+  const QUERY = 'select * from blacklisted_dentists order by dentist_id,created_at desc';
+
+  let blacklistedDentists;
+  try {
+    const result = await db.query(QUERY);
+    blacklistedDentists = result.rows;
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 'error', statusmsg: 'Internal server error!' });
+  }
+
+  res.json({ status: 'success', statusmsg: '', blacklistedDentists});
+};
