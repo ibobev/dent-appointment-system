@@ -36,19 +36,17 @@
       <div class="col-md-12 col-lg-8 mb-3">
         <UpdateWorkingHours />
       </div>
-      <div class="col-md-12 col-lg-12 mb-3 ">
-        <div id="dentist-review-content" class="container shadow mb-2">
-          <h3 class="text-center mt-2">Reviews</h3>
-          <div class="break-line mb-2"></div>
-          <div
-            class="col-sm-12 col-lg-12 mb-2"
-            v-for="review of review_details"
-            v-bind:key="review.id"
-          >
-            <p class="m-0"><b>{{ review.first_name }} {{ review.last_name }}</b> </p>
-            <p class="m-0"><b>Comment:</b> {{ review.patient_comment }}</p>
-            <p><b>Date:</b> {{ review.commented_on }}</p>
-            <div class="break-line"></div>
+      <div class="line-breaker m-3"><h2 class="text-left mt-1">Feedback</h2></div>
+      <div id="dentist-review-content" class="container mb-2 mt-2">
+        <div
+          class="mb-2"
+          v-for="review of review_details"
+          v-bind:key="review.id"
+        >
+          <div class="comment rounded-0 border text-justify float-left">
+            <h5 class="m-2">{{ review.first_name }} {{ review.last_name }}</h5>
+            <span class="m-2">{{ review.commented_on }}</span>
+            <p class="m-2">{{ review.patient_comment }}</p>
           </div>
         </div>
       </div>
@@ -72,15 +70,21 @@ p {
 }
 
 #dentist-review-content {
-  background-color: #fff;
   height: 400px;
   max-height: 400px;
-  border-top: 4px solid #0292f8;
   overflow-y: scroll;
 }
 
-.break-line{
-  border-bottom: solid 2px #0292f8;
+.comment{
+  background-color: #d6e8f5;
+}
+
+.line-breaker {
+  width: 30%;
+  height: 50px;
+  background-color: #0292f8;
+  transform: skewX(-10deg);
+  color:#fff;
 }
 
 @media only screen and (min-width: 1137px) {
@@ -142,7 +146,7 @@ export default {
       work_from: "",
       work_to: "",
       rating: "",
-      review_details: []
+      review_details: [],
     };
   },
   mounted() {
