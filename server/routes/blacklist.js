@@ -2,7 +2,6 @@ const express = require('express');
 const auth = require('../utils/auth');
 const {
   body,
-  check,
   validationResult
 } = require('express-validator');
 

@@ -72,7 +72,7 @@ function suspendAccount(accountId) {
   return db.query(SUSPEN_QUERY, [accountId]);
 }
 
-function addAccountToBlacklist(blacklistTable, dentistId, patientId, reason) {
+async function addAccountToBlacklist(blacklistTable, dentistId, patientId, reason) {
   const ALLOWED_BLACKLIST_TABLES = ['dentists', 'patients'];
 
   if (!ALLOWED_BLACKLIST_TABLES.includes(blacklistTable)) {
@@ -84,8 +84,13 @@ function addAccountToBlacklist(blacklistTable, dentistId, patientId, reason) {
   // It is safe to use tempalte string for the table
   // since the data is server-generated and never comes
   // from the client
-  const INSERT_QUERY = `insert into ${TABLE} (dentist_id, patient_id, reason) values($1,$2,$3)`;
+  const existingRecords = await db.query(`select id from ${TABLE} where dentist_id=$1 and patient_id=$2`, [dentistId, patientId]);
 
-  return db.query(INSERT_QUERY, [dentistId, patientId, reason]);
+  // Don't blacklist already blacklisted
+  if (existingRecords.rows.length === 0) {
+    const INSERT_QUERY = `insert into ${TABLE} (dentist_id, patient_id, reason) values($1,$2,$3)`;
+
+    return db.query(INSERT_QUERY, [dentistId, patientId, reason]);
+  }
 }
 
