@@ -15,7 +15,7 @@
           <td>
             <router-link
               :to="'/patient/medical-record/' + dentist.dentist_id"
-              class="btn w-100"
+              class="btn"
             >
               Click to View
             </router-link>
@@ -45,6 +45,12 @@ td {
   border-bottom:10px solid  #f2f5f7f8;
   height:80px;
 }
+
+.btn {
+  background-color: #0292f8;
+  color:#fff;
+}
+
 </style>
 
 <script>
