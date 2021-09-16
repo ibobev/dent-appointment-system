@@ -60,7 +60,7 @@ td {
 }
 
 .dashed-border {
-  border-top: 15px dashed #f2f5f7f8;
+  border-top: 15px dashed #68c1fc;
 }
 
 </style>
