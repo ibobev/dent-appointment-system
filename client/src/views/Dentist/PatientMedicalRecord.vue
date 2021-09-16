@@ -19,7 +19,7 @@
             </tr>
           </table>
 
-          <h2 class="text-center mt-2 py-3" id="header-border">
+          <h2 class="text-center mt-2 py-3 dashed-border">
             Appointment Details
           </h2>
           <table class="text-center">
@@ -34,6 +34,7 @@
               <td>{{ record.details }}</td>
             </tr>
           </table>
+          <div class="card-footer py-3"></div>
         </div>
       </div>
     </div>
@@ -58,7 +59,7 @@ td {
   height: 60px;
 }
 
-#header-border {
+.dashed-border {
   border-top: 15px dashed #f2f5f7f8;
 }
 </style>
