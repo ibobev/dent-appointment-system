@@ -16,6 +16,7 @@ const appointmentRoutes = require('./routes/appointment');
 const medicalRecordRoutes = require('./routes/medical-record');
 const ratingRoutes = require('./routes/rating');
 const reviewRoutes = require('./routes/review');
+const blacklistRoutes = require('./routes/blacklist');
 
 // Middleware
 app.use(cookieParser());
@@ -41,6 +42,7 @@ app.use('/api/v1/appointments', appointmentRoutes);
 app.use('/api/v1/medical-records', medicalRecordRoutes);
 app.use('/api/v1/ratings', ratingRoutes);
 app.use('/api/v1/reviews', reviewRoutes);
+app.use('/api/v1/blacklist', blacklistRoutes);
 
 // Server
 app.listen(PORT, () => {
