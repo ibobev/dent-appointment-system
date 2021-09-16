@@ -34,7 +34,7 @@
               <td>{{ record.details }}</td>
             </tr>
           </table>
-          <div class="card-footer py-3"></div>
+          <div class="card-footer py-4"></div>
         </div>
       </div>
     </div>
