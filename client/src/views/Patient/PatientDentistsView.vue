@@ -79,10 +79,52 @@
               Rating:
               <span class="badge bg-warning fs-6">{{dentist.rating}}</span>
             </p>
-            <router-link :to="'/patient/dentists/' + dentist.id" class="btn btn-primary">View Profile</router-link>
+            <router-link :to="'/patient/dentists/' + dentist.id" class="btn btn-sm btn-primary">View Profile</router-link>
+            <button
+              type="button"
+              class="btn btn-sm btn-secondary ms-2"
+              @click="currentlyBlacklisting= dentist.id; showBlacklistModal = !showBlacklistModal; blacklistReason = ''"
+            >
+              Blacklist
+            </button>
           </div>
         </div>
       </div>
+
+      <!-- Blacklist modal -->
+      <div class="modal fade" v-bind:class="{'d-block show': showBlacklistModal}" style="background: rgba(0,0,0,0.35)">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Blackist reason</h5>
+              <button type="button" class="btn-close" aria-label="Close" @click="showBlacklistModal = false; currentlyBlacklisting = null; blacklistReason = ''"></button>
+            </div>
+
+            <div class="modal-body">
+              <label for="blacklistReason">Reason for the blacklist</label>
+              <textarea class="form-control" id="blacklistReason" v-model="blacklistReason"></textarea>
+              <p class="text-muted">
+                <small>By blacklisting, you will no longer see this dentists.</small>
+              </p>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" @click="showBlacklistModal = false; currentlyBlacklisting = null">Close</button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                v-bind:class="{'disabled': !blacklistReason.length}"
+                @click="blacklistDentist"
+              >
+                Send
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -135,6 +177,9 @@ export default {
       cityFilter: '',
       dentistTypeFilter: '',
       ratingFilter: null,
+      showBlacklistModal: false,
+      blacklistReason: '',
+      currentlyBlacklisting: null,
     }
   },
   async mounted() {
@@ -207,6 +252,23 @@ export default {
     },
     onRatingFilterRemove: function () {
       this.ratingFilter = null;
+    },
+    blacklistDentist: async function() {
+      try {
+        await axios.post('/api/v1/blacklist/dentist', { dentistId: this.currentlyBlacklisting, reason: this.blacklistReason });
+      } catch (error) {
+        console.log(error);
+        // TODO: Show error to client
+      }
+
+      // Close the modal
+      this.blacklistReason = '';
+      this.showBlacklistModal = false;
+
+      // Remove the dentist from the rest
+      this.dentists = this.dentists.filter(d => d.id !== this.currentlyBlacklisting);
+
+      this.currentlyBlacklisting = null;
     },
   },
   watch: {

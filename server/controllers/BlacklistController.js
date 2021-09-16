@@ -49,7 +49,12 @@ module.exports.blacklistDentist = async function(req, res) {
   }
 
   const BLACKLIST_TABLE = 'dentists';
-  await addAccountToBlacklist(BLACKLIST_TABLE, account.id, dentistId, reason); 
+  try {
+    await addAccountToBlacklist(BLACKLIST_TABLE, dentistId, account.id, reason);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 'error', statusmsg: 'Internal server error!' });
+  }
 
   res.status(201).json({ status: 'success', statusmsg: 'Account is blacklisted!' });
 };
@@ -81,16 +86,15 @@ async function addAccountToBlacklist(blacklistTable, dentistId, patientId, reaso
 
   const TABLE  = `blacklisted_${blacklistTable}`;
 
-  // It is safe to use tempalte string for the table
-  // since the data is server-generated and never comes
-  // from the client
+  // It is safe to use template string here
+  // because the data is server-generated
+  // it never comes from the client
   const existingRecords = await db.query(`select id from ${TABLE} where dentist_id=$1 and patient_id=$2`, [dentistId, patientId]);
-
   // Don't blacklist already blacklisted
   if (existingRecords.rows.length === 0) {
     const INSERT_QUERY = `insert into ${TABLE} (dentist_id, patient_id, reason) values($1,$2,$3)`;
 
-    return db.query(INSERT_QUERY, [dentistId, patientId, reason]);
+    await db.query(INSERT_QUERY, [dentistId, patientId, reason]);
   }
 }
 

@@ -40,7 +40,19 @@ module.exports.getAll = async (req, res) => {
     }
   }
 
-  res.json({ status: 'success', statusmsg: '', dentists: dentists });
+  // Remove blacklisted dentists
+  // TODO: Probably use join when pulling the dentists
+  const filteredDentists = [];
+
+  for (const dentist of dentists) {
+    const result = await db.query('select count(id) as count from blacklisted_dentists where dentist_id=$1', [dentist.id]);
+
+    if (result.rows[0]['count'] === '0') {
+      filteredDentists.push(dentist);
+    }
+  }
+
+  res.json({ status: 'success', statusmsg: '', dentists: filteredDentists });
 };
 
 module.exports.getDentistDetails = async (req, res) => {
