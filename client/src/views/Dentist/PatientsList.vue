@@ -147,7 +147,7 @@ export default {
       try {
         await axios.post('/api/v1/blacklist/patient', { patientId: this.currentBlacklistPatient, reason: this.blacklistReason });
 
-        this.patients = this.patients.filter(
+        this.filteredPatients = this.filteredPatients.filter(
           patient => parseInt(patient.patient_id) !== parseInt(this.currentBlacklistPatient)
         );
       } catch (error) {
