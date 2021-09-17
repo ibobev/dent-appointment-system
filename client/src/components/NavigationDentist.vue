@@ -28,6 +28,10 @@
         <i class="fas fa-file-medical fa-lg"></i>&nbsp;&nbsp;
         Patients
       </router-link>
+      <router-link to="/dentist/blacklist">
+        <i class="fas fa-clipboard-list fa-lg"></i>&nbsp;&nbsp;
+        Blacklist
+      </router-link>
       <router-link to="/" @click="onLogout">
         <i class="fas fa-power-off fa-lg"></i>&nbsp;&nbsp;
         Logout

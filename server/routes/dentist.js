@@ -47,5 +47,10 @@ router.put('/details',
  */
 router.put('/schedule', auth.asDentist, dentistController.updateWorkDetails);
 
+/**
+ * GET dentists/blacklist
+ * Get all blacklisted patients
+ */
+router.get('/blacklist', auth.asDentist, dentistController.getBlacklist);
 
 module.exports = router;

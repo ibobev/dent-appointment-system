@@ -14,6 +14,7 @@ import PatientsList from '../views/Dentist/PatientsList';
 import GlobalEvents from '../views/Dentist/GlobalEvents';
 import CompleteAppointment from '../views/Dentist/CompleteAppointment';
 import PatientMedicalRecord from '../views/Dentist/PatientMedicalRecord';
+import DentistBlacklistView from '../views/Dentist/DentistBlacklistView';
 
 // Patients
 import PatientDashboard from '../views/Patient/PatientDashboard';
@@ -88,6 +89,11 @@ const routes = [
         path: '/dentist/complete/:a_id/:p_id',
         name: 'CompleteAppointment',
         component: CompleteAppointment
+      },
+      {
+        name: 'DentistBlacklistView',
+        path: '/dentist/blacklist',
+        component: DentistBlacklistView
       }
     ]
   },
