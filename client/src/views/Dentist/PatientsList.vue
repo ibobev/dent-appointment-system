@@ -1,6 +1,13 @@
 <template>
-  <div class="contaienr mt-4">
-    <div class="row px-5 my-3">
+  <div class="container">
+
+    <div class="row my-3">
+      <div class="col-sm-12">
+        <h2>Patients</h2>
+      </div>
+    </div>
+
+    <div class="row my-3">
       <div class="col-sm-12">
         <div class="input-group">
           <span class="input-group-text">
@@ -18,34 +25,38 @@
         </div> 
       </div>
     </div>
-    <div class="col-md-11 col-lg-11 mb-3 mx-auto">
-      <table>
-        <tr class="text-center">
-          <th>Patient ID</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Medical Record</th>
-          <th width="10%"></th>
-        </tr>
-        <tr v-for="patient of filteredPatients" v-bind:key="patient.id" class="text-center">
-          <td>{{ patient.patient_id }}</td>
-          <td>{{ patient.first_name }}</td>
-          <td>{{ patient.last_name }}</td>
-          <td>
-            <router-link
-              :to="'/dentist/patients/' + patient.patient_id"
-              class="btn custom-primary"
-            >
-              View record
-            </router-link>
-          </td>
-          <td col="1">
-            <button type="button" class="btn btn-block btn-secondary" @click="currentBlacklistPatient = patient.patient_id; showBlacklistModal = true">
-              Blacklist
-            </button>
-          </td>
-        </tr>
-      </table>
+
+    <!-- Patients table -->
+    <div class="row my-3">
+      <div class="col-sm-12">
+        <table>
+          <tr class="text-center">
+            <th>Patient ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Medical Record</th>
+            <th width="10%"></th>
+          </tr>
+          <tr v-for="patient of filteredPatients" v-bind:key="patient.id" class="text-center">
+            <td>{{ patient.patient_id }}</td>
+            <td>{{ patient.first_name }}</td>
+            <td>{{ patient.last_name }}</td>
+            <td>
+              <router-link
+                :to="'/dentist/patients/' + patient.patient_id"
+                class="btn custom-primary"
+              >
+                View record
+              </router-link>
+            </td>
+            <td col="1">
+              <button type="button" class="btn btn-block btn-secondary" @click="currentBlacklistPatient = patient.patient_id; showBlacklistModal = true">
+                Blacklist
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
 
       <!-- Blacklist modal -->
@@ -95,11 +106,12 @@
 table {
   width: 100%;
 }
+
 th {
   background-color: #0292f8;
   color: #fff;
-  
 }
+
 tr{
   background: #fff;
   border-bottom:10px solid  #f2f5f7f8;
