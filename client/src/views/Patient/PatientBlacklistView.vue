@@ -66,7 +66,7 @@
 
     <!-- Dentists list -->
     <div class="row my-3">
-      <div class="col-sm-6" v-for="dentist of computedDentists" :key="dentist.dentist_id">
+      <div class="col-md-12 col-lg-6" v-for="dentist of computedDentists" :key="dentist.dentist_id">
         <div class="card mb-3">
           <div class="row g-0">
             <div class="col-sm-4">
@@ -113,6 +113,7 @@ export default {
       cityFilter: '',
       dentistTypeFilter: '',
       ratingFilter: null,
+      searchTimeout: null,
     } 
   },
   async mounted() {
@@ -158,6 +159,50 @@ export default {
       // Filtered dentists
       return _dentists;
     }
+  },
+  watch: {
+    // Handle dynamic search with debounce
+    searchTerm: function (newSearchTerm) {
+      if (this.searchTimeout) {
+          clearTimeout(this.searchTimeout);
+      }
+      this.searchTimeout = setTimeout(() => {
+        console.log(newSearchTerm); 
+        // NOTE: Artificial delay, probably delete
+        setTimeout(() => {
+          this.filterDentists(newSearchTerm);
+        }, 300);
+      }, 500);
+    },
+  },
+  methods: {
+    filterDentists: async function(term) {
+      try {
+        const res = await axios.get(`/api/v1/patients/blacklist?term=${term}`);
+        this.dentists = res.data.dentists;
+      } catch (error) {
+        console.log(error);
+        // TODO: show error to client
+      }
+    },
+    onCityFilterSet: function (cityFilterValue) {
+      this.cityFilter = cityFilterValue;
+    },
+    onCityFilterRemove: function () {
+      this.cityFilter = '';
+    },
+    onDentistTypeFilterSet: function (dentistTypeFilterValue) {
+      this.dentistTypeFilter = dentistTypeFilterValue;
+    },
+    onDentistTypeFilterRemove: function () {
+      this.dentistTypeFilter = '';
+    },
+    onRatingFilterSet: function (ratingFilter) {
+      this.ratingFilter = ratingFilter;
+    },
+    onRatingFilterRemove: function () {
+      this.ratingFilter = null;
+    },
   },
 }
 
