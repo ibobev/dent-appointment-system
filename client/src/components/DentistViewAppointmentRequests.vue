@@ -229,7 +229,7 @@ export default {
     },
     async acceptAppointment(patientId, appointmentId) {
       try {
-        await axios.put(`/api/v1/appointments/${patientId}/${appointmentId}`);
+        await axios.put(`/api/v1/appointments/${appointmentId}/${patientId}`);
         this._removeFromPending(appointmentId);
       } catch (error) {
         console.log(error);
