@@ -24,6 +24,7 @@ import PatientDentistsView from '../views/Patient/PatientDentistsView';
 import PatientViewDentist from '../views/Patient/PatientViewDentist';
 import PatientCompletedAppointment from '../views/Patient/PatientCompletedAppointment';
 import PatientMedRecordDetails from '../views/Patient/PatientMedRecordDetails';
+import PatientBlacklistView from '../views/Patient/PatientBlacklistView';
 
 const routes = [
   {
@@ -130,6 +131,11 @@ const routes = [
         name: 'PatientMedRecordDetails',
         component: PatientMedRecordDetails
       },
+      {
+        name: 'PatientBlacklist',
+        path: '/patient/blacklist',
+        component: PatientBlacklistView
+      }
     ]
   }
 ]

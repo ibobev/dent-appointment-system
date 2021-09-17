@@ -17,6 +17,10 @@
           <i class="fas fa-user-md fa-lg"></i>&nbsp;&nbsp;
           Dentists
         </router-link>
+        <router-link to="/patient/blacklist">
+          <i class="fas fa-clipboard-list fa-lg"></i>&nbsp;&nbsp;
+          Blacklist
+        </router-link>
         <router-link to="/patient/appointments">
           <i class="fas fa-calendar-alt fa-lg"></i>&nbsp;&nbsp;
           Appointments
