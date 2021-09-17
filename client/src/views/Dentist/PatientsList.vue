@@ -1,5 +1,23 @@
 <template>
   <div class="contaienr mt-4">
+    <div class="row px-5 my-3">
+      <div class="col-sm-12">
+        <div class="input-group">
+          <span class="input-group-text">
+            <i class="fas fa-search"></i>
+          </span>
+          <input type="text" class="form-control" placeholder="Search..." v-model="search" />
+          <button
+            type="button"
+            class="btn btn-secondary"
+            v-if="search.length"
+            @click="search = ''"
+          >
+            X
+          </button>
+        </div> 
+      </div>
+    </div>
     <div class="col-md-11 col-lg-11 mb-3 mx-auto">
       <table>
         <tr class="text-center">
@@ -9,7 +27,7 @@
           <th>Medical Record</th>
           <th width="10%"></th>
         </tr>
-        <tr v-for="patient of patients" v-bind:key="patient.id" class="text-center">
+        <tr v-for="patient of filteredPatients" v-bind:key="patient.id" class="text-center">
           <td>{{ patient.patient_id }}</td>
           <td>{{ patient.first_name }}</td>
           <td>{{ patient.last_name }}</td>
@@ -106,7 +124,9 @@ export default {
   name: "PatientsList",
   data() {
     return {
+      search: '',
       patients: [],
+      filteredPatients: [],
       showBlacklistModal: false,
       currentBlacklistPatient: null,
       blacklistReason: '',
@@ -116,6 +136,7 @@ export default {
     try {
       const res = await axios.get("/api/v1/medical-records/");
       this.patients = res.data.patientList;
+      this.filteredPatients = this.patients;
       console.log(this.patients);
     } catch (error) {
       console.log(error.toJSON());
@@ -136,6 +157,20 @@ export default {
       this.blacklistReason = '';
       this.showBlacklistModal = false;
       this.currentBlacklistPatient = null;
+    },
+  },
+  watch: {
+    search: function (newSearchTerm) {
+      if (!newSearchTerm.length) {
+        this.filteredPatients = this.patients;
+        return;
+      }
+
+      this.filteredPatients = this.patients.filter(patient => {
+        return patient.first_name.includes(newSearchTerm)
+          || patient.last_name.includes(newSearchTerm)
+          || patient.patient_id === newSearchTerm;
+      });
     },
   },
 };
