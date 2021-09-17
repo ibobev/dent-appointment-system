@@ -124,8 +124,8 @@ export default {
       }
 
       this.filteredPatients = this.patients.filter(patient => {
-        return patient.name.includes(newSearchTerm)
-          || patient.email.includes(newSearchTerm)
+        return patient.name.toLocaleLowerCase().includes(newSearchTerm)
+          || patient.email.toLocaleLowerCase().includes(newSearchTerm)
           || (('' + patient.patient_id) === newSearchTerm);
       });
     },
