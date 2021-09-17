@@ -5,6 +5,7 @@ const db = require('../utils/db');
 const roles = require('../utils/roles');
 
 module.exports.getAll = async (req, res) => {
+  const { account } = req;
   const { term } = req.query;
   let dentists = [];
   let searchQuery = 'select id,first_name,last_name,email,description,city,dentist_type,phone from accounts join dentists on dentists.account_id=accounts.id where role_id=$1';
@@ -41,13 +42,12 @@ module.exports.getAll = async (req, res) => {
   }
 
   // Remove blacklisted dentists
-  // TODO: Probably use join when pulling the dentists
   const filteredDentists = [];
 
   for (const dentist of dentists) {
-    const result = await db.query('select count(id) as count from blacklisted_dentists where dentist_id=$1', [dentist.id]);
+    const result = await db.query('select id from blacklisted_dentists where dentist_id=$1 and patient_id=$2', [dentist.id, account.id]);
 
-    if (result.rows[0]['count'] === '0') {
+    if (result.rows.length === 0) {
       filteredDentists.push(dentist);
     }
   }

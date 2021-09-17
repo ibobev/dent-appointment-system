@@ -13,9 +13,8 @@ const dentistController = require('../controllers/DentistController');
 /**
  * GET /dentists
  * Get all dentists public info
- * Note: Does not require auth
  */
-router.get('/', dentistController.getAll);
+router.get('/', auth.asAll, dentistController.getAll);
 
 /**
  * GET dentists/details

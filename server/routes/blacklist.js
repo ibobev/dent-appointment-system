@@ -20,6 +20,7 @@ router.post(
   '/dentist',
   auth.asPatient,
   body('dentistId').isNumeric(),
+  body('reason').isString(),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -37,6 +38,7 @@ router.post(
   '/patient',
   auth.asDentist,
   body('patientId').isNumeric(),
+  body('reason').isString(),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

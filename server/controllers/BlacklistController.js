@@ -72,7 +72,7 @@ async function updateAccountStrikes(accountId) {
 }
 
 function suspendAccount(accountId) {
-  const SUSPEN_QUERY = 'update accounts set status=\'Suspend\' where id=$1 returning strikes';
+  const SUSPEN_QUERY = 'update accounts set status=\'Suspended\' where id=$1 returning strikes';
 
   return db.query(SUSPEN_QUERY, [accountId]);
 }
