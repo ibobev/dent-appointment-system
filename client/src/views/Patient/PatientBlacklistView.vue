@@ -84,6 +84,9 @@
                 <p class="mb-1">Type: <strong>{{ dentist.dentist_type }}</strong></p>
                 <h5>Reason for blacklisting:</h5>
                 <p class="card-text">{{ dentist.reason }}</p>
+                <button type="button" class="btn btn-sm btn-primary" @click="removeFromBlacklist(dentist.dentist_id)">
+                  Un-blacklist
+                </button>
               </div>
             </div>
           </div>
@@ -206,6 +209,22 @@ export default {
     },
     onRatingFilterRemove: function () {
       this.ratingFilter = null;
+    },
+    removeFromBlacklist: async function (dentistId) {
+      if (!confirm('Are you sure?')) {
+        return;
+      }
+
+      try {
+        await axios.delete(`/api/v1/patients/blacklist/${dentistId}`);
+
+        // Remove from list
+        this.dentists = this.dentists.filter(
+          dentist => dentist.dentist_id !== dentistId
+        );
+      } catch (error) {
+        console.log(error.toJSON());
+      }
     },
   },
 }
