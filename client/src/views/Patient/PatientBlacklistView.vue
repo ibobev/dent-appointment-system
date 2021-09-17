@@ -78,7 +78,11 @@
                   Blackilsted on: <br> {{ dentist.blacklistDate }}
                 </p>
                 <h4 class="card-title"> {{ dentist.name }} </h4>
-                <p class="mb-0">Reason for blacklisting:</p>
+                <p class="mb-1">Email: <strong>{{ dentist.email }}</strong></p>
+                <p class="mb-1">City: <strong>{{ dentist.city }}</strong></p>
+                <p class="mb-1">Phone: <strong>{{ dentist.phone }}</strong></p>
+                <p class="mb-1">Type: <strong>{{ dentist.dentist_type }}</strong></p>
+                <h5>Reason for blacklisting:</h5>
                 <p class="card-text">{{ dentist.reason }}</p>
               </div>
             </div>
