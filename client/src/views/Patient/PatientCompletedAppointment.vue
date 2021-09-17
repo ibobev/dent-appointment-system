@@ -51,7 +51,7 @@
                 <textarea
                   name="description"
                   class="form-control"
-                  placeholder="Enter medical record details..."
+                  placeholder="Enter short review..."
                   v-model="state.dentist_review.details"
                 ></textarea>
               </div>
