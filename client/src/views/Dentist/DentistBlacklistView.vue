@@ -1,8 +1,27 @@
 <template>
   <div class="container">
-    <div class="row">
+    <div class="row mt-3">
       <div class="col-sm-12">
         <h2>Blacklisted patients</h2>
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-sm-12">
+        <div class="input-group">
+          <span class="input-group-text">
+            <i class="fas fa-search"></i>
+          </span>
+          <input type="text" class="form-control" placeholder="Search..." v-model="search" />
+          <button
+            type="button"
+            class="btn btn-secondary"
+            v-if="search.length"
+            @click="search = ''"
+          >
+            X
+          </button>
+        </div> 
       </div>
     </div>
 
@@ -74,6 +93,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      search: '',
       patients: [],
       filteredPatients: [],
     }
@@ -95,6 +115,20 @@ export default {
     } catch (error) {
       console.log(error.toJSON());
     } 
+  },
+  watch: {
+    search: function (newSearchTerm) {
+      if (!newSearchTerm.length) {
+        this.filteredPatients = this.patients;
+        return;
+      }
+
+      this.filteredPatients = this.patients.filter(patient => {
+        return patient.name.includes(newSearchTerm)
+          || patient.email.includes(newSearchTerm)
+          || (('' + patient.patient_id) === newSearchTerm);
+      });
+    },
   },
 }
 </script>
