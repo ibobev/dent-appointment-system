@@ -50,8 +50,8 @@
               </router-link>
             </td>
             <td>
-              <button type="button" class="btn btn-block btn-secondary" @click="currentBlacklistPatient = patient.patient_id; showBlacklistModal = true">
-                Blacklist
+              <button type="button" class="btn btn-block btn-secondary" @click="removeFromBlacklist(patient.patient_id)">
+                Un-Blacklist
               </button>
             </td>
           </tr>
@@ -128,6 +128,22 @@ export default {
           || patient.email.includes(newSearchTerm)
           || (('' + patient.patient_id) === newSearchTerm);
       });
+    },
+  },
+  methods: {
+    removeFromBlacklist: async function (patientId) {
+      if (!confirm('Are you sure?')) {
+        return;
+      }
+      try {
+        await axios.delete(`/api/v1/dentists/blacklist/${patientId}`);
+
+        this.filteredPatients = this.filteredPatients.filter(
+          patient => patient.patient_id !== patientId
+        );
+      } catch (error) {
+        console.log(error.toJSON());
+      }
     },
   },
 }

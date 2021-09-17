@@ -228,3 +228,19 @@ module.exports.getBlacklist = async function (req, res) {
 
 };
 
+module.exports.removeFromBlacklist = async function (req, res) {
+  const { account } = req;
+  const { patientId } = req.params;
+
+
+  const DELETE_QUERY = 'delete from blacklisted_patients where patient_id = $1 and dentist_id = $2';
+  try {
+    await db.query(DELETE_QUERY, [patientId, account.id]);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 'error', statusmsg: 'Internal server error' });
+  }
+
+  res.json({ status: 'success', statusmsg: 'Patient removed from blacklist' });
+};
+

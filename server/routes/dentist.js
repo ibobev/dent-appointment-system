@@ -53,4 +53,11 @@ router.put('/schedule', auth.asDentist, dentistController.updateWorkDetails);
  */
 router.get('/blacklist', auth.asDentist, dentistController.getBlacklist);
 
+/**
+ * DELETE dentists/blacklist/:patientId
+ * :patientId - the id of the patient to be removed from blacklist
+ * Remove patient from dentist's blacklist
+ */
+router.delete('/blacklist/:patientId', auth.asDentist, dentistController.removeFromBlacklist);
+
 module.exports = router;
