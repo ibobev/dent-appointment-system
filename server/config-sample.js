@@ -7,5 +7,5 @@ module.exports = {
   DB_NAME: '',
   JWT_SECRET: '',
   BCRYPT_ROUNDS: 6,
-  CRON_SCHEDULE: '',
+  CRON_SCHEDULE: '*/30 * * * *', // Every 30 minutes
 }
