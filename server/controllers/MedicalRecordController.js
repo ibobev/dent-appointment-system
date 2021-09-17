@@ -28,6 +28,7 @@ module.exports.createRecord = async (req, res) => {
 }
 
 module.exports.getPatients = async (req, res) => {
+  const { account } = req;
   const dentist_id = req.account.id;
   let patientList = [];
 
@@ -52,10 +53,20 @@ module.exports.getPatients = async (req, res) => {
     });
   }
 
+  const filteredPatients = [];
+
+  // Remove blacklisted patients
+  for (const patient of patientList) {
+    const queryRes = await db.query('select id from blacklisted_patients where patient_id=$1 and dentist_id=$2', [patient.patient_id, account.id]);
+    if (queryRes.rows.length === 0) {
+      filteredPatients.push(patient);
+    }
+  }
+
   res.json({
     status: 'success',
     statusmsg: '',
-    patientList: patientList
+    patientList: filteredPatients
   });
 
 }
