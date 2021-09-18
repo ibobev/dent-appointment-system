@@ -34,6 +34,7 @@
             <th>Patient ID</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Rating</th>
             <th>Medical Record</th>
             <th width="10%"></th>
           </tr>
@@ -41,6 +42,7 @@
             <td>{{ patient.patient_id }}</td>
             <td>{{ patient.first_name }}</td>
             <td>{{ patient.last_name }}</td>
+            <td><span class="style-rating">{{ patient.avg }}</span></td>
             <td>
               <router-link
                 :to="'/dentist/patients/' + patient.patient_id"
@@ -125,6 +127,16 @@ td {
 
 .btn.custom-primary {
   background-color: #0292f8;
+  color:#fff;
+}
+
+.style-rating {
+  padding-top: 8px;
+  padding-right: 8px;
+  padding-bottom: 8px;
+  padding-left:8px;
+  background-color: #0292f8;
+  border-radius: 50%;
   color:#fff;
 }
 </style>

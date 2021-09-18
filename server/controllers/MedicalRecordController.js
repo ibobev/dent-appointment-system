@@ -33,11 +33,14 @@ module.exports.getPatients = async (req, res) => {
   let patientList = [];
 
   const selectPatients = `
-  SELECT DISTINCT patient_id, accounts.first_name, accounts.last_name 
+  SELECT DISTINCT medical_records.patient_id, accounts.first_name, accounts.last_name, AVG(patient_ratings.rating)::numeric(10,1) 
   FROM medical_records
   JOIN patients ON medical_records.patient_id=patients.account_id
-  JOIN accounts ON patients.account_id=accounts.id 
-  WHERE dentist_id = $1`;
+  JOIN accounts ON patients.account_id=accounts.id
+  JOIN patient_ratings ON patients.account_id = patient_ratings.patient_id
+  WHERE medical_records.dentist_id = $1
+  GROUP BY medical_records.patient_id, accounts.first_name, accounts.last_name
+  `;
 
   const values = [dentist_id];
 
