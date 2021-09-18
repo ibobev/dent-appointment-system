@@ -214,11 +214,13 @@ module.exports.rejectAppointment = async (req, res) => {
 }
 
 module.exports.patientCancelAppointment = async (req, res) => {
+  const patient = req.account.id;
   const status = 'Cancelled';
   const appointment_id = parseInt(req.params.a_id);
 
-  const updateStatus = 'UPDATE appointments SET status=$1 WHERE id=$2';
-  const values = [status, appointment_id];
+  // patient_id is included to secure canceling availability to other users than the current querying 
+  const updateStatus = 'UPDATE appointments SET status=$1 WHERE id=$2 AND patient_id=$3'; 
+  const values = [status, appointment_id, patient];
 
   try {
     await db.query(updateStatus, values);
