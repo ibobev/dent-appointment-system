@@ -34,7 +34,6 @@
             <th>Patient ID</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Rating</th>
             <th>Medical Record</th>
             <th width="10%"></th>
           </tr>
@@ -42,7 +41,6 @@
             <td>{{ patient.patient_id }}</td>
             <td>{{ patient.first_name }}</td>
             <td>{{ patient.last_name }}</td>
-            <td>rating</td>
             <td>
               <router-link
                 :to="'/dentist/patients/' + patient.patient_id"
