@@ -70,3 +70,54 @@ module.exports.rateDentist = async (req, res) => {
 
 }
 
+module.exports.getPatientRating = async (req, res) => {
+  const patient = req.account.id;
+  let rating;
+  const selectPatientRatingAVG = "SELECT AVG(rating)::numeric(10,1) FROM patient_ratings WHERE patient_id = $1";
+  const values = [patient];
+
+  try {
+    const result = await db.query(selectPatientRatingAVG, values);
+    rating = result.rows[0];
+    console.log(rating);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: 'error',
+      statusmsg: 'Internal server error!'
+    });
+    return;
+  }
+
+  res.json({
+    status: 'success',
+    statusmsg: '',
+    rating: rating
+  });
+}
+
+module.exports.getDentistRating = async (req, res) => {
+  const dentist = req.account.id;
+  let rating;
+  const selectDentistRatingAVG = "SELECT AVG(rating)::numeric(10,1) FROM dentist_ratings WHERE dentist_id = $1";
+  const values = [dentist];
+
+  try {
+    const result = await db.query(selectDentistRatingAVG, values);
+    rating = result.rows[0];
+    console.log(rating);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: 'error',
+      statusmsg: 'Internal server error!'
+    });
+    return;
+  }
+
+  res.json({
+    status: 'success',
+    statusmsg: '',
+    rating: rating
+  });
+}

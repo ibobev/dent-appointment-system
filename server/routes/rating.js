@@ -9,6 +9,10 @@ const ratingController = require('../controllers/RatingController');
  * GET /ratings
  */
 
+router.get('/patient/', auth.asPatient, ratingController.getPatientRating);
+
+router.get('/dentist/', auth.asDentist, ratingController.getDentistRating);
+
 
 /**
  * POST /ratings

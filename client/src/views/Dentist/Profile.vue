@@ -20,7 +20,7 @@
             <p id="description-content" class="card-text">
               <b>Description:</b> {{ description }}
             </p>
-            <p class="card-text"><b>Rating:</b> {{ rating }}</p>
+            <p class="card-text"><b>Rating:</b> <span class="style-rating">{{ rating }}</span></p>
           </div>
         </div>
       </div>
@@ -61,6 +61,16 @@ p {
 
 .fas {
   color: #0292f8;
+}
+
+.style-rating {
+  padding-top: 5px;
+  padding-right: 8px;
+  padding-bottom: 5px;
+  padding-left:8px;
+  background-color: #0292f8;
+  border-radius: 15%;
+  color:#fff;
 }
 
 .account-card {
@@ -185,11 +195,9 @@ export default {
         this.work_days = dentist.work_days;
         this.work_from = dentist.work_from;
         this.work_to = dentist.work_to;
-        this.rating = dentist.rating;
       },
       (error) => {
         if (error.request) {
-          console.log("req");
           console.log(error.request);
           console.log(error.request.status);
           if (error.request.status === 401 || error.request.status === 403) {
@@ -197,7 +205,6 @@ export default {
             this.$router.push({ path: "/login" });
           }
         } else if (error.response) {
-          console.log("res");
           console.log(error.response);
         } else {
           console.log(error);
@@ -213,6 +220,26 @@ export default {
         if (error.request) {
           console.log(error.request);
           console.log(error.request.status);
+        } else if (error.response) {
+          console.log(error.response);
+        } else {
+          console.log(error);
+        }
+      }
+    );
+    axios.get("/api/v1/ratings/dentist").then(
+      (res) => {
+        //console.log(res.data);
+        this.rating = res.data.rating.avg;
+      },
+      (error) => {
+        if (error.request) {
+          console.log(error.request);
+          console.log(error.request.status);
+          if (error.request.status === 401 || error.request.status === 403) {
+            auth.data().deleteToken();
+            this.$router.push({ path: "/login" });
+          }
         } else if (error.response) {
           console.log(error.response);
         } else {

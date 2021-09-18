@@ -14,7 +14,7 @@
             <p class="card-text"><b>First Name:</b> {{ firstName }}</p>
             <p class="card-text"><b>Last Name:</b> {{ lastName }}</p>
             <p class="card-text"><b>Email:</b> {{ acc_email }}</p>
-            <p class="card-text"><b>Rating:</b> {{ rating }}</p>
+            <p class="card-text"><b>Rating:</b> <span class="style-rating">{{ rating }}</span></p>
           </div>
         </div>
       </div>
@@ -38,6 +38,16 @@
 
 .account-card {
   border-top: 4px solid #0292f8;
+}
+
+.style-rating {
+  padding-top: 5px;
+  padding-right: 8px;
+  padding-bottom: 5px;
+  padding-left:8px;
+  background-color: #0292f8;
+  border-radius: 15%;
+  color:#fff;
 }
 </style>
 
@@ -73,7 +83,6 @@ export default {
       },
       (error) => {
         if (error.request) {
-          console.log("req");
           console.log(error.request);
           console.log(error.request.status);
           if (error.request.status === 401 || error.request.status === 403) {
@@ -81,7 +90,26 @@ export default {
             this.$router.push({ path: "/login" });
           }
         } else if (error.response) {
-          console.log("res");
+          console.log(error.response);
+        } else {
+          console.log(error);
+        }
+      }
+    );
+    axios.get("/api/v1/ratings/patient").then(
+      (res) => {
+        //console.log(res.data);
+        this.rating = res.data.rating.avg;
+      },
+      (error) => {
+        if (error.request) {
+          console.log(error.request);
+          console.log(error.request.status);
+          if (error.request.status === 401 || error.request.status === 403) {
+            auth.data().deleteToken();
+            this.$router.push({ path: "/login" });
+          }
+        } else if (error.response) {
           console.log(error.response);
         } else {
           console.log(error);
