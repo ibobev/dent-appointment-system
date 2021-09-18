@@ -48,7 +48,7 @@
                 :to="'/dentist/patients/' + patient.patient_id"
                 class="btn custom-primary"
               >
-                View record
+                View
               </router-link>
             </td>
             <td col="1">

@@ -35,6 +35,8 @@ router.post('/', auth.asAll, appointmentController.scheduleAppointment);
  */
 router.put('/complete/:a_id', auth.asDentist, appointmentController.completeAppointment);
 
+router.put('/cancel/:a_id', auth.asPatient, appointmentController.patientCancelAppointment);
+
 router.put('/reject/:a_id/:p_id', auth.asDentist, appointmentController.rejectAppointment);
 
 router.put('/:a_id/:p_id', auth.asDentist, appointmentController.acceptAppointment);

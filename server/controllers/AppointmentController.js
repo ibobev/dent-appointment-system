@@ -213,8 +213,31 @@ module.exports.rejectAppointment = async (req, res) => {
   }
 }
 
+module.exports.patientCancelAppointment = async (req, res) => {
+  const status = 'Cancelled';
+  const appointment_id = parseInt(req.params.a_id);
+
+  const updateStatus = 'UPDATE appointments SET status=$1 WHERE id=$2';
+  const values = [status, appointment_id];
+
+  try {
+    await db.query(updateStatus, values);
+    return res.status(201).json({
+      status: 'success',
+      statusmsg: 'Appointment cancelled!'
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      status: 'error',
+      statusmsg: 'Internal server error!'
+    });
+  }
+
+}
+
 module.exports.getPatientCurrentAppointments = async (req, res) => {
-  const patient_id = req.account.id;
+  const patient = req.account.id;
   let p_appointments = [];
 
   const getAppointmentDetails = `
@@ -225,7 +248,7 @@ module.exports.getPatientCurrentAppointments = async (req, res) => {
   WHERE patient_id=$1;
   `;
 
-  const values = [patient_id];
+  const values = [patient];
 
   try {
     const result = await db.query(getAppointmentDetails, values);

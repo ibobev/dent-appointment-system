@@ -6,21 +6,33 @@
         class="col-sm-12 col-lg-12 mx-auto text-center mb-3"
       >
         <button
-          v-on:click="hideCurrent = hideCurrent=false,hideCancelled=true, hideCompleted=true"
+          v-on:click="
+            (hideCurrent = hideCurrent = false),
+              (hideCancelled = true),
+              (hideCompleted = true)
+          "
           id="btn-current"
           class="btn-appointments-nav"
         >
           Current
         </button>
         <button
-          v-on:click="hideCancelled = hideCancelled=false, hideCurrent=true, hideCompleted=true"
+          v-on:click="
+            (hideCancelled = hideCancelled = false),
+              (hideCurrent = true),
+              (hideCompleted = true)
+          "
           id="btn-cancelled"
           class="btn-appointments-nav"
         >
           Cancelled
         </button>
         <button
-          v-on:click="hideCancelled = hideCompleted=false, hideCurrent=true, hideCancelled=true"
+          v-on:click="
+            (hideCancelled = hideCompleted = false),
+              (hideCurrent = true),
+              (hideCancelled = true)
+          "
           id="btn-cancelled"
           class="btn-appointments-nav"
         >
@@ -53,6 +65,16 @@
               <p><b>To:</b> {{ appointment.end_time }}</p>
               <p><b>Status:</b> {{ appointment.status }}</p>
               <div class="break-line"></div>
+              <div class="row mt-3 text-center">
+                <div class="col">
+                  <button
+                    class="btn btn-danger"
+                    v-on:click="cancelAppointmentByPatient(appointment.id)"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -114,17 +136,24 @@
               <p><b>Status:</b> {{ appointment.status }}</p>
               <div class="break-line-green"></div>
               <div class="row mt-3 text-center">
-              <div class="col">
-                <router-link :to="'/patient/complete/' + appointment.id + '/' + appointment.dentist_id" class="btn btn-success">
-                  Rate Dentist
-                </router-link>
-              </div>
+                <div class="col">
+                  <router-link
+                    :to="
+                      '/patient/complete/' +
+                      appointment.id +
+                      '/' +
+                      appointment.dentist_id
+                    "
+                    class="btn btn-success"
+                  >
+                    Rate Dentist
+                  </router-link>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -133,7 +162,7 @@
 #nav-appointments {
   width: 90%;
   background-color: #0292f8;
-  color:#fff;
+  color: #fff;
   border-radius: 25px;
   height: 40px;
 }
@@ -146,8 +175,7 @@
 }
 
 .btn-appointments-nav:hover {
-  background-color: hsla(0,0%,100%,.15);
-  
+  background-color: hsla(0, 0%, 100%, 0.15);
 }
 
 #card-top-border {
@@ -168,7 +196,7 @@
   border-bottom: 3px dashed #dc3545;
 }
 
-#card-top-border-green{
+#card-top-border-green {
   border-top: 4px solid #198754;
 }
 
@@ -189,7 +217,7 @@ export default {
       completed: [],
       hideCurrent: false,
       hideCancelled: true,
-      hideCompleted: true
+      hideCompleted: true,
     };
   },
   methods: {
@@ -219,7 +247,18 @@ export default {
         (appointment) => appointment.status === "Completed"
       );
       return completed;
-    }
+    },
+    async cancelAppointmentByPatient(appointmentId) {
+      try {
+        await axios.put(`/api/v1/appointments/cancel/${appointmentId}`);
+        this._removeCurrent(appointmentId);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    _removeCurrent(appointmentId) {
+      this.inProgress = this.inProgress.filter(appointment => parseInt(appointment.id) !== parseInt(appointmentId));
+    },
   },
   async mounted() {
     try {
