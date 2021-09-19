@@ -1,10 +1,29 @@
 <template>
   <div>
+
     <div class="row">
       <div class="col-sm-12 col-md-4 ps-0">
         <h1>All accounts</h1>
       </div>
     </div>
+
+    <div class="row mb-3">
+      <div class="col-md-12 px-0">
+        <div class="input-group">
+          <span class="input-group-text">
+            <i class="fas fa-search"></i>
+          </span>
+          <input type="text" class="form-control" v-model="search" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-sm-12 px-0">
+        <p class="mb-0 text-muted">Showing {{ filteredAccounts.length }} results</p>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-sm-12 px-0">
         <table class="table table-striped border">
@@ -20,7 +39,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="account in accounts" :key="account.id">
+            <tr v-for="account in filteredAccounts" :key="account.id">
               <td>{{ account.id }}</td>
               <td>{{ account.name }}</td>
               <td>{{ account.email }}</td>
@@ -82,7 +101,9 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      accounts: []
+      search: '',
+      accounts: [],
+      filteredAccounts: [],
     };
   },
   mounted() {
@@ -101,6 +122,8 @@ export default {
 
           return account;
         });
+
+        this.filteredAccounts = this.accounts;
       }, error => {
         console.log(error.toJSON());
       });
@@ -112,7 +135,7 @@ export default {
         .post('/api/v1/admins/accounts/suspend', { accountId })
         .then(res => {
           console.log(res.data);
-          const suspendedAccount = this.accounts.find(account => account.id === accountId);
+          const suspendedAccount = this.filteredAccounts.find(account => account.id === accountId);
           if (suspendedAccount) {
             suspendedAccount.status = 'Suspended';
           }
@@ -127,7 +150,7 @@ export default {
         .post('/api/v1/admins/accounts/unsuspend', { accountId })
         .then(res => {
           console.log(res.data);
-          const suspendedAccount = this.accounts.find(account => account.id === accountId);
+          const suspendedAccount = this.filteredAccounts.find(account => account.id === accountId);
           if (suspendedAccount) {
             suspendedAccount.status = 'Active';
           }
@@ -136,6 +159,19 @@ export default {
           // TODO: Display error
         });
     }
-  }
+  },
+  watch: {
+    search: function(newTerm) {
+      if (!newTerm.length) {
+        this.filteredAccounts = this.accounts;
+        return;
+      }
+
+      this.filteredAccounts = this.filteredAccounts.filter(account => {
+        return account.name.toLocaleLowerCase().includes(newTerm)
+          || account.email.toLocaleLowerCase().includes(newTerm);
+      });
+    },
+  },
 }
 </script>
