@@ -14,6 +14,7 @@
               <th>Name</th>
               <th>Email</th>
               <th>Registered</th>
+              <th>Type</th>
               <th>Status</th>
               <th></th>
             </tr>
@@ -25,9 +26,14 @@
               <td>{{ account.email }}</td>
               <td>{{ account.creationDate }}</td>
               <td>
+                <span class="badge" v-bind:class="[account.type === 'Dentist' ? 'bg-info' : 'bg-secondary']">
+                  {{ account.type }}
+                </span>
+              </td>
+              <td>
                 <span
                   class="badge"
-                  v-bind:class="[account.status.trim() === 'Active' ? 'bg-primary' : 'bg-danger']">
+                  v-bind:class="[account.status.trim() === 'Active' ? 'bg-success' : 'bg-danger']">
                   {{ account.status }}
                 </span>
               </td>
@@ -88,6 +94,8 @@ export default {
 
         this.accounts = this.accounts.map(account => {
           account.name = `${account.first_name} ${account.last_name}`;
+          account.type = account.role_id === 2 ? 'Dentist' : 'Patient';
+
           const creationDate = (new Date(account.created_at)).toUTCString();
           account.creationDate = creationDate.substring(0, creationDate.lastIndexOf(' '));
 
