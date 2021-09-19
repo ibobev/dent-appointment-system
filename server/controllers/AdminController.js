@@ -141,3 +141,17 @@ module.exports.unsuspendAccount = async (req, res) => {
 
   res.json({ status: 'success', statusmsg: 'Account unsuspended!' });
 };
+
+module.exports.deleteAdmin = async (req, res) => {
+  const { adminId } = req.params;
+
+  const DELETE_QUERY = 'delete from accounts where id=$1 and role_id=1';
+
+  try {
+    await db.query(DELETE_QUERY, [adminId]);
+    res.json({ status: 'success', statusmsg: 'Admin account deleted!' });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 'error', statusmsg: 'Error occurred while unsuspending account!' });
+  }
+};

@@ -52,7 +52,7 @@
                     </li>
                     <li><hr class="dropdown-divider" /></li>
                     <li>
-                      <a class="dropdown-item text-danger" href="#">
+                      <a class="dropdown-item text-danger" href="#" @click="onDelete(account.id)">
                         <i class="fas fa-trash-alt"></i>&nbsp;
                         Delete
                       </a>
@@ -92,6 +92,23 @@ export default {
     } catch (error) {
       console.log(error.toJSON());
     }
+  },
+  methods: {
+    onDelete: async function (adminId) {
+      if (!confirm('Are you sure?')) {
+        return;
+      }
+
+      try {
+        await axios.delete(`/api/v1/admins/${adminId}`);
+
+        this.admins = this.admins.filter(
+          admin => parseInt(admin.id) !== parseInt(adminId)
+        );
+      } catch (error) {
+        console.log(error.toJSON());
+      }
+    },
   },
 }
 </script>

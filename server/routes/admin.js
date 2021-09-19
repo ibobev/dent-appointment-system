@@ -19,6 +19,11 @@ router.get('/', auth.asAdmin, AdminController.getAdmins);
 router.post('/', auth.asAdmin, AdminController.register);
 
 /**
+ * DELETE: /admins - Delete admin account
+ */
+router.delete('/:adminId', auth.asAdmin, AdminController.deleteAdmin);
+
+/**
  * GET /admins/accounts - Get all accounts
  */
 router.get('/accounts/:limit?', auth.asAdmin, AdminController.getAllAccounts);
