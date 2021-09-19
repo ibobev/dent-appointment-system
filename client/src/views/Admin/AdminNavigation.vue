@@ -2,10 +2,22 @@
   <div class="row mb-3">
     <nav class="nav bg-dark">
       <li class="nav-item">
-        <a class="nav-link active" href="#">Accounts</a>
+        <router-link
+          to="/admin/accounts"
+          class="nav-link"
+          v-bind:class="{'active': $route.name === 'Accounts'}"
+        >
+          Accounts
+        </router-link>
       </li>
       <li class="nav-item">
-        <router-link to="/admin/admins" class="nav-link">Admins</router-link>
+        <router-link
+          to="/admin/admins"
+          class="nav-link"
+          v-bind:class="{'active': $route.name === 'AdminsView'}"
+        >
+          Admins
+        </router-link>
       </li>
       <li class="nav-item ms-auto">
         <router-link to="/admin/new" class="nav-link bg-success new-admin-btn">+ New admin</router-link>
