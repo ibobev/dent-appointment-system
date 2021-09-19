@@ -60,7 +60,7 @@ module.exports.getAllAccounts = async (req, res) => {
   // but can be passed as query string (?limit=10)
   // this is handled here
   const limit = parseInt(req.query.limit) || 1000;
-  const getAccountsQuery = 'select id,email,first_name,last_name,created_at,role_id,status,strikes from accounts order by created_at desc limit $1';
+  const getAccountsQuery = 'select id,email,first_name,last_name,created_at,role_id,status,strikes from accounts where role_id != 1 order by created_at desc limit $1';
   const getAccountsParams = [limit];
   let accounts = [];
 

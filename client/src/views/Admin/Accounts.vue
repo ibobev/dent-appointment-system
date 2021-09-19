@@ -21,9 +21,9 @@
           <tbody>
             <tr v-for="account in accounts" :key="account.id">
               <td>{{ account.id }}</td>
-              <td>{{ account.first_name + ' ' + account.last_name }}</td>
+              <td>{{ account.name }}</td>
               <td>{{ account.email }}</td>
-              <td>{{ new Date(account.created_at) }}</td>
+              <td>{{ account.creationDate }}</td>
               <td>
                 <span
                   class="badge"
@@ -85,6 +85,14 @@ export default {
       .then(res => {
         console.log(res.data);
         this.accounts = res.data.accounts;
+
+        this.accounts = this.accounts.map(account => {
+          account.name = `${account.first_name} ${account.last_name}`;
+          const creationDate = (new Date(account.created_at)).toUTCString();
+          account.creationDate = creationDate.substring(0, creationDate.lastIndexOf(' '));
+
+          return account;
+        });
       }, error => {
         console.log(error.toJSON());
       });
