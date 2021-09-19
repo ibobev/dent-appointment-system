@@ -18,6 +18,19 @@
       </div>
     </div>
 
+    <div class="row mb-3">
+      <div class="col-sm-12 px-0">
+        <div class="btn-group" role="group">
+          <input type="radio" class="btn-check" name="btnfilter" id="all" autocomplete="off" checked @click="filteredAccounts = accounts">
+          <label class="btn btn-outline-primary" for="all">All</label>
+          <input type="radio" class="btn-check" name="btnfilter" id="dentists" autocomplete="off" @click="showDentists()">
+          <label class="btn btn-outline-primary" for="dentists">Dentists</label>
+          <input type="radio" class="btn-check" name="btnfilter" id="patients" autocomplete="off" @click="showPatients()">
+          <label class="btn btn-outline-primary" for="patients">Patients</label>
+        </div>
+      </div>
+    </div>
+
     <div class="row mb-2">
       <div class="col-sm-12 px-0">
         <p class="mb-0 text-muted">Showing {{ filteredAccounts.length }} results</p>
@@ -150,7 +163,13 @@ export default {
         console.log(error.toJSON());
         // TODO: Display error
       }
-    }
+    },
+    showDentists() {
+      this.filteredAccounts = this.accounts.filter(account => account.type === 'Dentist');
+    },
+    showPatients() {
+      this.filteredAccounts = this.accounts.filter(account => account.type === 'Patient');
+    },
   },
   watch: {
     search: function(newTerm) {
