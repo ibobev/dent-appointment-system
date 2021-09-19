@@ -1,16 +1,20 @@
 <template>
-  <router-view></router-view>
+  <div class="container">
+    <!-- Navigation -->
+    <AdminNavigation />
+    <!-- Nested views -->
+    <router-view></router-view>
+  </div>
 </template>
 
+<style scoped>
+</style>
+
 <script>
-/*
+import AdminNavigation from './AdminNavigation.vue';
+
 export default {
-  mounted() {
-    this.$router.push({ path: '/admin/login' });
-  }
+  components: { AdminNavigation },
 };
-*/
 </script>
 
-<style>
-</style>

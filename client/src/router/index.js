@@ -4,7 +4,9 @@ import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 // Admin
 import AdminView from '../views/Admin/AdminView';
-import AdminAccounts from '../views/Admin/Accounts';
+import Accounts from '../views/Admin/Accounts';
+import AdminsView from '../views/Admin/AdminsView';
+import AdminRegisterView from '../views/Admin/AdminRegisterView';
 
 // Dentists
 import DentistDashboard from '../views/Dentist/DentistDashboard';
@@ -39,10 +41,20 @@ const routes = [
     component: AdminView,
     children: [
       {
-        name: 'AdminAccounts',
+        name: 'Accounts',
         path: '/admin/accounts',
-        component: AdminAccounts
-      }
+        component: Accounts
+      },
+      {
+        name: 'AdminsView',
+        path: '/admin/admins',
+        component: AdminsView
+      },
+      {
+        name: 'AdminRegisterView',
+        path: '/admin/new',
+        component: AdminRegisterView
+      },
     ]
   },
   {

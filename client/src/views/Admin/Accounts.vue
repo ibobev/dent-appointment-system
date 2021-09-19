@@ -1,13 +1,13 @@
 <template>
-  <div class="container">
+  <div>
     <div class="row">
-      <div class="col-sm-12 col-md-4">
+      <div class="col-sm-12 col-md-4 ps-0">
         <h1>All accounts</h1>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12">
-        <table class="table">
+      <div class="col-sm-12 px-0">
+        <table class="table table-striped border">
           <thead>
             <tr>
               <th>ID</th>
