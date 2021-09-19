@@ -44,8 +44,5 @@
 <script>
 export default {
   name: 'AdminNavigation',
-  mounted() {
-    console.log('hafadsf');
-  }
 };
 </script>

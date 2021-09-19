@@ -2,6 +2,20 @@ const db = require('../utils/db');
 const bcrypt = require('bcrypt');
 const config = require('../config');
 
+module.exports.getAdmins = async (req, res) => {
+  const { account } = req;
+
+  const GET_QUERY = 'select id,first_name,last_name,email,status,created_at from accounts where role_id=1 and id != $1 order by created_at desc';
+  try {
+    const result = await db.query(GET_QUERY, [account.id]);
+
+    res.json({ status: 'success', statusmsg: '', admins: result.rows });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({ status: 'error', statusmsg: 'Internal server error!' });
+  }
+};
+
 module.exports.register = async (req, res) => {
   const {
     firstName,
@@ -12,7 +26,7 @@ module.exports.register = async (req, res) => {
   const ROLE_ID = 1;
 
   if (!firstName || !lastName || !email || !password) {
-    return res.status(400).send({ "status": "error", "error": 'Invalid request!' });
+    return res.status(400).send({ status: 'error', statusmsg: 'Invalid request!' });
   }
 
   const hashedPassword = bcrypt.hashSync(password, config.BCRYPT_ROUNDS);

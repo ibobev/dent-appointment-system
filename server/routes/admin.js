@@ -8,21 +8,24 @@ const AdminController = require('../controllers/AdminController');
 const router = express.Router();
 
 
-router.get('/', (req, res) => { res.send('zdr'); });
+/**
+ * GET: /admins - Get all admin accounts
+ */
+router.get('/', auth.asAdmin, AdminController.getAdmins);
 
 /**
- * POST: /admin - Creates new admin
+ * POST: /admins - Creates new admin
  */
 router.post('/', auth.asAdmin, AdminController.register);
 
 /**
- * GET /admin/accounts - Get all accounts
+ * GET /admins/accounts - Get all accounts
  */
 router.get('/accounts/:limit?', auth.asAdmin, AdminController.getAllAccounts);
 
 
 /**
- * POST /admin/accounts/suspend - Suspend account
+ * POST /admins/accounts/suspend - Suspend account
  * accountId - the id of the account to suspend
  */
 router.post(
@@ -42,7 +45,7 @@ router.post(
 );
 
 /**
- * POST /admin/accounts/unsuspend - Unsuspend account
+ * POST /admins/accounts/unsuspend - Unsuspend account
  * accountId - the id of the account to suspend
  */
 router.post(
