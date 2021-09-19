@@ -6,6 +6,17 @@
       </div>
     </div>
 
+    <div class="row mb-3">
+      <div class="col-sm-12 px-0">
+        <div class="input-group">
+          <span class="input-group-text">
+            <i class="fas fa-search"></i>
+          </span>
+          <input type="text" class="form-control" placeholder="Search" v-model="search" />
+        </div>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-sm-12 px-0">
         <table class="table table-striped border">
@@ -20,7 +31,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="account in admins" :key="account.id">
+            <tr v-for="account in filteredAdmins" :key="account.id">
               <td>{{ account.id }}</td>
               <td>{{ account.name }}</td>
               <td>{{ account.email }}</td>
@@ -77,7 +88,9 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      search: '',
       admins: [],
+      filteredAdmins: [],
     };
   },
   async mounted() {
@@ -85,10 +98,13 @@ export default {
       const resp = await axios.get('/api/v1/admins');
 
       this.admins = resp.data.admins.map(admin => {
+        admin.name = `${admin.first_name} ${admin.last_name}`;
         const creationDate = (new Date(admin.created_at)).toUTCString();
         admin.creationDate = creationDate.substring(0, creationDate.lastIndexOf(' '));
         return admin;
       });
+
+      this.filteredAdmins = this.admins;
     } catch (error) {
       console.log(error.toJSON());
     }
@@ -102,7 +118,7 @@ export default {
       try {
         await axios.delete(`/api/v1/admins/${adminId}`);
 
-        this.admins = this.admins.filter(
+        this.filteredAdmins = this.filteredAdmins.filter(
           admin => parseInt(admin.id) !== parseInt(adminId)
         );
       } catch (error) {
@@ -113,7 +129,7 @@ export default {
       try {
         await axios.post('/api/v1/admins/accounts/suspend', { accountId })
 
-        const suspendedAccount = this.admins.find(account => account.id === accountId);
+        const suspendedAccount = this.filteredAdmins.find(account => account.id === accountId);
         suspendedAccount.status = 'Suspended';
       } catch (error) {
         console.log(error.toJSON);
@@ -123,12 +139,25 @@ export default {
       try {
         await axios.post('/api/v1/admins/accounts/unsuspend', { accountId })
 
-        const suspendedAccount = this.admins.find(account => account.id === accountId);
+        const suspendedAccount = this.filteredAdmins.find(account => account.id === accountId);
         suspendedAccount.status = 'Active';
       } catch (error) {
         console.log(error.toJSON);
       }
     }
+  },
+  watch: {
+    search: function(searchTerm) {
+      if (searchTerm.length === 0) {
+        this.filteredAdmins = this.admins;
+        return;
+      }
+
+      this.filteredAdmins = this.filteredAdmins.filter(admin => {
+        return admin.name.includes(searchTerm)
+          || admin.email.includes(searchTerm);
+      });
+    },
   },
 }
 </script>
