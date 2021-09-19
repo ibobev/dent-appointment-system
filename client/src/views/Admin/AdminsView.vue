@@ -109,6 +109,26 @@ export default {
         console.log(error.toJSON());
       }
     },
+    async suspendAccount(accountId) {
+      try {
+        await axios.post('/api/v1/admins/accounts/suspend', { accountId })
+
+        const suspendedAccount = this.admins.find(account => account.id === accountId);
+        suspendedAccount.status = 'Suspended';
+      } catch (error) {
+        console.log(error.toJSON);
+      }
+    },
+    async unsuspendAccount(accountId) {
+      try {
+        await axios.post('/api/v1/admins/accounts/unsuspend', { accountId })
+
+        const suspendedAccount = this.admins.find(account => account.id === accountId);
+        suspendedAccount.status = 'Active';
+      } catch (error) {
+        console.log(error.toJSON);
+      }
+    }
   },
 }
 </script>
