@@ -129,35 +129,27 @@ export default {
       });
   },
   methods: {
-    suspendAccount(accountId) {
-      console.log(`suspend: ${accountId}`);
-      axios
-        .post('/api/v1/admins/accounts/suspend', { accountId })
-        .then(res => {
-          console.log(res.data);
-          const suspendedAccount = this.filteredAccounts.find(account => account.id === accountId);
-          if (suspendedAccount) {
-            suspendedAccount.status = 'Suspended';
-          }
-        }, error => {
-          console.lg(error);
-          // TODO: Display error
-        });
+    async suspendAccount(accountId) {
+      try {
+        await axios.post('/api/v1/admins/accounts/suspend', { accountId });
+
+        const suspendedAccount = this.filteredAccounts.find(account => account.id === accountId);
+        suspendedAccount.status = 'Suspended';
+      } catch (error) {
+        console.log(error.toJSON());
+        // TODO: Display error
+      }
     },
-    unsuspendAccount(accountId) {
-      console.log(`unsuspend: ${accountId}`);
-      axios
-        .post('/api/v1/admins/accounts/unsuspend', { accountId })
-        .then(res => {
-          console.log(res.data);
-          const suspendedAccount = this.filteredAccounts.find(account => account.id === accountId);
-          if (suspendedAccount) {
-            suspendedAccount.status = 'Active';
-          }
-        }, error => {
-          console.lg(error);
-          // TODO: Display error
-        });
+    async unsuspendAccount(accountId) {
+      try {
+        await axios.post('/api/v1/admins/accounts/unsuspend', { accountId })
+
+        const suspendedAccount = this.filteredAccounts.find(account => account.id === accountId);
+        suspendedAccount.status = 'Active';
+      } catch (error) {
+        console.log(error.toJSON());
+        // TODO: Display error
+      }
     }
   },
   watch: {

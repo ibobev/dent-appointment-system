@@ -154,8 +154,8 @@ export default {
       }
 
       this.filteredAdmins = this.filteredAdmins.filter(admin => {
-        return admin.name.includes(searchTerm)
-          || admin.email.includes(searchTerm);
+        return admin.name.toLocaleLowerCase().includes(searchTerm)
+          || admin.email.toLocaleLowerCase().includes(searchTerm);
       });
     },
   },
