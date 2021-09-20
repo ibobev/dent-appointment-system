@@ -1,4 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import {
+  createRouter,
+  createWebHistory
+} from 'vue-router';
 import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
@@ -29,8 +32,9 @@ import PatientCompletedAppointment from '../views/Patient/PatientCompletedAppoin
 import PatientMedRecordDetails from '../views/Patient/PatientMedRecordDetails';
 import PatientBlacklistView from '../views/Patient/PatientBlacklistView';
 
-const routes = [
-  {
+import auth from '../auth';
+
+const routes = [{
     name: 'Home',
     path: '/',
     component: Home
@@ -39,8 +43,13 @@ const routes = [
     name: 'Admin',
     path: '/admin',
     component: AdminView,
-    children: [
-      {
+    meta: {
+      auth: true,
+      admin: true,
+      dentist: false,
+      patient: false
+    },
+    children: [{
         name: 'Accounts',
         path: '/admin/accounts',
         component: Accounts
@@ -60,19 +69,30 @@ const routes = [
   {
     name: 'Login',
     path: '/login',
-    component: Login
+    component: Login,
+    meta: {
+      auth: false
+    }
   },
   {
     name: 'Register',
     path: '/register/:type?',
     component: Register,
+    meta: {
+      auth: false
+    }
   },
   {
     path: '/dentist',
     name: 'Dentist',
     component: DentistDashboard,
-    children: [
-      {
+    meta: {
+      auth: true,
+      dentist: true,
+      patient: false,
+      admin: false
+    },
+    children: [{
         path: '/dentist/profile',
         name: 'Profile',
         component: Profile
@@ -113,8 +133,13 @@ const routes = [
     path: '/patient',
     name: 'Patient',
     component: PatientDashboard,
-    children: [
-      {
+    meta: {
+      auth: true,
+      patient: true,
+      dentist: false,
+      admin: false
+    },
+    children: [{
         path: '/patient/profile',
         name: 'PatientProfile',
         component: PatientProfile
@@ -161,6 +186,20 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.auth && !auth.data().token) {
+    next('/login');
+  } else if (!to.meta.admin && auth.data().role === '1') {
+    next('/admin');
+  } else if (!to.meta.dentist && auth.data().role === '2') {
+    next('/dentist/profile');
+  } else if (!to.meta.patient && auth.data().role === '3') {
+    next('/patient/profile');
+  } else {
+    next();
+  }
 });
 
 export default router
