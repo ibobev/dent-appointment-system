@@ -144,8 +144,6 @@ module.exports.scheduleAppointment = async (req, res) => {
   const getDentistDetailsQuery = await db.query('SELECT first_name, last_name, email FROM accounts WHERE id=$1', [dentist]);
   const dentistDetails = getDentistDetailsQuery.rows[0];
 
-  //
-
   let title = patientDetails.first_name + ' ' + patientDetails.last_name + ' - ID: ' + patient_id;
 
   //Request appointment
@@ -206,12 +204,22 @@ module.exports.rejectAppointment = async (req, res) => {
   const updateStatus = 'UPDATE appointments SET status=$1 WHERE dentist_id=$2 AND patient_id=$3 AND id=$4';
   const values = [status, dentist_id, patient_id, appointment_id];
 
+  //Get patient details
+  const getPatientDetailsQuery = await db.query('SELECT email FROM accounts WHERE id=$1', [patient_id]);
+  const patientDetails = getPatientDetailsQuery.rows[0];
+
+  //Get dentist details
+  const getDentistDetailsQuery = await db.query('SELECT first_name, last_name FROM accounts WHERE id=$1', [dentist_id]);
+  const dentistDetails = getDentistDetailsQuery.rows[0];
+
+  //Get appointment
+  const getAppointmentDetails = await db.query('SELECT id, appointment_date, start_time FROM appointments WHERE id=$1', [appointment_id]);
+  const appointmentDetails = getAppointmentDetails.rows[0];
+
+
   try {
     await db.query(updateStatus, values);
-    return res.status(201).json({
-      status: 'success',
-      statusmsg: 'Patient request rejected!'
-    });
+    mailer.mailAppointmentReject(patientDetails, dentistDetails, appointmentDetails);
   } catch (error) {
     console.log(error);
     return res.status(500).send({
@@ -219,6 +227,11 @@ module.exports.rejectAppointment = async (req, res) => {
       statusmsg: 'Internal server error!'
     });
   }
+  res.status(201).json({
+    status: 'success',
+    statusmsg: 'Patient request rejected!'
+  });
+
 }
 
 module.exports.patientCancelAppointment = async (req, res) => {
@@ -230,12 +243,26 @@ module.exports.patientCancelAppointment = async (req, res) => {
   const updateStatus = 'UPDATE appointments SET status=$1 WHERE id=$2 AND patient_id=$3'; 
   const values = [status, appointment_id, patient];
 
+  // Get dentist id
+  const getDentistID = await db.query('SELECT dentist_id FROM appointments WHERE id=$1', [appointment_id]);
+  const dentistId = getDentistID.rows[0].dentist_id;
+
+  //Get dentist details
+  const getDentistDetailsQuery = await db.query('SELECT email FROM accounts WHERE id=$1', [dentistId]);
+  const dentistDetails = getDentistDetailsQuery.rows[0];
+
+  //Get patient details
+  const getPatientDetailsQuery = await db.query('SELECT first_name, last_name FROM accounts WHERE id=$1', [patient]);
+  const patientDetails = getPatientDetailsQuery.rows[0];
+
+  //Get appointment
+  const getAppointmentDetails = await db.query('SELECT id, appointment_date, start_time FROM appointments WHERE id=$1', [appointment_id]);
+  const appointmentDetails = getAppointmentDetails.rows[0];
+
+
   try {
     await db.query(updateStatus, values);
-    return res.status(201).json({
-      status: 'success',
-      statusmsg: 'Appointment cancelled!'
-    });
+    mailer.mailAppointmentCancel(patientDetails, dentistDetails, appointmentDetails);
   } catch (error) {
     console.log(error);
     return res.status(500).send({
@@ -243,6 +270,11 @@ module.exports.patientCancelAppointment = async (req, res) => {
       statusmsg: 'Internal server error!'
     });
   }
+
+  res.status(201).json({
+    status: 'success',
+    statusmsg: 'Appointment cancelled!'
+  });
 
 }
 

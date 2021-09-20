@@ -239,6 +239,7 @@ export default {
       try {
         await axios.put(`/api/v1/appointments/reject/${appointmentId}/${patientId}`);
         this._removeFromPending(appointmentId);
+        this._removeFromCurrent(appointmentId);
       } catch (error) {
         console.log(error);
       }
@@ -246,6 +247,9 @@ export default {
     _removeFromPending(appointmentId) {
       this.pending = this.pending.filter(appointment => parseInt(appointment.id) !== parseInt(appointmentId));
     },
+    _removeFromCurrent(appointmentId) {
+      this.current = this.current.filter(appointment => parseInt(appointment.id) !== parseInt(appointmentId));
+    }
   },
   async mounted() {
     try {
