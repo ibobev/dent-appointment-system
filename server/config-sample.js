@@ -8,4 +8,6 @@ module.exports = {
   JWT_SECRET: '',
   BCRYPT_ROUNDS: 6,
   CRON_SCHEDULE: '*/30 * * * *', // Every 30 minutes
+  MAIL_USER: '',
+  MAIL_PASS: '',
 }

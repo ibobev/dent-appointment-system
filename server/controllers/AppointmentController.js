@@ -1,4 +1,5 @@
 const db = require('../utils/db');
+const mailer = require('../utils/mailer');
 
 module.exports.getDentistAppointmentCalendar = async (req, res) => {
   const dentist_id = parseInt(req.params.id);
@@ -136,8 +137,14 @@ module.exports.scheduleAppointment = async (req, res) => {
   }
 
   //Get patient details
-  const getPatientDetailsQuery = await db.query('SELECT first_name, last_name FROM accounts WHERE id=$1', [patient_id]);
+  const getPatientDetailsQuery = await db.query('SELECT first_name, last_name, email FROM accounts WHERE id=$1', [patient_id]);
   const patientDetails = getPatientDetailsQuery.rows[0];
+
+  //Get dentist details
+  const getDentistDetailsQuery = await db.query('SELECT first_name, last_name, email FROM accounts WHERE id=$1', [dentist]);
+  const dentistDetails = getDentistDetailsQuery.rows[0];
+
+  //
 
   let title = patientDetails.first_name + ' ' + patientDetails.last_name + ' - ID: ' + patient_id;
 
@@ -148,10 +155,7 @@ module.exports.scheduleAppointment = async (req, res) => {
 
   try {
     await db.query(insertAppointment, values);
-    return res.status(201).json({
-      status: 'success',
-      statusmsg: 'Appointment request sent successfully!'
-    });
+    mailer.mailAppointmentRequest(patientDetails, dentistDetails, date, start);
   } catch (error) {
     console.log(error);
     return res.status(500).send({
@@ -160,6 +164,10 @@ module.exports.scheduleAppointment = async (req, res) => {
     });
   }
 
+  res.status(201).json({
+    status: 'success',
+    statusmsg: 'Appointment request sent successfully!'
+  });
 }
 
 module.exports.acceptAppointment = async (req, res) => {
