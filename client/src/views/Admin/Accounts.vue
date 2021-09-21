@@ -54,7 +54,9 @@
           <tbody>
             <tr v-for="account in filteredAccounts" :key="account.id">
               <td>{{ account.id }}</td>
-              <td>{{ account.name }}</td>
+              <td>
+                <router-link :to="`/admin/accounts/${account.id}`">{{ account.name }}</router-link>
+              </td>
               <td>{{ account.email }}</td>
               <td>{{ account.creationDate }}</td>
               <td>
@@ -110,6 +112,7 @@
 
 <script>
 import axios from 'axios';
+import auth from '@/auth';
 
 export default {
   data() {
@@ -139,6 +142,11 @@ export default {
         this.filteredAccounts = this.accounts;
       }, error => {
         console.log(error.toJSON());
+        const { status } = error.response;
+        if (status === 400 || status === 401) {
+          auth.data().deleteToken();
+          this.$router.push({ path: '/login' });
+        }
       });
   },
   methods: {

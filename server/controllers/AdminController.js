@@ -1,6 +1,7 @@
 const db = require('../utils/db');
 const bcrypt = require('bcrypt');
 const config = require('../config');
+const roles = require('../utils/roles');
 
 module.exports.getAdmins = async (req, res) => {
   const { account } = req;
@@ -89,6 +90,88 @@ module.exports.getAllAccounts = async (req, res) => {
   res.json({ status: 'success', statusmsg: '', accounts: accounts });
 };
 
+module.exports.getAccountData = async (req, res) => {
+  const { accountId } = req.params;
+
+  if (!accountId) {
+    return res.status(400).json({ status: 'error', statusmsg: 'Invalid account id!' });
+  }
+
+  // Get account
+  const GET_ACCOUNT_QUERY = 'select id,first_name,last_name,email,role_id,status,strikes,created_at from accounts where id=$1';
+  let account = null;
+
+  const getResp = await db.query(GET_ACCOUNT_QUERY, [accountId]);
+
+  if (getResp.rows.length === 0) {
+    return res.status(400).json({ status: 'error', statusmsg: 'Invalid account id!' });
+  }
+
+  account = getResp.rows[0];
+  account.reviews = [];
+
+  // If dentist get details
+  if (account.role_id === roles.DENTIST) {
+    account.details = await getDentistDetails(account.id);
+    account.reviews = await getDentistReviews(account.id);
+  }
+
+  // Calculate rating
+  account.rating = await calculateRating(account.role_id, account.id);
+  account.type = account.role_id === roles.DENTIST ? 'Dentist' : 'Patient';
+
+  console.log(account);
+
+  res.json({ status: 'error', statusmsg: '', account: account });
+};
+
+async function getDentistDetails(dentistId) {
+  const GET_DETAILS_QUERY = `
+  select
+    description,
+    dentist_type,
+    city,phone,
+    work_from,
+    work_to,
+    work_days
+  from dentists
+  where account_id=$1
+  `;
+  const dentistDetails = await db.query(GET_DETAILS_QUERY, [dentistId]);
+  return dentistDetails.rows[0];
+}
+
+async function getDentistReviews(dentistId) {
+  const GET_REVIEWS_QUERY = `
+  select
+    accounts.id as patient_id,
+    first_name,
+    last_name,
+    patient_comment,
+    commented_on
+  from accounts
+  left join dentist_reviews
+  on accounts.id=patient_id
+  where dentist_reviews.dentist_id=$1
+  `
+  const dentistDetails = await db.query(GET_REVIEWS_QUERY, [dentistId]);
+  return dentistDetails.rows;
+}
+
+async function calculateRating(accountType, accountId) {
+  const TABLE = accountType === roles.DENTIST ? 'dentist_ratings' : 'patient_ratings';
+  const CALC_QUERY = `select AVG(rating)::numeric(10,1) as account_rating from ${TABLE} where dentist_id=$1`;
+  let rating = 0;
+
+  try {
+    const res = await db.query(CALC_QUERY, [accountId]);
+    rating = res.rows[0]['account_rating'] || 0;
+  } catch (error) {
+    console.log(error);
+  }
+  
+  return rating
+}
 
 module.exports.suspendAccount = async (req, res) => {
   const { accountId } = req.body;

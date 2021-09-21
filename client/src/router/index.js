@@ -8,6 +8,7 @@ import Register from '../views/Register.vue';
 // Admin
 import AdminView from '../views/Admin/AdminView';
 import Accounts from '../views/Admin/Accounts';
+import AccountView from '../views/Admin/AccountView';
 import AdminsView from '../views/Admin/AdminsView';
 import AdminRegisterView from '../views/Admin/AdminRegisterView';
 
@@ -53,6 +54,11 @@ const routes = [{
         name: 'Accounts',
         path: '/admin/accounts',
         component: Accounts
+      },
+      {
+        name: 'AccountView',
+        path: '/admin/accounts/:accountId',
+        component: AccountView
       },
       {
         name: 'AdminsView',
@@ -192,7 +198,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.auth && !auth.data().token) {
     next('/login');
   } else if (!to.meta.admin && auth.data().role === '1') {
-    next('/admin');
+    next('/admin/accounts');
   } else if (!to.meta.dentist && auth.data().role === '2') {
     next('/dentist/profile');
   } else if (!to.meta.patient && auth.data().role === '3') {

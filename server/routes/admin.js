@@ -28,6 +28,11 @@ router.delete('/:adminId', auth.asAdmin, AdminController.deleteAdmin);
  */
 router.get('/accounts/:limit?', auth.asAdmin, AdminController.getAllAccounts);
 
+/**
+ * GET /admins/account/:accountId - Get all account's information 
+ * Gets all information about an account with given id
+ */
+router.get('/account/:accountId', auth.asAdmin, AdminController.getAccountData);
 
 /**
  * POST /admins/accounts/suspend - Suspend account

@@ -1,9 +1,10 @@
 <template>
-  <div class="spinner" v-if="isLoading">
+  <div>
+    <div class="spinner" v-if="isLoading">
     <i class="fas fa-spinner"></i>
   </div>
   <div class="container mt-4">
-    
+
     <div class="row">
       <div class="col-sm-12">
         <div class="input-group">
@@ -22,7 +23,7 @@
             v-if="searchTerm.length"
             @click="searchTerm = ''"
           >
-            <i class="fas fa-times"></i> 
+            <i class="fas fa-times"></i>
           </button>
         </div>
       </div>
@@ -127,6 +128,7 @@
 
     </div>
   </div>
+  </div>
 </template>
 
 <style scoped>
@@ -184,7 +186,7 @@ export default {
   },
   async mounted() {
     try {
-      const req = await axios.get('/api/v1/dentists'); 
+      const req = await axios.get('/api/v1/dentists');
       this.dentists = req.data.dentists;
     } catch(error) {
       console.log(error.toJSON());
@@ -202,7 +204,7 @@ export default {
           dentist.profilePic = `https://avatars.dicebear.com/api/open-peeps/${dentist.name}.svg`;
         }
         return dentist;
-      }); 
+      });
 
       // Apply city filter if any
       if (this.cityFilter) {
@@ -279,7 +281,7 @@ export default {
       }
       searchTimeout = setTimeout(() => {
         this.isLoading = true;
-        console.log(newSearchTerm); 
+        console.log(newSearchTerm);
         // NOTE: Artificial delay, probably delete
         setTimeout(() => {
           this.filterDentists(newSearchTerm);
