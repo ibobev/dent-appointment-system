@@ -1,8 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-//const cron = require('node-cron');
 const config = require('./config');
-const cronJob = require('./utils/cronJobs');
+const cronJobs = require('./utils/cronJobs');
 
 const app = express();
 
@@ -23,19 +22,10 @@ const blacklistRoutes = require('./routes/blacklist');
 app.use(cookieParser());
 app.use(express.json({ extended: true }));
 
-// Scheduled jobs (CRON)
-/*cron.schedule(config.CRON_SCHEDULE, () => {
-  console.log('Cron job run...');
-  // TODO: Send appointments mail
-});*/
-
-cronJob;
+// Cron jobs
+cronJobs;
 
 // Routes
-app.get('/', (req, res) => {
-    res.send("Raboti");
-});
-
 app.use('/api/v1/admins', adminRoutes);
 app.use('/api/v1/accounts', accountRoutes);
 app.use('/api/v1/dentists', dentistRoutes);
