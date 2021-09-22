@@ -30,14 +30,14 @@
             <a class="dropdown-item" href="#">
               <i class="fas fa-key"></i>
               Change password
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item" href="#" @click="logout()">
-            <i class="fas fa-sign-out-alt"></i>
-            Logout
-          </a>
-        </li>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" @click="logout()">
+              <i class="fas fa-sign-out-alt"></i>
+              Logout
+            </a>
+          </li>
         </ul>
       </li>
       <li class="nav-item">
