@@ -18,6 +18,15 @@ router.get('/', auth.asAdmin, AdminController.getAdmins);
  */
 router.post('/', auth.asAdmin, AdminController.register);
 
+
+/**
+ * PATCH: /admins - Changes admin password
+ * Params: newPassword, oldPassword, adminId
+ * If no adminId is present admin changes its own password
+ * If adminId present, oldPassword is not required
+ */
+router.patch('/', auth.asAdmin, AdminController.changePassword);
+
 /**
  * DELETE: /admins - Delete admin account
  */
@@ -73,4 +82,6 @@ router.post(
   },
   AdminController.unsuspendAccount
 );
+
+
 module.exports = router;

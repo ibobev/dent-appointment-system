@@ -238,3 +238,53 @@ module.exports.deleteAdmin = async (req, res) => {
     return res.status(500).json({ status: 'error', statusmsg: 'Error occurred while unsuspending account!' });
   }
 };
+
+module.exports.changePassword = async (req, res) => {
+  const { account } = req;
+  const { adminId, newPassword, oldPassword } = req.body;
+  const QUERY = 'update accounts set pwd=$2 where id=$1';
+  const PARAMS = [];
+
+  if (!adminId) {
+    // Admin changes own password
+
+    const passwordsMatch = await compareAdminOldPassword(oldPassword, account.id);
+
+    if (!passwordsMatch) {
+      return res.status(400).json({ status: 'error', statusmsg: 'Incorrect old password!' });
+    }
+
+    PARAMS.push(account.id); 
+  } else {
+    // Admin changes other admin's password
+
+    PARAMS.push(adminId);
+  }
+
+  const hashedNewPassword = bcrypt.hashSync(newPassword, config.BCRYPT_ROUNDS);
+  PARAMS.push(hashedNewPassword);
+
+  try {
+    await db.query(QUERY, PARAMS);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 'error', statusmsg: 'Internal server error!' });
+  }
+
+  res.json({ status: 'success', statusmsg: 'Password changed successfully!' });
+};
+
+async function compareAdminOldPassword(oldPassword, accountId) {
+  let passwordsMatch = false;
+  console.log(oldPassword);
+  try {
+    const account = await db.query('select pwd from accounts where id=$1', [accountId]);
+    console.log(account.rows[0]);
+    passwordsMatch = await bcrypt.compare(oldPassword, account.rows[0].pwd);
+    console.log(passwordsMatch);
+  } catch (error) {
+    console.log(error);
+  }
+
+  return passwordsMatch;
+}
