@@ -61,6 +61,12 @@
                         Unsuspend
                       </a>
                     </li>
+                    <li>
+                      <router-link class="dropdown-item" :to="{ name: 'AdminPassword', params: { adminId: account.id} }">
+                        <i class="fas fa-key"></i>
+                        Change password
+                      </router-link>
+                    </li>
                     <li><hr class="dropdown-divider" /></li>
                     <li>
                       <a class="dropdown-item text-danger" href="#" @click="onDelete(account.id)">

@@ -27,10 +27,10 @@
         </a>
         <ul class="dropdown-menu">
           <li>
-            <a class="dropdown-item" href="#">
+            <router-link :to="{ name: 'AdminPassword', params: { adminId: null } }" class="dropdown-item">
               <i class="fas fa-key"></i>
               Change password
-            </a>
+            </router-link>
           </li>
           <li>
             <a class="dropdown-item" href="#" @click="logout()">

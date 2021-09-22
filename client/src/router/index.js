@@ -5,12 +5,14 @@ import {
 import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
+
 // Admin
 import AdminView from '../views/Admin/AdminView';
 import Accounts from '../views/Admin/Accounts';
 import AccountView from '../views/Admin/AccountView';
 import AdminsView from '../views/Admin/AdminsView';
 import AdminRegisterView from '../views/Admin/AdminRegisterView';
+import AdminPasswordView from '../views/Admin/AdminPasswordView';
 
 // Dentists
 import DentistDashboard from '../views/Dentist/DentistDashboard';
@@ -69,6 +71,12 @@ const routes = [{
         name: 'AdminRegisterView',
         path: '/admin/new',
         component: AdminRegisterView
+      },
+      {
+        name: 'AdminPassword',
+        path: '/admin/password/:adminId?',
+        params: { adminId: null },
+        component: AdminPasswordView
       },
     ]
   },
